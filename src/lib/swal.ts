@@ -12,14 +12,14 @@ function baseThemeOptions() {
     background: dark ? "#0f172a" : "#ffffff",
     color: dark ? "#f1f5f9" : "#0f172a",
     customClass: {
-      popup: "rounded-2xl border border-slate-200/80 dark:border-slate-700/80 shadow-2xl",
-      title: "font-semibold tracking-tight text-lg",
+      popup: "rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl",
+      title: "font-semibold tracking-tight text-base sm:text-lg",
       confirmButton:
-        "px-5 py-2.5 rounded-xl font-medium text-sm bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm transition-all mx-1.5",
+        "px-4 py-2 rounded-lg font-medium text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-xs transition-colors mx-1.5",
       cancelButton:
-        "px-5 py-2.5 rounded-xl font-medium text-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all mx-1.5",
+        "px-4 py-2 rounded-lg font-medium text-sm bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors mx-1.5",
       denyButton:
-        "px-5 py-2.5 rounded-xl font-medium text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-sm transition-all mx-1.5",
+        "px-4 py-2 rounded-lg font-medium text-sm bg-rose-600 hover:bg-rose-700 text-white shadow-xs transition-colors mx-1.5",
     },
     buttonsStyling: false,
   };

@@ -2,7 +2,6 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Bar,
   BarChart,
@@ -32,11 +31,11 @@ import {
 } from "lucide-react";
 import type { AuthUser, DashboardOverviewStats, DatasetManifest } from "@/lib/types";
 import { AppShell } from "./AppShell";
-import { AnimatedCounter, FadeInSection, PulseDot } from "./MotionPrimitives";
+import { AnimatedCounter, FadeInSection } from "./MotionPrimitives";
 import { DatasetIcon } from "./IconResolver";
 import { swalToast } from "@/lib/swal";
 
-const PIE_COLORS = ["#ef4444", "#f97316", "#eab308", "#3b82f6", "#64748b"];
+const PIE_COLORS = ["#dc2626", "#ea580c", "#d97706", "#2563eb", "#64748b"];
 
 export function OverviewDashboard({
   initialManifest,
@@ -80,7 +79,7 @@ export function OverviewDashboard({
     setDataSource(src);
     void loadOverview(src);
     void swalToast(
-      src === "github" ? "Switched to GitHub Raw Public JSON" : "Switched to Local JSON Store",
+      src === "github" ? "Using GitHub Raw Public JSON" : "Using Local JSON Store",
       "info"
     );
   };
@@ -88,60 +87,54 @@ export function OverviewDashboard({
   const handleCopy = async (text: string, slug: string) => {
     await navigator.clipboard.writeText(text);
     setCopiedSlug(slug);
-    void swalToast("GitHub Raw JSON URL copied", "success");
-    setTimeout(() => setCopiedSlug(null), 1800);
+    void swalToast("GitHub Raw URL copied", "success");
+    setTimeout(() => setCopiedSlug(null), 1600);
   };
 
   const kpis = [
     {
-      label: "Total Master Records",
+      label: "Total Records",
       value: stats.totalRecords,
-      sub: `${stats.totalDatasets} Public JSON Modules`,
+      sub: `${stats.totalDatasets} JSON sheets`,
       icon: Database,
       href: "/datasets/stock",
-      accent: "from-indigo-500 to-violet-600",
     },
     {
-      label: "IT & Ops Tickets",
+      label: "Service Tickets",
       value: stats.totalTickets,
-      sub: `${stats.openTickets} Open • ${stats.criticalHighTickets} High/Critical`,
+      sub: `${stats.openTickets} open • ${stats.criticalHighTickets} high/critical`,
       icon: Ticket,
       href: "/datasets/know-ticket",
-      accent: "from-sky-500 to-indigo-600",
     },
     {
-      label: "Active CCTV Cameras",
+      label: "CCTV Cameras",
       value: stats.activeCameras,
-      sub: `of ${stats.totalCameras} store cameras monitored`,
+      sub: `${stats.totalCameras} total store cameras`,
       icon: Camera,
       href: "/datasets/camera",
-      accent: "from-emerald-500 to-teal-600",
     },
     {
-      label: "Outlet & Corp Fleet",
+      label: "Hardware Fleet",
       value: stats.totalOutlets + stats.totalCorporateLaptops,
-      sub: `${stats.totalOutlets} Outlets • ${stats.totalCorporateLaptops} Corp Laptops`,
+      sub: `${stats.totalOutlets} outlets • ${stats.totalCorporateLaptops} corp laptops`,
       icon: Laptop,
       href: "/datasets/corporate-laptop",
-      accent: "from-amber-500 to-orange-600",
     },
     {
       label: "Used Oil Collected",
       value: stats.totalUsedOilKg,
       decimals: 1,
       suffix: " kg",
-      sub: `${stats.totalUsedOilTins} Tins across divisions`,
+      sub: `${stats.totalUsedOilTins} tins logged`,
       icon: Droplets,
       href: "/datasets/used-oil-collection",
-      accent: "from-rose-500 to-pink-600",
     },
     {
-      label: "Priority Escalations",
+      label: "High / Critical",
       value: stats.criticalHighTickets,
-      sub: `${stats.totalEdcTerminals} EDC • ${stats.totalInternetLinks} ISP Links`,
+      sub: `${stats.totalEdcTerminals} EDC • ${stats.totalInternetLinks} ISP links`,
       icon: AlertTriangle,
       href: "/datasets/know-ticket",
-      accent: "from-fuchsia-500 to-purple-600",
     },
   ];
 
@@ -152,153 +145,136 @@ export function OverviewDashboard({
       dataSource={dataSource}
       onChangeDataSource={handleSourceChange}
     >
-      <div className="mx-auto max-w-7xl space-y-6">
-        {/* Executive Hero Header */}
+      <div className="mx-auto max-w-7xl space-y-5">
+        {/* Clean Corporate Header */}
         <FadeInSection>
-          <div className="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white/90 p-6 shadow-sm backdrop-blur-xl sm:p-8 dark:border-slate-800 dark:bg-slate-900/90">
-            <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/10 blur-3xl" />
-            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-              <div className="space-y-1.5">
-                <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-700 dark:text-emerald-300">
-                  <PulseDot color="emerald" />
-                  <span>
-                    Source: {dataSource === "github" ? "GitHub Public Raw JSON" : "Local JSON API"} •{" "}
-                    {manifest.totalDatasets} Sheets Synced
-                  </span>
-                </div>
-                <h1 className="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl dark:text-white">
-                  Corporate Operations Command Center
-                </h1>
-                <p className="max-w-2xl text-sm text-slate-500 dark:text-slate-400">
-                  Welcome back, <strong className="text-slate-800 dark:text-slate-200">{user.name}</strong>.
-                  Real-time telemetry, asset inventory, ticket analytics, and SweetAlert2 CRUD powered by{" "}
-                  <code className="rounded bg-slate-100 px-1.5 py-0.5 text-xs text-indigo-600 dark:bg-slate-800 dark:text-indigo-400">
-                    Data.xlsx → public/data/*.json
-                  </code>
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-2.5">
-                <button
-                  type="button"
-                  onClick={() => void loadOverview(dataSource)}
-                  disabled={refreshing}
-                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-semibold text-slate-700 shadow-xs hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition"
-                >
-                  <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
-                  Refresh Metrics
-                </button>
-                <a
-                  href={manifest.github.repoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-slate-800 dark:bg-indigo-600 dark:hover:bg-indigo-500 transition"
-                >
-                  <Github className="h-3.5 w-3.5" />
-                  Public GitHub Repo
-                  <ExternalLink className="h-3 w-3 opacity-75" />
-                </a>
-              </div>
+          <div className="flex flex-col gap-3 border-b border-slate-200 pb-4 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800">
+            <div>
+              <h1 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+                Operations Overview
+              </h1>
+              <p className="mt-0.5 text-xs text-slate-500 sm:text-sm dark:text-slate-400">
+                Signed in as <span className="font-medium text-slate-800 dark:text-slate-200">{user.name}</span> • Source:{" "}
+                <span className="font-medium text-slate-800 dark:text-slate-200">
+                  {dataSource === "github" ? "GitHub Raw JSON" : "Local JSON"}
+                </span>
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() => void loadOverview(dataSource)}
+                disabled={refreshing}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 transition-colors"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 ${refreshing ? "animate-spin" : ""}`} />
+                Refresh
+              </button>
+              <a
+                href={manifest.github.repoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-xs font-medium text-white hover:bg-slate-800 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
+              >
+                <Github className="h-3.5 w-3.5" />
+                GitHub Repo
+                <ExternalLink className="h-3 w-3 opacity-75" />
+              </a>
             </div>
           </div>
         </FadeInSection>
 
-        {/* KPI Grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {kpis.map((kpi, idx) => (
-            <motion.div
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {kpis.map((kpi) => (
+            <Link
               key={kpi.label}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05, duration: 0.35 }}
-              whileHover={{ y: -3 }}
+              href={kpi.href}
+              className="group flex items-start justify-between rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-blue-300 dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-500/40"
             >
-              <Link
-                href={kpi.href}
-                className="group flex items-start justify-between rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs transition hover:border-indigo-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-indigo-500/40"
-              >
-                <div className="space-y-1.5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    {kpi.label}
-                  </p>
-                  <p className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                    <AnimatedCounter
-                      value={kpi.value}
-                      decimals={kpi.decimals || 0}
-                      suffix={kpi.suffix || ""}
-                    />
-                  </p>
-                  <p className="text-xs text-slate-500 dark:text-slate-400">{kpi.sub}</p>
+              <div className="min-w-0 space-y-1">
+                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                  {kpi.label}
+                </p>
+                <p className="text-2xl font-bold tracking-tight text-slate-900 sm:text-[26px] dark:text-white">
+                  <AnimatedCounter
+                    value={kpi.value}
+                    decimals={kpi.decimals || 0}
+                    suffix={kpi.suffix || ""}
+                  />
+                </p>
+                <p className="truncate text-xs text-slate-500 dark:text-slate-400">{kpi.sub}</p>
+              </div>
+              <div className="flex flex-col items-end justify-between gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300">
+                  <kpi.icon className="h-4 w-4" />
                 </div>
-                <div className="flex flex-col items-end justify-between gap-4">
-                  <div
-                    className={`flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${kpi.accent} text-white shadow-md`}
-                  >
-                    <kpi.icon className="h-5 w-5" />
-                  </div>
-                  <ArrowUpRight className="h-4 w-4 text-slate-400 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-indigo-500" />
-                </div>
-              </Link>
-            </motion.div>
+                <ArrowUpRight className="h-3.5 w-3.5 text-slate-400 transition-colors group-hover:text-blue-600" />
+              </div>
+            </Link>
           ))}
         </div>
 
-        {/* Analytics Charts Row */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-          <FadeInSection delay={0.1} className="lg:col-span-7">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                    IT & Operations Tickets by Category
+        {/* Analytics Charts */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <FadeInSection delay={0.05} className="min-w-0 lg:col-span-7">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                    Tickets by Category
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Live distribution from Know-Ticket JSON ({stats.totalTickets} records)
+                    Know-Ticket breakdown ({stats.totalTickets} total)
                   </p>
                 </div>
                 <Link
                   href="/datasets/know-ticket"
-                  className="text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
-                  Open Table →
+                  View table →
                 </Link>
               </div>
-              <div className="h-72 w-full">
+              <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={stats.ticketByCategory} margin={{ top: 8, right: 12, left: -12, bottom: 24 }}>
+                  <BarChart
+                    data={stats.ticketByCategory}
+                    margin={{ top: 8, right: 8, left: -16, bottom: 24 }}
+                  >
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
                     <XAxis
                       dataKey="name"
-                      tick={{ fontSize: 11 }}
+                      tick={{ fontSize: 10 }}
                       interval={0}
-                      angle={-18}
+                      angle={-20}
                       textAnchor="end"
                     />
-                    <YAxis tick={{ fontSize: 11 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
                     <Tooltip
                       contentStyle={{
-                        borderRadius: 12,
-                        border: "1px solid rgba(148,163,184,0.2)",
+                        borderRadius: 8,
+                        border: "1px solid rgba(148,163,184,0.25)",
                         fontSize: 12,
                       }}
                     />
-                    <Bar dataKey="count" name="Tickets" fill="#6366f1" radius={[8, 8, 0, 0]} />
+                    <Bar dataKey="count" name="Tickets" fill="#2563eb" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.16} className="lg:col-span-5">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-              <div className="mb-4">
-                <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                  Ticket Severity Mix
+          <FadeInSection delay={0.08} className="min-w-0 lg:col-span-5">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+              <div className="mb-3">
+                <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+                  Ticket Severity
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Critical, high, medium, and unspecified triage breakdown
+                  Distribution across priority levels
                 </p>
               </div>
-              <div className="h-72 w-full">
+              <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
@@ -307,9 +283,9 @@ export function OverviewDashboard({
                       nameKey="name"
                       cx="50%"
                       cy="45%"
-                      innerRadius={56}
-                      outerRadius={88}
-                      paddingAngle={4}
+                      innerRadius={48}
+                      outerRadius={78}
+                      paddingAngle={3}
                     >
                       {stats.ticketBySeverity.map((entry, index) => (
                         <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
@@ -317,91 +293,98 @@ export function OverviewDashboard({
                     </Pie>
                     <Tooltip
                       contentStyle={{
-                        borderRadius: 12,
-                        border: "1px solid rgba(148,163,184,0.2)",
+                        borderRadius: 8,
+                        border: "1px solid rgba(148,163,184,0.25)",
                         fontSize: 12,
                       }}
                     />
-                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.2} className="lg:col-span-7">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                    Outlet Hardware Footprint by Zone
+          <FadeInSection delay={0.11} className="min-w-0 lg:col-span-7">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                    Outlet Hardware by Zone
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Laptops, POS, Printers, and Cameras across operational zones
+                    Laptops, POS, and printers deployed
                   </p>
                 </div>
                 <Link
                   href="/datasets/outlet-laptop"
-                  className="text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
-                  Open Table →
+                  View table →
                 </Link>
               </div>
-              <div className="h-72 w-full">
+              <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={stats.hardwareByZone} margin={{ top: 8, right: 12, left: -12, bottom: 10 }}>
+                  <BarChart
+                    data={stats.hardwareByZone}
+                    margin={{ top: 8, right: 8, left: -16, bottom: 8 }}
+                  >
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
-                    <XAxis dataKey="zone" tick={{ fontSize: 11 }} />
-                    <YAxis tick={{ fontSize: 11 }} />
+                    <XAxis dataKey="zone" tick={{ fontSize: 10 }} />
+                    <YAxis tick={{ fontSize: 10 }} />
                     <Tooltip
                       contentStyle={{
-                        borderRadius: 12,
-                        border: "1px solid rgba(148,163,184,0.2)",
+                        borderRadius: 8,
+                        border: "1px solid rgba(148,163,184,0.25)",
                         fontSize: 12,
                       }}
                     />
-                    <Legend wrapperStyle={{ fontSize: 12 }} />
-                    <Bar dataKey="laptops" name="Laptops" fill="#6366f1" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="pos" name="POS" fill="#0ea5e9" radius={[4, 4, 0, 0]} />
-                    <Bar dataKey="printers" name="Printers" fill="#10b981" radius={[4, 4, 0, 0]} />
+                    <Legend wrapperStyle={{ fontSize: 11 }} />
+                    <Bar dataKey="laptops" name="Laptops" fill="#2563eb" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="pos" name="POS" fill="#0284c7" radius={[3, 3, 0, 0]} />
+                    <Bar dataKey="printers" name="Printers" fill="#059669" radius={[3, 3, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.24} className="lg:col-span-5">
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-              <div className="mb-4 flex items-center justify-between">
-                <div>
-                  <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                    Used Oil Collection by Division
+          <FadeInSection delay={0.14} className="min-w-0 lg:col-span-5">
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                    Used Oil by Division
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Total Kgs & Tins dispatched for recycling
+                    Total weight collected (kg)
                   </p>
                 </div>
                 <Link
                   href="/datasets/used-oil-collection"
-                  className="text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
-                  Open Table →
+                  View table →
                 </Link>
               </div>
-              <div className="h-72 w-full">
+              <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={stats.oilByDivision} layout="vertical" margin={{ top: 8, right: 20, left: 20, bottom: 8 }}>
+                  <BarChart
+                    data={stats.oilByDivision}
+                    layout="vertical"
+                    margin={{ top: 8, right: 16, left: 10, bottom: 8 }}
+                  >
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
-                    <XAxis type="number" tick={{ fontSize: 11 }} />
-                    <YAxis dataKey="division" type="category" tick={{ fontSize: 11 }} width={85} />
+                    <XAxis type="number" tick={{ fontSize: 10 }} />
+                    <YAxis dataKey="division" type="category" tick={{ fontSize: 10 }} width={76} />
                     <Tooltip
                       contentStyle={{
-                        borderRadius: 12,
-                        border: "1px solid rgba(148,163,184,0.2)",
+                        borderRadius: 8,
+                        border: "1px solid rgba(148,163,184,0.25)",
                         fontSize: 12,
                       }}
                     />
-                    <Bar dataKey="kg" name="Oil (kg)" fill="#f43f5e" radius={[0, 6, 6, 0]} />
+                    <Bar dataKey="kg" name="Oil (kg)" fill="#e11d48" radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -409,74 +392,67 @@ export function OverviewDashboard({
           </FadeInSection>
         </div>
 
-        {/* All 14 Public JSON Modules Directory */}
-        <FadeInSection delay={0.28}>
-          <div className="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        {/* All 14 JSON Modules Directory */}
+        <FadeInSection delay={0.16}>
+          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+            <div className="mb-4 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-                  All 14 Excel Sheets → Public GitHub JSON Modules
+                <h2 className="text-base font-semibold text-slate-900 dark:text-white">
+                  Data Modules &amp; Public JSON Endpoints
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Click any module to launch the full Enterprise DataTable with filtering, multi-export, and SweetAlert2 CRUD.
+                  {manifest.totalDatasets} sheets • {manifest.totalRecords} total records
                 </p>
               </div>
-              <span className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-50 px-3 py-1.5 font-mono text-xs font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                {manifest.totalRecords} Total Records
-              </span>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {manifest.datasets.map((ds, idx) => (
-                <motion.div
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {manifest.datasets.map((ds) => (
+                <div
                   key={ds.slug}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.03 * idx, duration: 0.3 }}
-                  whileHover={{ y: -2 }}
-                  className="flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-slate-50/70 p-4 transition hover:border-indigo-300 hover:bg-white hover:shadow-md dark:border-slate-800 dark:bg-slate-950/60 dark:hover:border-indigo-500/40 dark:hover:bg-slate-900"
+                  className="flex flex-col justify-between rounded-lg border border-slate-200 bg-slate-50/60 p-3.5 transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950/50 dark:hover:border-slate-700"
                 >
                   <div>
                     <div className="flex items-start justify-between gap-2">
-                      <div className="flex items-center gap-2.5">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600/10 text-indigo-600 dark:bg-indigo-500/15 dark:text-indigo-400">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-slate-200 bg-white text-blue-600 dark:border-slate-800 dark:bg-slate-900 dark:text-blue-400">
                           <DatasetIcon name={ds.icon} className="h-4 w-4" />
                         </div>
-                        <div>
-                          <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                        <div className="min-w-0">
+                          <h3 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
                             {ds.title}
                           </h3>
-                          <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400">
+                          <p className="truncate text-[11px] text-slate-500 dark:text-slate-400">
                             {ds.category}
                           </p>
                         </div>
                       </div>
-                      <span className="rounded-lg bg-white px-2 py-0.5 font-mono text-xs font-bold text-slate-700 shadow-2xs dark:bg-slate-800 dark:text-slate-200">
+                      <span className="shrink-0 rounded bg-white px-2 py-0.5 font-mono text-[11px] font-semibold text-slate-700 border border-slate-200 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
                         {ds.recordCount}
                       </span>
                     </div>
-                    <p className="mt-2.5 line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
+                    <p className="mt-2 line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
                       {ds.description}
                     </p>
                   </div>
 
-                  <div className="mt-4 flex items-center justify-between gap-2 border-t border-slate-200/80 pt-3 dark:border-slate-800">
+                  <div className="mt-3 flex items-center justify-between gap-2 border-t border-slate-200 pt-2.5 dark:border-slate-800">
                     <Link
                       href={`/datasets/${ds.slug}`}
-                      className="inline-flex items-center gap-1 rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-indigo-700 transition"
+                      className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-blue-700 transition-colors"
                     >
-                      Manage Table <ArrowUpRight className="h-3.5 w-3.5" />
+                      Open Table <ArrowUpRight className="h-3.5 w-3.5" />
                     </Link>
 
                     <div className="flex items-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => void handleCopy(ds.githubRawUrl, ds.slug)}
-                        title="Copy GitHub Raw JSON URL"
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2 py-1.5 text-[11px] font-medium text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                        title="Copy GitHub Raw URL"
+                        className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                       >
                         {copiedSlug === ds.slug ? (
-                          <Check className="h-3 w-3 text-emerald-500" />
+                          <Check className="h-3 w-3 text-emerald-600" />
                         ) : (
                           <Copy className="h-3 w-3" />
                         )}
@@ -486,39 +462,39 @@ export function OverviewDashboard({
                         href={ds.localUrl}
                         target="_blank"
                         rel="noreferrer"
-                        title="Open Local Public JSON"
-                        className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                        title="Open JSON"
+                        className="rounded-md border border-slate-200 bg-white p-1 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                       >
                         <ExternalLink className="h-3.5 w-3.5" />
                       </a>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
         </FadeInSection>
 
-        {/* Recent Tickets & Stock Activity */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          <FadeInSection delay={0.32}>
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+        {/* Recent Activity */}
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <FadeInSection delay={0.18}>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                  Latest Incident Tickets
+                <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                  Recent Tickets
                 </h3>
                 <Link
                   href="/datasets/know-ticket"
-                  className="text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
                   View all →
                 </Link>
               </div>
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {stats.recentTickets.map((t) => (
                   <div
                     key={t._id}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/50"
+                    className="flex items-center justify-between gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5 dark:border-slate-800 dark:bg-slate-950/50"
                   >
                     <div className="min-w-0">
                       <p className="truncate text-xs font-semibold text-slate-900 dark:text-white">
@@ -528,7 +504,7 @@ export function OverviewDashboard({
                         {String(t["Issue Location"] || "")} • {String(t["Reported by"] || "")}
                       </p>
                     </div>
-                    <span className="shrink-0 rounded-md bg-amber-500/15 px-2 py-0.5 text-[11px] font-semibold text-amber-700 dark:text-amber-300">
+                    <span className="shrink-0 rounded border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:text-amber-300">
                       {String(t["Status"] || "Open")}
                     </span>
                   </div>
@@ -537,24 +513,24 @@ export function OverviewDashboard({
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.36}>
-            <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-xs dark:border-slate-800 dark:bg-slate-900">
+          <FadeInSection delay={0.2}>
+            <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between">
-                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                  Recent Stock Dispatches
+                <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                  Recent Stock Entries
                 </h3>
                 <Link
                   href="/datasets/stock"
-                  className="text-xs font-semibold text-indigo-600 hover:underline dark:text-indigo-400"
+                  className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
                   View all →
                 </Link>
               </div>
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {stats.recentStock.map((s) => (
                   <div
                     key={s._id}
-                    className="flex items-center justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/50"
+                    className="flex items-center justify-between gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5 dark:border-slate-800 dark:bg-slate-950/50"
                   >
                     <div className="min-w-0">
                       <p className="truncate text-xs font-semibold text-slate-900 dark:text-white">
@@ -564,7 +540,7 @@ export function OverviewDashboard({
                         {String(s["Products Name"] || "")}
                       </p>
                     </div>
-                    <span className="shrink-0 rounded-md bg-indigo-500/10 px-2 py-0.5 font-mono text-[11px] font-medium text-indigo-700 dark:text-indigo-300">
+                    <span className="shrink-0 rounded border border-slate-200 bg-white px-2 py-0.5 font-mono text-[11px] text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                       {String(s["Entry Date"] || "")}
                     </span>
                   </div>

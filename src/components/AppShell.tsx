@@ -5,10 +5,10 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  Building2,
   ChevronLeft,
   ChevronRight,
   Cloud,
-  Command,
   Database,
   ExternalLink,
   Github,
@@ -17,14 +17,12 @@ import {
   Menu,
   Moon,
   Search,
-  Shield,
   Sun,
   X,
 } from "lucide-react";
 import type { AuthUser, DatasetManifest } from "@/lib/types";
 import { DatasetIcon } from "./IconResolver";
 import { useTheme } from "./ThemeProvider";
-import { PulseDot } from "./MotionPrimitives";
 import { swalLogoutConfirm, swalToast } from "@/lib/swal";
 
 const CATEGORY_ORDER = [
@@ -98,26 +96,26 @@ export function AppShell({
     const confirmed = await swalLogoutConfirm();
     if (!confirmed) return;
     await fetch("/api/auth/logout", { method: "POST" });
-    await swalToast("Signed out securely", "info");
+    await swalToast("Signed out", "info");
     router.push("/login");
     router.refresh();
   };
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
-      {/* Brand */}
-      <div className="flex h-16 items-center justify-between border-b border-slate-200/80 px-4 dark:border-slate-800/80">
+      {/* Corporate Brand */}
+      <div className="flex h-14 items-center justify-between border-b border-slate-200 px-3.5 dark:border-slate-800">
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
-          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-violet-600 text-white shadow-md shadow-indigo-500/25">
-            <Shield className="h-5 w-5" />
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
+            <Building2 className="h-4 w-4" />
           </div>
           {!collapsed && (
             <div className="min-w-0">
               <p className="truncate text-sm font-bold tracking-tight text-slate-900 dark:text-white">
                 Codei7 Ops
               </p>
-              <p className="truncate text-[10px] font-medium uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-                Enterprise Suite
+              <p className="truncate text-[10px] font-medium text-slate-500 dark:text-slate-400">
+                Admin Console
               </p>
             </div>
           )}
@@ -125,41 +123,34 @@ export function AppShell({
         <button
           type="button"
           onClick={() => setCollapsed((c) => !c)}
-          className="hidden lg:flex h-7 w-7 items-center justify-center rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"
+          className="hidden lg:flex h-7 w-7 items-center justify-center rounded-md border border-slate-200 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:border-slate-800 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+          {collapsed ? <ChevronRight className="h-3.5 w-3.5" /> : <ChevronLeft className="h-3.5 w-3.5" />}
         </button>
       </div>
 
       {/* Navigation */}
-      <div className="flex-1 overflow-y-auto px-3 py-4 space-y-5">
+      <div className="flex-1 overflow-y-auto px-2.5 py-3 space-y-4">
         <div>
           <Link
             href="/"
             onClick={() => setMobileOpen(false)}
-            className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${
+            className={`relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-semibold transition-colors ${
               pathname === "/"
-                ? "text-white"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/60 dark:hover:text-white"
+                ? "bg-blue-600 text-white"
+                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/70 dark:hover:text-white"
             }`}
           >
-            {pathname === "/" && (
-              <motion.span
-                layoutId="sidebarActivePill"
-                transition={{ type: "spring", stiffness: 360, damping: 30 }}
-                className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 shadow-md shadow-indigo-500/25"
-              />
-            )}
-            <LayoutDashboard className="relative z-10 h-4 w-4 shrink-0" />
-            {!collapsed && <span className="relative z-10 truncate">Executive Overview</span>}
+            <LayoutDashboard className="h-4 w-4 shrink-0" />
+            {!collapsed && <span className="truncate">Overview</span>}
           </Link>
         </div>
 
         {groupedDatasets.map(([category, items]) => (
-          <div key={category} className="space-y-1">
+          <div key={category} className="space-y-0.5">
             {!collapsed && (
-              <p className="px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+              <p className="px-2.5 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                 {category}
               </p>
             )}
@@ -172,29 +163,22 @@ export function AppShell({
                   href={href}
                   onClick={() => setMobileOpen(false)}
                   title={collapsed ? `${ds.title} (${ds.recordCount})` : undefined}
-                  className={`group relative flex items-center justify-between gap-2 rounded-xl px-3 py-2 text-[13px] font-medium transition-colors ${
+                  className={`group flex items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-[13px] font-medium transition-colors ${
                     active
-                      ? "text-white"
-                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/60 dark:hover:text-white"
+                      ? "bg-blue-600 text-white"
+                      : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/70 dark:hover:text-white"
                   }`}
                 >
-                  {active && (
-                    <motion.span
-                      layoutId="sidebarActivePill"
-                      transition={{ type: "spring", stiffness: 360, damping: 30 }}
-                      className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 shadow-md shadow-indigo-500/25"
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-2.5 min-w-0">
+                  <span className="flex items-center gap-2.5 min-w-0">
                     <DatasetIcon name={ds.icon} className="h-4 w-4 shrink-0" />
                     {!collapsed && <span className="truncate">{ds.title}</span>}
                   </span>
                   {!collapsed && (
                     <span
-                      className={`relative z-10 rounded-md px-1.5 py-0.5 font-mono text-[10px] font-semibold ${
+                      className={`rounded px-1.5 py-0.5 font-mono text-[10px] font-medium ${
                         active
-                          ? "bg-white/20 text-white"
-                          : "bg-slate-100 text-slate-500 group-hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-400"
+                          ? "bg-blue-500/40 text-white"
+                          : "bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
                       }`}
                     >
                       {ds.recordCount}
@@ -207,22 +191,22 @@ export function AppShell({
         ))}
       </div>
 
-      {/* Footer GitHub Status */}
-      <div className="border-t border-slate-200/80 p-3 dark:border-slate-800/80">
+      {/* Footer GitHub JSON Registry */}
+      <div className="border-t border-slate-200 p-2.5 dark:border-slate-800">
         <button
           type="button"
-          onClick={() => setGithubHubOpen(true)}
-          className="flex w-full items-center gap-2.5 rounded-xl border border-slate-200/90 bg-slate-50/80 px-3 py-2 text-left text-xs transition hover:border-indigo-300 hover:bg-indigo-50/60 dark:border-slate-800 dark:bg-slate-900/70 dark:hover:border-indigo-500/40"
+          onClick={() => {
+            setMobileOpen(false);
+            setGithubHubOpen(true);
+          }}
+          className="flex w-full items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-2 text-left text-xs transition-colors hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-950/60 dark:hover:bg-slate-800"
         >
           <Github className="h-4 w-4 shrink-0 text-slate-700 dark:text-slate-200" />
           {!collapsed && (
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-1.5">
-                <span className="truncate font-semibold text-slate-800 dark:text-slate-100">
-                  Public JSON Hub
-                </span>
-                <PulseDot color="emerald" />
-              </div>
+              <p className="truncate font-semibold text-slate-800 dark:text-slate-100">
+                GitHub JSON Endpoints
+              </p>
               <p className="truncate text-[10px] text-slate-500 dark:text-slate-400">
                 {manifest.github.owner}/{manifest.github.repo}
               </p>
@@ -234,11 +218,11 @@ export function AppShell({
   );
 
   return (
-    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
+    <div className="flex min-h-screen w-full overflow-x-hidden bg-[#f8fafc] dark:bg-[#0b1120]">
       {/* Desktop Sidebar */}
       <aside
-        className={`hidden lg:flex flex-col shrink-0 border-r border-slate-200/80 bg-white/90 backdrop-blur-xl transition-all duration-300 dark:border-slate-800/80 dark:bg-slate-900/90 ${
-          collapsed ? "w-[74px]" : "w-[272px]"
+        className={`hidden lg:flex flex-col shrink-0 border-r border-slate-200 bg-white transition-all duration-200 dark:border-slate-800 dark:bg-slate-900 ${
+          collapsed ? "w-[64px]" : "w-[256px]"
         }`}
       >
         {sidebarContent}
@@ -253,14 +237,14 @@ export function AppShell({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
-              className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-xs lg:hidden"
+              className="fixed inset-0 z-40 bg-slate-950/50 lg:hidden"
             />
             <motion.aside
-              initial={{ x: -280 }}
+              initial={{ x: -260 }}
               animate={{ x: 0 }}
-              exit={{ x: -280 }}
-              transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed inset-y-0 left-0 z-50 w-[272px] border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden"
+              exit={{ x: -260 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-y-0 left-0 z-50 w-[260px] border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900 lg:hidden"
             >
               {sidebarContent}
             </motion.aside>
@@ -268,15 +252,16 @@ export function AppShell({
         )}
       </AnimatePresence>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <div className="flex min-w-0 flex-1 flex-col">
-        {/* Top Command Header */}
-        <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-slate-200/80 bg-white/80 px-4 backdrop-blur-xl sm:px-6 dark:border-slate-800/80 dark:bg-slate-900/80">
-          <div className="flex items-center gap-3 min-w-0">
+        {/* Top Bar */}
+        <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-2 border-b border-slate-200 bg-white/95 px-3 backdrop-blur-sm sm:px-5 dark:border-slate-800 dark:bg-slate-900/95">
+          <div className="flex items-center gap-2 min-w-0">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 lg:hidden dark:border-slate-800 dark:text-slate-300"
+              aria-label="Open navigation menu"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 lg:hidden dark:border-slate-800 dark:text-slate-300"
             >
               <Menu className="h-4 w-4" />
             </button>
@@ -284,43 +269,46 @@ export function AppShell({
             <button
               type="button"
               onClick={() => setCmdOpen(true)}
-              className="flex items-center gap-2.5 rounded-xl border border-slate-200/90 bg-slate-100/70 px-3 py-1.5 text-xs text-slate-500 transition hover:border-indigo-300 hover:bg-white sm:w-64 dark:border-slate-800 dark:bg-slate-800/70 dark:text-slate-400 dark:hover:border-indigo-500/40 dark:hover:bg-slate-800"
+              className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-500 hover:border-slate-300 hover:bg-white sm:w-56 md:w-64 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 transition-colors"
             >
               <Search className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate">Jump to dataset...</span>
-              <kbd className="ml-auto hidden sm:inline-flex items-center gap-0.5 rounded-md border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:border-slate-700 dark:bg-slate-900">
-                <Command className="h-2.5 w-2.5" />K
+              <span className="truncate hidden xs:inline sm:inline">Search datasets...</span>
+              <span className="truncate sm:hidden">Search...</span>
+              <kbd className="ml-auto hidden sm:inline-block rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:border-slate-700 dark:bg-slate-900">
+                Ctrl+K
               </kbd>
             </button>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* Data Source Toggle */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+            {/* Source Switcher */}
             {onChangeDataSource && (
-              <div className="hidden md:flex items-center rounded-xl border border-slate-200 bg-slate-100/80 p-0.5 text-xs dark:border-slate-800 dark:bg-slate-800/70">
+              <div className="flex items-center rounded-lg border border-slate-200 bg-slate-100 p-0.5 text-[11px] dark:border-slate-800 dark:bg-slate-950">
                 <button
                   type="button"
                   onClick={() => onChangeDataSource("local")}
-                  className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-medium transition ${
+                  title="Read from Local JSON"
+                  className={`flex items-center gap-1 rounded-md px-2 py-1 font-medium transition-colors ${
                     dataSource === "local"
-                      ? "bg-white text-indigo-600 shadow-xs dark:bg-slate-900 dark:text-indigo-400"
+                      ? "bg-white text-slate-900 shadow-2xs dark:bg-slate-800 dark:text-white"
                       : "text-slate-500 hover:text-slate-800 dark:text-slate-400"
                   }`}
                 >
-                  <Database className="h-3.5 w-3.5" />
-                  Local JSON
+                  <Database className="h-3 w-3" />
+                  <span className="hidden md:inline">Local</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => onChangeDataSource("github")}
-                  className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1 font-medium transition ${
+                  title="Read from GitHub Public Raw JSON"
+                  className={`flex items-center gap-1 rounded-md px-2 py-1 font-medium transition-colors ${
                     dataSource === "github"
-                      ? "bg-white text-emerald-600 shadow-xs dark:bg-slate-900 dark:text-emerald-400"
+                      ? "bg-white text-blue-600 shadow-2xs dark:bg-slate-800 dark:text-blue-400"
                       : "text-slate-500 hover:text-slate-800 dark:text-slate-400"
                   }`}
                 >
-                  <Cloud className="h-3.5 w-3.5" />
-                  GitHub Raw
+                  <Cloud className="h-3 w-3" />
+                  <span className="hidden md:inline">GitHub</span>
                 </button>
               </div>
             )}
@@ -328,28 +316,29 @@ export function AppShell({
             <button
               type="button"
               onClick={() => setGithubHubOpen(true)}
-              className="hidden sm:flex items-center gap-1.5 rounded-xl border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800 transition"
+              title="Public GitHub JSON Registry"
+              className="flex h-8 items-center gap-1.5 rounded-lg border border-slate-200 px-2.5 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800 transition-colors"
             >
               <Github className="h-3.5 w-3.5" />
-              <span>JSON API</span>
+              <span className="hidden sm:inline">JSON API</span>
             </button>
 
             <button
               type="button"
               onClick={toggleTheme}
               aria-label="Toggle color theme"
-              className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800 transition"
+              className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-100 dark:border-slate-800 dark:text-slate-300 dark:hover:bg-slate-800 transition-colors"
             >
-              {theme === "dark" ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4" />}
+              {theme === "dark" ? <Sun className="h-3.5 w-3.5 text-amber-400" /> : <Moon className="h-3.5 w-3.5" />}
             </button>
 
-            <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-2.5 py-1 dark:border-slate-800 dark:bg-slate-900">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white">
+            <div className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-2 py-1 dark:border-slate-800 dark:bg-slate-950">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md bg-slate-900 text-[11px] font-bold text-white dark:bg-blue-600">
                 {user.name.slice(0, 1).toUpperCase()}
               </div>
-              <div className="hidden sm:block leading-tight">
+              <div className="hidden md:block leading-none">
                 <p className="text-xs font-semibold text-slate-900 dark:text-white">{user.name}</p>
-                <p className="text-[10px] uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
+                <p className="text-[10px] uppercase text-slate-500 dark:text-slate-400">
                   {user.role}
                 </p>
               </div>
@@ -357,7 +346,7 @@ export function AppShell({
                 type="button"
                 onClick={handleLogout}
                 title="Sign Out"
-                className="ml-1 rounded-lg p-1.5 text-slate-400 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/50 dark:hover:text-rose-400 transition"
+                className="rounded p-1 text-slate-400 hover:bg-rose-50 hover:text-rose-600 dark:hover:bg-rose-950/50 dark:hover:text-rose-400 transition-colors"
               >
                 <LogOut className="h-3.5 w-3.5" />
               </button>
@@ -365,44 +354,45 @@ export function AppShell({
           </div>
         </header>
 
-        <main className="flex-1 bg-corporate-grid p-4 sm:p-6 lg:p-8">{children}</main>
+        <main className="min-w-0 flex-1 p-3 sm:p-5 lg:p-6">{children}</main>
       </div>
 
-      {/* Command Palette Modal */}
+      {/* Quick-Jump Modal */}
       <AnimatePresence>
         {cmdOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-start justify-center bg-slate-950/60 p-4 pt-20 backdrop-blur-xs"
+            className="fixed inset-0 z-50 flex items-start justify-center bg-slate-950/50 p-3 pt-16 sm:p-4 sm:pt-20"
             onClick={() => setCmdOpen(false)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: -12 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: -12 }}
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
+              className="w-full max-w-lg overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900"
             >
-              <div className="flex items-center gap-3 border-b border-slate-200 px-4 py-3 dark:border-slate-800">
+              <div className="flex items-center gap-2.5 border-b border-slate-200 px-3.5 py-2.5 dark:border-slate-800">
                 <Search className="h-4 w-4 text-slate-400" />
                 <input
                   autoFocus
                   value={cmdQuery}
                   onChange={(e) => setCmdQuery(e.target.value)}
-                  placeholder="Search datasets, sheets, or categories..."
+                  placeholder="Jump to sheet or module..."
                   className="w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none dark:text-white"
                 />
                 <button
                   type="button"
                   onClick={() => setCmdOpen(false)}
-                  className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="rounded p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
-              <div className="max-h-96 overflow-y-auto p-2">
+              <div className="max-h-80 overflow-y-auto p-1.5">
                 {filteredQuickJump.map((ds) => (
                   <button
                     key={ds.slug}
@@ -412,23 +402,21 @@ export function AppShell({
                       setCmdQuery("");
                       router.push(`/datasets/${ds.slug}`);
                     }}
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left transition hover:bg-indigo-50 dark:hover:bg-indigo-950/40"
+                    className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-left transition-colors hover:bg-slate-100 dark:hover:bg-slate-800"
                   >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-950 dark:text-indigo-400">
-                        <DatasetIcon name={ds.icon} className="h-4 w-4" />
-                      </div>
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <DatasetIcon name={ds.icon} className="h-4 w-4 shrink-0 text-blue-600 dark:text-blue-400" />
                       <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                        <p className="truncate text-sm font-medium text-slate-900 dark:text-white">
                           {ds.title}
                         </p>
                         <p className="truncate text-xs text-slate-500 dark:text-slate-400">
-                          {ds.category} • Sheet: {ds.sheetName}
+                          {ds.category}
                         </p>
                       </div>
                     </div>
-                    <span className="rounded-md bg-slate-100 px-2 py-0.5 font-mono text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                      {ds.recordCount} rows
+                    <span className="ml-2 shrink-0 rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                      {ds.recordCount}
                     </span>
                   </button>
                 ))}
@@ -438,57 +426,56 @@ export function AppShell({
         )}
       </AnimatePresence>
 
-      {/* Public GitHub JSON Hub Modal */}
+      {/* Public GitHub JSON Registry Modal */}
       <AnimatePresence>
         {githubHubOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 p-4 backdrop-blur-xs"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 p-3 sm:p-4"
             onClick={() => setGithubHubOpen(false)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.96, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.96, y: 16 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ duration: 0.16 }}
               onClick={(e) => e.stopPropagation()}
-              className="flex max-h-[85vh] w-full max-w-3xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
+              className="flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900"
             >
-              <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-900 text-white dark:bg-slate-800">
-                    <Github className="h-5 w-5" />
-                  </div>
+              <div className="flex items-center justify-between border-b border-slate-200 px-4 py-3.5 sm:px-5 dark:border-slate-800">
+                <div className="flex items-center gap-2.5">
+                  <Github className="h-5 w-5 text-slate-800 dark:text-white" />
                   <div>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white">
-                      Public GitHub JSON Registry
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      Public JSON Registry
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                      All {manifest.totalDatasets} converted sheets are served locally & publicly on GitHub.
+                      {manifest.totalDatasets} converted sheets • Local &amp; GitHub Raw URLs
                     </p>
                   </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setGithubHubOpen(false)}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4" />
                 </button>
               </div>
-              <div className="overflow-y-auto p-6 space-y-2.5">
+              <div className="overflow-y-auto p-4 space-y-2 sm:p-5">
                 {manifest.datasets.map((ds) => (
                   <div
                     key={ds.slug}
-                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-800/40"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 rounded-lg border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/50"
                   >
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                        <span className="text-xs font-semibold text-slate-900 dark:text-white">
                           {ds.title}
                         </span>
-                        <span className="rounded-md bg-indigo-50 px-1.5 py-0.5 font-mono text-[11px] font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
+                        <span className="rounded bg-slate-200/70 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
                           {ds.recordCount} rows
                         </span>
                       </div>
@@ -501,15 +488,15 @@ export function AppShell({
                         href={ds.localUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                        className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                       >
-                        Local JSON <ExternalLink className="h-3 w-3" />
+                        Local <ExternalLink className="h-3 w-3" />
                       </a>
                       <a
                         href={ds.githubRawUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 rounded-lg bg-indigo-600 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-indigo-700"
+                        className="inline-flex items-center gap-1 rounded-md bg-blue-600 px-2.5 py-1 text-xs font-medium text-white hover:bg-blue-700"
                       >
                         GitHub Raw <ExternalLink className="h-3 w-3" />
                       </a>

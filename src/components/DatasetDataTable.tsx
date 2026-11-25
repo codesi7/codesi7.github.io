@@ -36,11 +36,13 @@ import {
   FileText,
   FilterX,
   Github,
+  LayoutGrid,
   Plus,
   Printer,
   RefreshCw,
   Search,
   SlidersHorizontal,
+  Table2,
   Trash2,
   X,
 } from "lucide-react";
@@ -63,16 +65,16 @@ import {
 function getBadgeClasses(value: string): string {
   const v = value.trim().toLowerCase();
   if (["active", "done", "closed", "resolved", "yes", "submitted", "ok"].includes(v)) {
-    return "bg-emerald-500/12 text-emerald-700 border-emerald-500/25 dark:text-emerald-300";
+    return "bg-emerald-500/10 text-emerald-700 border-emerald-500/25 dark:text-emerald-300";
   }
   if (["open", "pending", "in progress", "medium"].includes(v)) {
-    return "bg-amber-500/12 text-amber-700 border-amber-500/25 dark:text-amber-300";
+    return "bg-amber-500/10 text-amber-700 border-amber-500/25 dark:text-amber-300";
   }
   if (["critical", "high", "inactive", "failed", "down", "no"].includes(v)) {
-    return "bg-rose-500/12 text-rose-700 border-rose-500/25 dark:text-rose-300";
+    return "bg-rose-500/10 text-rose-700 border-rose-500/25 dark:text-rose-300";
   }
   if (["admin", "superadmin", "low"].includes(v)) {
-    return "bg-indigo-500/12 text-indigo-700 border-indigo-500/25 dark:text-indigo-300";
+    return "bg-blue-500/10 text-blue-700 border-blue-500/25 dark:text-blue-300";
   }
   return "bg-slate-100 text-slate-700 border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
 }
@@ -100,7 +102,6 @@ export function DatasetDataTable({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>(() => {
-    // For very wide sheets (> 10 cols), hide trailing low-priority columns by default for cleaner layout while keeping all accessible
     const vis: VisibilityState = {};
     initialMeta.columns.forEach((c, idx) => {
       if (initialMeta.columns.length > 12 && idx >= 9) {
@@ -110,6 +111,7 @@ export function DatasetDataTable({
     return vis;
   });
   const [density, setDensity] = useState<"compact" | "normal" | "comfortable">("normal");
+  const [viewMode, setViewMode] = useState<"auto" | "table" | "cards">("auto");
   const [colMenuOpen, setColMenuOpen] = useState(false);
   const [exportMenuOpen, setExportMenuOpen] = useState(false);
   const [revealedCells, setRevealedCells] = useState<Record<string, boolean>>({});
@@ -149,13 +151,13 @@ export function DatasetDataTable({
     void reloadData(src);
     void swalToast(
       src === "github"
-        ? `Loaded ${meta.title} from GitHub Public Raw JSON`
-        : `Loaded ${meta.title} from Local JSON Store`,
+        ? `Loaded ${meta.title} from GitHub Raw JSON`
+        : `Loaded ${meta.title} from Local JSON`,
       "info"
     );
   };
 
-  // Auto-detect top 4 categorical filter columns (2..35 unique non-empty values, non-password)
+  // Auto-detect up to 4 categorical filter columns
   const facetedFilters = useMemo(() => {
     const candidates: { col: ColumnSchema; options: string[] }[] = [];
     for (const col of meta.columns) {
@@ -172,7 +174,6 @@ export function DatasetDataTable({
         });
       }
     }
-    // Prioritize badge/status/zone/state/city/category columns
     candidates.sort((a, b) => {
       const score = (c: ColumnSchema) => {
         const k = c.key.toLowerCase();
@@ -192,7 +193,6 @@ export function DatasetDataTable({
     setTimeout(() => setCopiedId(null), 1500);
   };
 
-  // CRUD Handlers using SweetAlert2
   const handleCreate = useCallback(async () => {
     const payload = await swalRecordFormModal({
       mode: "create",
@@ -227,10 +227,10 @@ export function DatasetDataTable({
         }));
       }
       await swalSuccess(
-        "Record Created!",
+        "Record Created",
         json.githubSynced
-          ? "Saved to local JSON and pushed directly to GitHub."
-          : "New entry added to the JSON dataset."
+          ? "Saved locally and synced to GitHub."
+          : "Added to the JSON dataset."
       );
     } catch (err) {
       await swalError("Create Failed", err instanceof Error ? err.message : "Error creating record.");
@@ -268,10 +268,10 @@ export function DatasetDataTable({
           setInspectRecord(json.record);
         }
         await swalSuccess(
-          "Record Updated!",
+          "Record Updated",
           json.githubSynced
-            ? "Changes saved locally and synced to GitHub."
-            : "JSON dataset updated successfully."
+            ? "Changes saved locally and pushed to GitHub."
+            : "Dataset updated successfully."
         );
       } catch (err) {
         await swalError("Update Failed", err instanceof Error ? err.message : "Error updating record.");
@@ -293,7 +293,6 @@ export function DatasetDataTable({
         });
         const json = (await res.json()) as {
           meta?: DatasetMeta;
-          githubSynced?: boolean;
           error?: string;
         };
         if (!res.ok) {
@@ -310,7 +309,7 @@ export function DatasetDataTable({
             datasets: m.datasets.map((d) => (d.slug === meta.slug ? json.meta! : d)),
           }));
         }
-        await swalSuccess("Record Deleted", "Entry permanently removed from JSON datastore.");
+        await swalSuccess("Record Deleted", "Entry removed from JSON datastore.");
       } catch (err) {
         await swalError("Delete Failed", err instanceof Error ? err.message : "Error deleting record.");
       }
@@ -318,7 +317,6 @@ export function DatasetDataTable({
     [inspectRecord?._id, meta.columns, meta.slug]
   );
 
-  // Build TanStack Columns
   const columns = useMemo<ColumnDef<DataRecord>[]>(() => {
     const selectCol: ColumnDef<DataRecord> = {
       id: "_select",
@@ -328,7 +326,7 @@ export function DatasetDataTable({
           aria-label="Select all rows on page"
           checked={table.getIsAllPageRowsSelected()}
           onChange={table.getToggleAllPageRowsSelectedHandler()}
-          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+          className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
         />
       ),
       cell: ({ row }) => (
@@ -337,7 +335,7 @@ export function DatasetDataTable({
           aria-label="Select row"
           checked={row.getIsSelected()}
           onChange={row.getToggleSelectedHandler()}
-          className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500"
+          className="h-4 w-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500"
         />
       ),
       enableSorting: false,
@@ -363,10 +361,8 @@ export function DatasetDataTable({
           const cellKey = `${row.original._id}-${col.key}`;
           const isOpen = !!revealedCells[cellKey];
           return (
-            <div className="flex items-center gap-1.5">
-              <span className="font-mono text-xs">
-                {isOpen ? str : "••••••••"}
-              </span>
+            <div className="flex items-center gap-1">
+              <span className="font-mono text-xs">{isOpen ? str : "••••••••"}</span>
               <button
                 type="button"
                 onClick={() =>
@@ -380,11 +376,11 @@ export function DatasetDataTable({
               <button
                 type="button"
                 onClick={() => void copyValue(str, cellKey)}
-                className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-indigo-600 dark:hover:bg-slate-800"
+                className="rounded p-1 text-slate-400 hover:bg-slate-100 hover:text-blue-600 dark:hover:bg-slate-800"
                 title="Copy"
               >
                 {copiedId === cellKey ? (
-                  <Check className="h-3.5 w-3.5 text-emerald-500" />
+                  <Check className="h-3.5 w-3.5 text-emerald-600" />
                 ) : (
                   <Copy className="h-3.5 w-3.5" />
                 )}
@@ -399,7 +395,7 @@ export function DatasetDataTable({
               href={str}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex max-w-[200px] items-center gap-1 truncate font-medium text-indigo-600 hover:underline dark:text-indigo-400"
+              className="inline-flex max-w-[190px] items-center gap-1 truncate font-medium text-blue-600 hover:underline dark:text-blue-400"
             >
               <span className="truncate">{str}</span>
               <ExternalLink className="h-3 w-3 shrink-0" />
@@ -410,7 +406,7 @@ export function DatasetDataTable({
         if (col.type === "badge") {
           return (
             <span
-              className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-[11px] font-semibold capitalize ${getBadgeClasses(
+              className={`inline-flex items-center rounded border px-2 py-0.5 text-[11px] font-medium capitalize ${getBadgeClasses(
                 str
               )}`}
             >
@@ -422,7 +418,7 @@ export function DatasetDataTable({
         return (
           <span
             title={str}
-            className="block max-w-[240px] truncate text-slate-700 dark:text-slate-200"
+            className="block max-w-[230px] truncate text-slate-700 dark:text-slate-200"
           >
             {str}
           </span>
@@ -440,26 +436,26 @@ export function DatasetDataTable({
           <button
             type="button"
             onClick={() => setInspectRecord(row.original)}
-            title="Inspect full record"
-            className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white transition"
+            title="Inspect record"
+            className="rounded p-1.5 text-slate-500 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-white transition-colors"
           >
-            <Eye className="h-4 w-4" />
+            <Eye className="h-3.5 w-3.5" />
           </button>
           <button
             type="button"
             onClick={() => void handleEdit(row.original)}
-            title="Edit with SweetAlert2"
-            className="rounded-lg p-1.5 text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-950/50 transition"
+            title="Edit record"
+            className="rounded p-1.5 text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/50 transition-colors"
           >
-            <Edit3 className="h-4 w-4" />
+            <Edit3 className="h-3.5 w-3.5" />
           </button>
           <button
             type="button"
             onClick={() => void handleDelete(row.original)}
-            title="Delete with SweetAlert2"
-            className="rounded-lg p-1.5 text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/50 transition"
+            title="Delete record"
+            className="rounded p-1.5 text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/50 transition-colors"
           >
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-3.5 w-3.5" />
           </button>
         </div>
       ),
@@ -542,13 +538,13 @@ export function DatasetDataTable({
     }
     if (format === "xlsx") {
       exportAsXlsx(exportTargetRows, meta.columns, meta.slug);
-      await swalToast(`Exported ${exportTargetRows.length} rows to Excel (.xlsx)`, "success");
+      await swalToast(`Exported ${exportTargetRows.length} rows (.xlsx)`, "success");
     } else if (format === "csv") {
       exportAsCsv(exportTargetRows, meta.columns, meta.slug);
-      await swalToast(`Exported ${exportTargetRows.length} rows to CSV`, "success");
+      await swalToast(`Exported ${exportTargetRows.length} rows (.csv)`, "success");
     } else if (format === "json") {
       exportAsJson(exportTargetRows, meta.slug);
-      await swalToast(`Exported ${exportTargetRows.length} rows to JSON`, "success");
+      await swalToast(`Exported ${exportTargetRows.length} rows (.json)`, "success");
     } else if (format === "print") {
       window.print();
     }
@@ -578,15 +574,15 @@ export function DatasetDataTable({
       setRecords(json.records);
       if (json.meta) setMeta(json.meta);
       await swalSuccess(
-        "Synced from GitHub!",
-        `Pulled ${json.records.length} live records from public GitHub JSON.`
+        "Synced from GitHub",
+        `Loaded ${json.records.length} records from public GitHub JSON.`
       );
     } catch (err) {
       await swalError(
         "GitHub Sync Error",
         err instanceof Error
           ? err.message
-          : "Ensure public JSON files are pushed to GitHub main branch."
+          : "Verify the JSON files are pushed to GitHub main branch."
       );
     } finally {
       setLoading(false);
@@ -600,7 +596,10 @@ export function DatasetDataTable({
   };
 
   const paddingClass =
-    density === "compact" ? "py-2 px-3" : density === "comfortable" ? "py-4 px-4" : "py-3 px-3.5";
+    density === "compact" ? "py-1.5 px-3" : density === "comfortable" ? "py-3.5 px-4" : "py-2.5 px-3.5";
+
+  const showCardsOnMobile = viewMode === "auto" ? "block md:hidden" : viewMode === "cards" ? "block" : "hidden";
+  const showTableOnDesktop = viewMode === "auto" ? "hidden md:block" : viewMode === "table" ? "block" : "hidden";
 
   return (
     <AppShell
@@ -609,61 +608,61 @@ export function DatasetDataTable({
       dataSource={dataSource}
       onChangeDataSource={handleSourceChange}
     >
-      <div className="mx-auto max-w-[1600px] space-y-5">
-        {/* Header Card */}
+      <div className="mx-auto max-w-[1600px] space-y-4">
+        {/* Page Header */}
         <FadeInSection>
-          <div className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-xs sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-start gap-3.5">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-500/25">
-                  <DatasetIcon name={meta.icon} className="h-6 w-6" />
+              <div className="flex items-start gap-3 min-w-0">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
+                  <DatasetIcon name={meta.icon} className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h1 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl dark:text-white">
+                    <h1 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl dark:text-white">
                       {meta.title}
                     </h1>
-                    <span className="rounded-lg bg-indigo-50 px-2.5 py-0.5 font-mono text-xs font-bold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
-                      {records.length} records
+                    <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                      {records.length} rows
                     </span>
-                    <span className="rounded-lg border border-slate-200 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:border-slate-700 dark:text-slate-400">
+                    <span className="hidden sm:inline-block rounded border border-slate-200 px-2 py-0.5 text-[11px] font-medium text-slate-500 dark:border-slate-700 dark:text-slate-400">
                       Sheet: {meta.sheetName}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs text-slate-500 sm:text-sm dark:text-slate-400">
+                  <p className="mt-0.5 text-xs text-slate-500 sm:text-sm dark:text-slate-400">
                     {meta.description}
                   </p>
                 </div>
               </div>
 
-              {/* Primary Action Buttons */}
+              {/* Action Buttons */}
               <div className="no-print flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={() => void handleSyncGithub()}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
                 >
                   <Github className="h-3.5 w-3.5" />
-                  Sync GitHub
+                  <span className="hidden sm:inline">Sync GitHub</span>
+                  <span className="sm:hidden">Sync</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => void reloadData(dataSource)}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
                 >
                   <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
-                  Refresh
+                  <span className="hidden sm:inline">Refresh</span>
                 </button>
 
-                {/* Export Dropdown + Wizard */}
                 <div className="relative">
                   <button
                     type="button"
                     onClick={() => setExportMenuOpen((v) => !v)}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
                   >
                     <Download className="h-3.5 w-3.5" />
                     Export ({exportTargetRows.length})
@@ -671,42 +670,43 @@ export function DatasetDataTable({
                   <AnimatePresence>
                     {exportMenuOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 6, scale: 0.97 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 6, scale: 0.97 }}
-                        className="absolute right-0 z-30 mt-2 w-56 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-xl dark:border-slate-800 dark:bg-slate-900"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.12 }}
+                        className="absolute left-0 sm:left-auto sm:right-0 z-30 mt-1.5 w-52 rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg dark:border-slate-800 dark:bg-slate-900"
                       >
                         <button
                           type="button"
                           onClick={() => void runExport("xlsx")}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                         >
-                          <FileSpreadsheet className="h-4 w-4 text-emerald-600" />
-                          Export Excel (.xlsx)
+                          <FileSpreadsheet className="h-3.5 w-3.5 text-emerald-600" />
+                          Excel (.xlsx)
                         </button>
                         <button
                           type="button"
                           onClick={() => void runExport("csv")}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                         >
-                          <FileText className="h-4 w-4 text-sky-600" />
-                          Export CSV (.csv)
+                          <FileText className="h-3.5 w-3.5 text-sky-600" />
+                          CSV (.csv)
                         </button>
                         <button
                           type="button"
                           onClick={() => void runExport("json")}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                         >
-                          <FileJson className="h-4 w-4 text-amber-600" />
-                          Export JSON (.json)
+                          <FileJson className="h-3.5 w-3.5 text-amber-600" />
+                          JSON (.json)
                         </button>
                         <button
                           type="button"
                           onClick={() => void runExport("print")}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
+                          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800"
                         >
-                          <Printer className="h-4 w-4 text-indigo-600" />
-                          Print / Save PDF
+                          <Printer className="h-3.5 w-3.5 text-blue-600" />
+                          Print / PDF
                         </button>
                         <div className="my-1 border-t border-slate-100 dark:border-slate-800" />
                         <button
@@ -715,10 +715,10 @@ export function DatasetDataTable({
                             setExportMenuOpen(false);
                             void handleSweetExportWizard();
                           }}
-                          className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-indigo-600 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-950/40"
+                          className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-xs font-semibold text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-950/40"
                         >
-                          <SlidersHorizontal className="h-4 w-4" />
-                          SweetAlert2 Export Wizard
+                          <SlidersHorizontal className="h-3.5 w-3.5" />
+                          Export Wizard
                         </button>
                       </motion.div>
                     )}
@@ -728,22 +728,22 @@ export function DatasetDataTable({
                 <button
                   type="button"
                   onClick={() => void handleCreate()}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-indigo-500/25 hover:from-indigo-500 hover:to-violet-500 transition"
+                  className="ml-auto sm:ml-0 inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus className="h-3.5 w-3.5" />
                   Add Record
                 </button>
               </div>
             </div>
 
-            {/* Public JSON & GitHub Raw Endpoint Bar */}
-            <div className="no-print mt-4 flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-slate-50/80 px-4 py-2.5 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-slate-800 dark:bg-slate-950/60">
+            {/* Public JSON Strip */}
+            <div className="no-print mt-3.5 flex flex-col gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-slate-800 dark:bg-slate-950/60">
               <div className="flex items-center gap-2 min-w-0">
-                <Github className="h-4 w-4 shrink-0 text-slate-600 dark:text-slate-300" />
-                <span className="font-semibold text-slate-700 dark:text-slate-200 shrink-0">
-                  Public GitHub JSON:
+                <Github className="h-3.5 w-3.5 shrink-0 text-slate-500" />
+                <span className="font-medium text-slate-700 dark:text-slate-300 shrink-0">
+                  Public JSON:
                 </span>
-                <code className="truncate font-mono text-[11px] text-indigo-600 dark:text-indigo-400">
+                <code className="truncate font-mono text-[11px] text-blue-600 dark:text-blue-400">
                   {meta.githubRawUrl}
                 </code>
               </div>
@@ -751,20 +751,20 @@ export function DatasetDataTable({
                 <button
                   type="button"
                   onClick={() => void copyValue(meta.githubRawUrl, "gh-raw-url")}
-                  className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                  className="inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                 >
                   {copiedId === "gh-raw-url" ? (
-                    <Check className="h-3 w-3 text-emerald-500" />
+                    <Check className="h-3 w-3 text-emerald-600" />
                   ) : (
                     <Copy className="h-3 w-3" />
                   )}
-                  Copy Raw URL
+                  Copy URL
                 </button>
                 <a
                   href={meta.localUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                  className="inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                 >
                   Open JSON <ExternalLink className="h-3 w-3" />
                 </a>
@@ -773,52 +773,81 @@ export function DatasetDataTable({
           </div>
         </FadeInSection>
 
-        {/* Filter & Toolbar Strip */}
-        <FadeInSection delay={0.08} className="no-print">
-          <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-xs space-y-3 dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-              {/* Search */}
-              <div className="relative flex-1 max-w-md">
-                <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+        {/* Filter & Controls Toolbar */}
+        <FadeInSection delay={0.04} className="no-print">
+          <div className="rounded-xl border border-slate-200 bg-white p-3.5 space-y-3 dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="relative w-full lg:max-w-md">
+                <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <input
                   value={globalFilter}
                   onChange={(e) => setGlobalFilter(e.target.value)}
-                  placeholder={`Search across ${meta.columns.length} columns in ${meta.title}...`}
-                  className="w-full rounded-xl border border-slate-200 bg-slate-50/70 py-2 pl-10 pr-9 text-sm text-slate-900 placeholder:text-slate-400 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
+                  placeholder={`Search ${meta.title}...`}
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-9 pr-8 text-sm text-slate-900 placeholder:text-slate-400 focus:border-blue-600 focus:bg-white focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-white"
                 />
                 {globalFilter && (
                   <button
                     type="button"
                     onClick={() => setGlobalFilter("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
                   >
                     <X className="h-4 w-4" />
                   </button>
                 )}
               </div>
 
-              {/* Controls: Density, Columns, Clear Filters */}
               <div className="flex flex-wrap items-center gap-2">
                 {(globalFilter || columnFilters.length > 0 || sorting.length > 0) && (
                   <button
                     type="button"
                     onClick={clearAllFilters}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-xs font-semibold text-rose-700 hover:bg-rose-100 dark:border-rose-900/50 dark:bg-rose-950/40 dark:text-rose-300"
+                    className="inline-flex items-center gap-1 rounded-lg border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-xs font-medium text-rose-700 hover:bg-rose-100 dark:border-rose-900/50 dark:bg-rose-950/40 dark:text-rose-300"
                   >
                     <FilterX className="h-3.5 w-3.5" />
-                    Reset Filters
+                    Reset
                   </button>
                 )}
 
-                <div className="flex items-center rounded-xl border border-slate-200 bg-slate-50 p-0.5 text-xs dark:border-slate-700 dark:bg-slate-800">
+                {/* Responsive Layout Toggle (Auto / Table / Cards) */}
+                <div className="flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs dark:border-slate-700 dark:bg-slate-950">
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("table")}
+                    title="Table View"
+                    className={`inline-flex items-center gap-1 rounded-md px-2 py-1 font-medium transition-colors ${
+                      viewMode === "table"
+                        ? "bg-white text-blue-600 shadow-2xs dark:bg-slate-800 dark:text-blue-400"
+                        : "text-slate-500 hover:text-slate-900 dark:text-slate-400"
+                    }`}
+                  >
+                    <Table2 className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Table</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setViewMode("cards")}
+                    title="Cards View"
+                    className={`inline-flex items-center gap-1 rounded-md px-2 py-1 font-medium transition-colors ${
+                      viewMode === "cards"
+                        ? "bg-white text-blue-600 shadow-2xs dark:bg-slate-800 dark:text-blue-400"
+                        : "text-slate-500 hover:text-slate-900 dark:text-slate-400"
+                    }`}
+                  >
+                    <LayoutGrid className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Cards</span>
+                  </button>
+                </div>
+
+                {/* Density */}
+                <div className="hidden sm:flex items-center rounded-lg border border-slate-200 bg-slate-50 p-0.5 text-xs dark:border-slate-700 dark:bg-slate-950">
                   {(["compact", "normal", "comfortable"] as const).map((d) => (
                     <button
                       key={d}
                       type="button"
                       onClick={() => setDensity(d)}
-                      className={`rounded-lg px-2.5 py-1 capitalize font-medium transition ${
+                      className={`rounded-md px-2 py-1 capitalize font-medium transition-colors ${
                         density === d
-                          ? "bg-white text-indigo-600 shadow-2xs dark:bg-slate-900 dark:text-indigo-400"
+                          ? "bg-white text-slate-900 shadow-2xs dark:bg-slate-800 dark:text-white"
                           : "text-slate-500 hover:text-slate-900 dark:text-slate-400"
                       }`}
                     >
@@ -832,7 +861,7 @@ export function DatasetDataTable({
                   <button
                     type="button"
                     onClick={() => setColMenuOpen((v) => !v)}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                   >
                     <Columns3 className="h-3.5 w-3.5" />
                     Columns
@@ -840,10 +869,11 @@ export function DatasetDataTable({
                   <AnimatePresence>
                     {colMenuOpen && (
                       <motion.div
-                        initial={{ opacity: 0, y: 6 }}
+                        initial={{ opacity: 0, y: 4 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 6 }}
-                        className="absolute right-0 z-30 mt-2 max-h-72 w-60 overflow-y-auto rounded-2xl border border-slate-200 bg-white p-2 shadow-xl dark:border-slate-800 dark:bg-slate-900"
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.12 }}
+                        className="absolute right-0 z-30 mt-1.5 max-h-64 w-56 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg dark:border-slate-800 dark:bg-slate-900"
                       >
                         {table
                           .getAllLeafColumns()
@@ -857,7 +887,7 @@ export function DatasetDataTable({
                                 type="checkbox"
                                 checked={column.getIsVisible()}
                                 onChange={column.getToggleVisibilityHandler()}
-                                className="h-3.5 w-3.5 rounded border-slate-300 text-indigo-600"
+                                className="h-3.5 w-3.5 rounded border-slate-300 text-blue-600"
                               />
                               <span className="truncate text-slate-700 dark:text-slate-200">
                                 {String(column.columnDef.header)}
@@ -871,16 +901,15 @@ export function DatasetDataTable({
               </div>
             </div>
 
-            {/* Faceted Dropdown Filters */}
             {facetedFilters.length > 0 && (
-              <div className="grid grid-cols-1 gap-2.5 border-t border-slate-100 pt-3 sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800">
+              <div className="grid grid-cols-1 gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800">
                 {facetedFilters.map(({ col, options }) => {
                   const activeVal =
                     (columnFilters.find((f) => f.id === col.key)?.value as string) || "";
                   return (
                     <div key={col.key}>
-                      <label className="mb-1 block text-[10px] font-bold uppercase tracking-wider text-slate-400">
-                        Filter by {col.label}
+                      <label className="mb-1 block text-[10px] font-semibold uppercase tracking-wider text-slate-400">
+                        {col.label}
                       </label>
                       <select
                         value={activeVal}
@@ -891,7 +920,7 @@ export function DatasetDataTable({
                             return val ? [...others, { id: col.key, value: val }] : others;
                           });
                         }}
-                        className="w-full rounded-xl border border-slate-200 bg-slate-50/70 px-3 py-1.5 text-xs font-medium text-slate-700 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
+                        className="w-full rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs font-medium text-slate-700 focus:border-blue-600 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200"
                       >
                         <option value="">All {col.label} ({options.length})</option>
                         {options.map((opt) => (
@@ -908,46 +937,135 @@ export function DatasetDataTable({
           </div>
         </FadeInSection>
 
-        {/* Bulk Action Bar */}
+        {/* Bulk Selection Bar */}
         <AnimatePresence>
           {selectedRows.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 10 }}
-              className="no-print flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-indigo-300 bg-indigo-50 px-4 py-3 text-xs shadow-sm dark:border-indigo-500/40 dark:bg-indigo-950/60"
+              exit={{ opacity: 0, y: 6 }}
+              className="no-print flex flex-wrap items-center justify-between gap-2 rounded-xl border border-blue-200 bg-blue-50 px-4 py-2.5 text-xs dark:border-blue-800 dark:bg-blue-950/50"
             >
-              <span className="font-semibold text-indigo-900 dark:text-indigo-200">
+              <span className="font-semibold text-blue-900 dark:text-blue-200">
                 {selectedRows.length} row{selectedRows.length > 1 ? "s" : ""} selected
               </span>
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={() => void runExport("xlsx")}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 font-semibold text-slate-700 shadow-2xs hover:bg-slate-100 dark:bg-slate-900 dark:text-slate-200"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                 >
                   <FileSpreadsheet className="h-3.5 w-3.5 text-emerald-600" />
-                  Export Selected (.xlsx)
+                  Export Selected
                 </button>
                 <button
                   type="button"
                   onClick={() => void handleBulkDelete()}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-rose-600 px-3 py-1.5 font-semibold text-white hover:bg-rose-700"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-rose-600 px-2.5 py-1.5 font-medium text-white hover:bg-rose-700"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
-                  Delete Selected ({selectedRows.length})
+                  Delete ({selectedRows.length})
                 </button>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* DataTable Card */}
-        <FadeInSection delay={0.14}>
-          <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-xs dark:border-slate-800 dark:bg-slate-900">
-            <div className="overflow-x-auto">
+        {/* Data Surface (Responsive Mobile Cards + Desktop DataTable) */}
+        <FadeInSection delay={0.08}>
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+            {/* Mobile Cards View */}
+            <div className={`${showCardsOnMobile} divide-y divide-slate-100 dark:divide-slate-800`}>
+              {table.getRowModel().rows.length === 0 ? (
+                <div className="py-12 text-center text-sm text-slate-500 dark:text-slate-400">
+                  No records match your search or filters.
+                </div>
+              ) : (
+                table.getRowModel().rows.map((row) => {
+                  const rec = row.original;
+                  const previewCols = meta.columns.slice(0, 5);
+                  return (
+                    <div
+                      key={row.id}
+                      className={`p-3.5 space-y-2.5 ${
+                        row.getIsSelected() ? "bg-blue-50/60 dark:bg-blue-950/30" : ""
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex items-start gap-2.5 min-w-0">
+                          <input
+                            type="checkbox"
+                            checked={row.getIsSelected()}
+                            onChange={row.getToggleSelectedHandler()}
+                            className="mt-1 h-4 w-4 rounded border-slate-300 text-blue-600"
+                          />
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                              {String(rec[meta.columns[0]?.key] || rec._id)}
+                            </p>
+                            {meta.columns[1] && (
+                              <p className="truncate text-xs text-slate-500 dark:text-slate-400">
+                                {meta.columns[1].label}:{" "}
+                                {meta.columns[1].sensitive
+                                  ? "••••••••"
+                                  : String(rec[meta.columns[1].key] || "—")}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => setInspectRecord(rec)}
+                            className="rounded border border-slate-200 p-1.5 text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300"
+                            title="Inspect"
+                          >
+                            <Eye className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => void handleEdit(rec)}
+                            className="rounded border border-slate-200 p-1.5 text-blue-600 hover:bg-blue-50 dark:border-slate-700 dark:text-blue-400"
+                            title="Edit"
+                          >
+                            <Edit3 className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => void handleDelete(rec)}
+                            className="rounded border border-slate-200 p-1.5 text-rose-600 hover:bg-rose-50 dark:border-slate-700 dark:text-rose-400"
+                            title="Delete"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 pl-6 text-xs">
+                        {previewCols.slice(2).map((col) => {
+                          const val = String(rec[col.key] ?? "").trim();
+                          return (
+                            <div key={col.key} className="min-w-0">
+                              <p className="truncate text-[10px] font-medium uppercase text-slate-400">
+                                {col.label}
+                              </p>
+                              <p className="truncate font-medium text-slate-700 dark:text-slate-200">
+                                {col.sensitive ? "••••••••" : val || "—"}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+
+            {/* Desktop Table View */}
+            <div className={`${showTableOnDesktop} overflow-x-auto`}>
               <table className="w-full border-collapse text-left text-xs">
-                <thead className="sticky top-0 z-10 border-b border-slate-200 bg-slate-50/95 backdrop-blur-sm dark:border-slate-800 dark:bg-slate-950/90">
+                <thead className="sticky top-0 z-10 border-b border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
                   {table.getHeaderGroups().map((headerGroup) => (
                     <tr key={headerGroup.id}>
                       {headerGroup.headers.map((header) => {
@@ -957,8 +1075,10 @@ export function DatasetDataTable({
                           <th
                             key={header.id}
                             onClick={canSort ? header.column.getToggleSortingHandler() : undefined}
-                            className={`whitespace-nowrap px-3.5 py-3 text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ${
-                              canSort ? "cursor-pointer select-none hover:text-slate-900 dark:hover:text-white" : ""
+                            className={`whitespace-nowrap px-3.5 py-2.5 text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 ${
+                              canSort
+                                ? "cursor-pointer select-none hover:text-slate-900 dark:hover:text-white"
+                                : ""
                             }`}
                           >
                             <div className="flex items-center gap-1.5">
@@ -966,9 +1086,9 @@ export function DatasetDataTable({
                               {canSort && (
                                 <span className="text-slate-400">
                                   {sorted === "asc" ? (
-                                    <ArrowUp className="h-3.5 w-3.5 text-indigo-600" />
+                                    <ArrowUp className="h-3 w-3 text-blue-600" />
                                   ) : sorted === "desc" ? (
-                                    <ArrowDown className="h-3.5 w-3.5 text-indigo-600" />
+                                    <ArrowDown className="h-3 w-3 text-blue-600" />
                                   ) : (
                                     <ArrowUpDown className="h-3 w-3 opacity-50" />
                                   )}
@@ -986,7 +1106,7 @@ export function DatasetDataTable({
                     <tr>
                       <td
                         colSpan={columns.length}
-                        className="py-16 text-center text-sm text-slate-500 dark:text-slate-400"
+                        className="py-14 text-center text-sm text-slate-500 dark:text-slate-400"
                       >
                         No records match your current search or filters.
                       </td>
@@ -996,8 +1116,8 @@ export function DatasetDataTable({
                       <tr
                         key={row.id}
                         onDoubleClick={() => setInspectRecord(row.original)}
-                        className={`transition-colors hover:bg-indigo-50/40 dark:hover:bg-indigo-950/25 ${
-                          row.getIsSelected() ? "bg-indigo-50/60 dark:bg-indigo-950/40" : ""
+                        className={`transition-colors hover:bg-slate-50 dark:hover:bg-slate-800/40 ${
+                          row.getIsSelected() ? "bg-blue-50/50 dark:bg-blue-950/30" : ""
                         }`}
                       >
                         {row.getVisibleCells().map((cell) => (
@@ -1013,8 +1133,8 @@ export function DatasetDataTable({
             </div>
 
             {/* Pagination Footer */}
-            <div className="no-print flex flex-col gap-3 border-t border-slate-200/80 bg-slate-50/70 px-4 py-3 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-slate-800 dark:bg-slate-950/60">
-              <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400">
+            <div className="no-print flex flex-col gap-3 border-t border-slate-200 bg-slate-50/70 px-4 py-2.5 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-slate-800 dark:bg-slate-950/60">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-slate-500 dark:text-slate-400">
                 <span>
                   Showing{" "}
                   <strong className="text-slate-900 dark:text-white">
@@ -1024,12 +1144,12 @@ export function DatasetDataTable({
                   <strong className="text-slate-900 dark:text-white">
                     {filteredRows.length}
                   </strong>{" "}
-                  filtered rows
+                  rows
                 </span>
                 <select
                   value={table.getState().pagination.pageSize}
                   onChange={(e) => table.setPageSize(Number(e.target.value))}
-                  className="rounded-lg border border-slate-200 bg-white px-2 py-1 text-xs font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                  className="rounded-md border border-slate-200 bg-white px-2 py-1 text-xs font-medium text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                 >
                   {[10, 15, 25, 50, 100].map((size) => (
                     <option key={size} value={size}>
@@ -1039,41 +1159,41 @@ export function DatasetDataTable({
                 </select>
               </div>
 
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center justify-center sm:justify-end gap-1">
                 <button
                   type="button"
                   onClick={() => table.setPageIndex(0)}
                   disabled={!table.getCanPreviousPage()}
-                  className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                  className="rounded-md border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                 >
-                  <ChevronsLeft className="h-4 w-4" />
+                  <ChevronsLeft className="h-3.5 w-3.5" />
                 </button>
                 <button
                   type="button"
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}
-                  className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                  className="rounded-md border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft className="h-3.5 w-3.5" />
                 </button>
                 <span className="px-2.5 font-mono text-xs font-semibold text-slate-700 dark:text-slate-200">
-                  Page {table.getState().pagination.pageIndex + 1} / {Math.max(1, table.getPageCount())}
+                  {table.getState().pagination.pageIndex + 1} / {Math.max(1, table.getPageCount())}
                 </span>
                 <button
                   type="button"
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}
-                  className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                  className="rounded-md border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="h-3.5 w-3.5" />
                 </button>
                 <button
                   type="button"
                   onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                   disabled={!table.getCanNextPage()}
-                  className="rounded-lg border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
+                  className="rounded-md border border-slate-200 bg-white p-1.5 text-slate-600 hover:bg-slate-100 disabled:opacity-40 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"
                 >
-                  <ChevronsRight className="h-4 w-4" />
+                  <ChevronsRight className="h-3.5 w-3.5" />
                 </button>
               </div>
             </div>
@@ -1081,7 +1201,7 @@ export function DatasetDataTable({
         </FadeInSection>
       </div>
 
-      {/* Record Inspector Slide-over Drawer */}
+      {/* Record Inspector Drawer */}
       <AnimatePresence>
         {inspectRecord && (
           <>
@@ -1090,50 +1210,50 @@ export function DatasetDataTable({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setInspectRecord(null)}
-              className="fixed inset-0 z-40 bg-slate-950/50 backdrop-blur-xs"
+              className="fixed inset-0 z-40 bg-slate-950/50"
             />
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
-              transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed inset-y-0 right-0 z-50 flex w-full max-w-lg flex-col border-l border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-y-0 right-0 z-50 flex w-full sm:max-w-lg flex-col border-l border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-900"
             >
-              <div className="flex items-center justify-between border-b border-slate-200 px-6 py-4 dark:border-slate-800">
-                <div>
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
+              <div className="flex items-center justify-between border-b border-slate-200 px-5 py-3.5 dark:border-slate-800">
+                <div className="min-w-0">
+                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                     Record Details
                   </h3>
-                  <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
+                  <p className="truncate font-mono text-xs text-slate-500 dark:text-slate-400">
                     {inspectRecord._id}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setInspectRecord(null)}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="rounded-lg p-1 text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-6 space-y-3">
+              <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-2.5">
                 {meta.columns.map((col) => {
                   const val = String(inspectRecord[col.key] ?? "").trim();
                   return (
                     <div
                       key={col.key}
-                      className="rounded-xl border border-slate-200/80 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/50"
+                      className="rounded-lg border border-slate-200 bg-slate-50/70 p-3 dark:border-slate-800 dark:bg-slate-950/50"
                     >
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">
                           {col.label}
                         </span>
                         {val && (
                           <button
                             type="button"
                             onClick={() => void copyValue(val, `drawer-${col.key}`)}
-                            className="text-slate-400 hover:text-indigo-600"
+                            className="text-slate-400 hover:text-blue-600"
                             title="Copy field"
                           >
                             <Copy className="h-3.5 w-3.5" />
@@ -1148,22 +1268,22 @@ export function DatasetDataTable({
                 })}
               </div>
 
-              <div className="flex items-center justify-between gap-3 border-t border-slate-200 px-6 py-4 dark:border-slate-800">
+              <div className="flex items-center justify-between gap-3 border-t border-slate-200 px-5 py-3.5 dark:border-slate-800">
                 <button
                   type="button"
                   onClick={() => void handleDelete(inspectRecord)}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-rose-50 px-4 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-rose-50 px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-100 dark:bg-rose-950/40 dark:text-rose-400"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-3.5 w-3.5" />
                   Delete
                 </button>
                 <button
                   type="button"
                   onClick={() => void handleEdit(inspectRecord)}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-700"
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-blue-700"
                 >
-                  <Edit3 className="h-4 w-4" />
-                  Edit with SweetAlert2
+                  <Edit3 className="h-3.5 w-3.5" />
+                  Edit Record
                 </button>
               </div>
             </motion.aside>
