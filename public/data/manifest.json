@@ -1,6 +1,6 @@
 {
   "sourceFile": "Data.xlsx",
-  "generatedAt": "2026-11-25T09:01:51.465Z",
+  "generatedAt": "2026-11-25T09:02:24.284Z",
   "github": {
     "owner": "codesi7",
     "repo": "codesi7.github.io",
@@ -9,7 +9,7 @@
     "repoUrl": "https://github.com/codesi7/codesi7.github.io"
   },
   "totalDatasets": 12,
-  "totalRecords": 651,
+  "totalRecords": 650,
   "datasets": [
     {
       "slug": "stock",
@@ -108,7 +108,7 @@
       "localUrl": "/data/support.json",
       "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/support.json",
       "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/support.json",
-      "recordCount": 5,
+      "recordCount": 4,
       "columns": [
         {
           "key": "Name",
@@ -135,7 +135,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T09:01:51.465Z"
+      "updatedAt": "2026-11-25T09:02:24.284Z"
     },
     {
       "slug": "camera",
