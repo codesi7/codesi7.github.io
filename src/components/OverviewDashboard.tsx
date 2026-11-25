@@ -178,7 +178,7 @@ export function OverviewDashboard({
         </FadeInSection>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {kpis.map((kpi) => (
             <Link
               key={kpi.label}
@@ -205,8 +205,8 @@ export function OverviewDashboard({
         </div>
 
         {/* Analytics Charts */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
-          <FadeInSection delay={0.05} className="min-w-0 lg:col-span-7">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
+          <FadeInSection delay={0.05} className="min-w-0 xl:col-span-7">
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div className="min-w-0">
@@ -253,7 +253,7 @@ export function OverviewDashboard({
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.08} className="min-w-0 lg:col-span-5">
+          <FadeInSection delay={0.08} className="min-w-0 xl:col-span-5">
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div>
@@ -302,7 +302,7 @@ export function OverviewDashboard({
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.11} className="min-w-0 lg:col-span-7">
+          <FadeInSection delay={0.11} className="min-w-0 xl:col-span-7">
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div className="min-w-0">
@@ -346,7 +346,7 @@ export function OverviewDashboard({
             </div>
           </FadeInSection>
 
-          <FadeInSection delay={0.14} className="min-w-0 lg:col-span-5">
+          <FadeInSection delay={0.14} className="min-w-0 xl:col-span-5">
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div className="min-w-0">
@@ -403,7 +403,7 @@ export function OverviewDashboard({
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {manifest.datasets.map((ds) => (
                 <div
                   key={ds.slug}
@@ -473,7 +473,7 @@ export function OverviewDashboard({
         </FadeInSection>
 
         {/* Recent Activity */}
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
           <FadeInSection delay={0.18}>
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between">

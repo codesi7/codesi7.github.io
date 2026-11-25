@@ -238,7 +238,7 @@ export function AppShell({
     <div className="flex min-h-screen w-full overflow-x-hidden bg-[#f8fafc] dark:bg-[#0b1120]">
       <aside
         className={`hidden lg:flex flex-col shrink-0 border-r border-slate-200 bg-white transition-all duration-200 dark:border-slate-800 dark:bg-slate-900 ${
-          collapsed ? "w-[64px]" : "w-[256px]"
+          collapsed ? "w-[64px]" : "w-[236px]"
         }`}
       >
         {sidebarContent}
@@ -380,7 +380,7 @@ export function AppShell({
           </div>
         </header>
 
-        <main className="min-w-0 flex-1 p-3 sm:p-5 lg:p-6">{children}</main>
+        <main className="min-w-0 w-full max-w-full flex-1 overflow-x-hidden p-3 sm:p-4 md:p-5 lg:p-6">{children}</main>
       </div>
 
       <AnimatePresence>

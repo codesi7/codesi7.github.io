@@ -186,7 +186,7 @@ export async function swalRecordFormModal(options: {
   const result = await Swal.fire({
     ...baseThemeOptions(),
     title: mode === "create" ? `Create ${datasetTitle} Record` : `Edit ${datasetTitle} Record`,
-    width: columns.length > 6 ? "760px" : "560px",
+    width: columns.length > 6 ? "min(94vw, 760px)" : "min(94vw, 540px)",
     html: `
       <div class="grid grid-cols-1 ${columns.length > 5 ? "sm:grid-cols-2" : ""} gap-3.5 max-h-[60vh] overflow-y-auto px-1 py-2">
         ${inputHtml}

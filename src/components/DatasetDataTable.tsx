@@ -660,11 +660,11 @@ export function DatasetDataTable({
       dataSource={dataSource}
       onChangeDataSource={handleSourceChange}
     >
-      <div className="mx-auto max-w-[1600px] space-y-4">
+      <div className="mx-auto w-full min-w-0 max-w-[1600px] space-y-4">
         {/* Page Header */}
         <FadeInSection>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="w-full min-w-0 rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
+            <div className="flex flex-col gap-3.5 xl:flex-row xl:items-center xl:justify-between">
               <div className="flex items-start gap-3 min-w-0">
                 <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
                   <DatasetIcon name={meta.icon} className="h-5 w-5" />
@@ -688,33 +688,32 @@ export function DatasetDataTable({
               </div>
 
               {/* Action Buttons */}
-              <div className="no-print flex flex-wrap items-center gap-2">
+              <div className="no-print flex flex-wrap items-center gap-2 shrink-0">
                 <button
                   type="button"
                   onClick={() => void handleSyncGithub()}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
+                  className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
                 >
                   <Github className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Sync GitHub</span>
-                  <span className="sm:hidden">Sync</span>
+                  <span>Sync GitHub</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => void reloadData(dataSource)}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
+                  className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
                 >
                   <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
-                  <span className="hidden sm:inline">Refresh</span>
+                  <span>Refresh</span>
                 </button>
 
-                <div className="relative">
+                <div className="relative shrink-0">
                   <button
                     type="button"
                     onClick={() => setExportMenuOpen((v) => !v)}
-                    className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
+                    className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 transition-colors"
                   >
                     <Download className="h-3.5 w-3.5" />
                     Export ({exportTargetRows.length})
@@ -780,7 +779,7 @@ export function DatasetDataTable({
                 <button
                   type="button"
                   onClick={() => void handleCreate()}
-                  className="ml-auto sm:ml-0 inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
+                  className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
                 >
                   <Plus className="h-3.5 w-3.5" />
                   Add Record
@@ -789,11 +788,11 @@ export function DatasetDataTable({
             </div>
 
             {/* Public JSON & GitHub Write Status Strip */}
-            <div className="no-print mt-3.5 flex flex-col gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs lg:flex-row lg:items-center lg:justify-between dark:border-slate-800 dark:bg-slate-950/60">
+            <div className="no-print mt-3.5 flex flex-col gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs 2xl:flex-row 2xl:items-center 2xl:justify-between dark:border-slate-800 dark:bg-slate-950/60">
               <div className="flex flex-wrap items-center gap-2 min-w-0">
                 <Github className="h-3.5 w-3.5 shrink-0 text-slate-500" />
                 <span
-                  className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                  className={`inline-flex shrink-0 items-center rounded px-1.5 py-0.5 text-[10px] font-semibold ${
                     hasGhPat
                       ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
                       : "bg-amber-500/15 text-amber-700 dark:text-amber-300"
@@ -801,7 +800,7 @@ export function DatasetDataTable({
                 >
                   {hasGhPat ? "Auto-Sync GitHub: ON" : "Browser Only (Connect Token for Auto-Sync)"}
                 </span>
-                <code className="truncate font-mono text-[11px] text-blue-600 dark:text-blue-400">
+                <code className="min-w-0 max-w-full truncate font-mono text-[11px] text-blue-600 dark:text-blue-400">
                   {meta.githubRawUrl}
                 </code>
               </div>
@@ -960,7 +959,7 @@ export function DatasetDataTable({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 4 }}
                         transition={{ duration: 0.12 }}
-                        className="absolute right-0 z-30 mt-1.5 max-h-64 w-56 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg dark:border-slate-800 dark:bg-slate-900"
+                        className="absolute left-0 sm:left-auto sm:right-0 z-30 mt-1.5 max-h-64 w-56 overflow-y-auto rounded-xl border border-slate-200 bg-white p-1.5 shadow-lg dark:border-slate-800 dark:bg-slate-900"
                       >
                         {table
                           .getAllLeafColumns()
@@ -989,7 +988,7 @@ export function DatasetDataTable({
             </div>
 
             {facetedFilters.length > 0 && (
-              <div className="grid grid-cols-1 gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2 lg:grid-cols-4 dark:border-slate-800">
+              <div className="grid grid-cols-1 gap-2 border-t border-slate-100 pt-3 sm:grid-cols-2 xl:grid-cols-4 dark:border-slate-800">
                 {facetedFilters.map(({ col, options }) => {
                   const activeVal =
                     (columnFilters.find((f) => f.id === col.key)?.value as string) || "";
@@ -1060,7 +1059,7 @@ export function DatasetDataTable({
 
         {/* Data Surface (Responsive Mobile Cards + Desktop DataTable) */}
         <FadeInSection delay={0.08}>
-          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
+          <div className="w-full min-w-0 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
             {/* Mobile Cards View */}
             <div className={`${showCardsOnMobile} divide-y divide-slate-100 dark:divide-slate-800`}>
               {table.getRowModel().rows.length === 0 ? (
@@ -1150,7 +1149,7 @@ export function DatasetDataTable({
             </div>
 
             {/* Desktop Table View */}
-            <div className={`${showTableOnDesktop} overflow-x-auto`}>
+            <div className={`${showTableOnDesktop} w-full overflow-x-auto`}>
               <table className="w-full border-collapse text-left text-xs">
                 <thead className="sticky top-0 z-10 border-b border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
                   {table.getHeaderGroups().map((headerGroup) => (

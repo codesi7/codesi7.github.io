@@ -59,7 +59,7 @@ export function FadeInSection({
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.24, delay, ease: "easeOut" }}
-      className={className}
+      className={`min-w-0 w-full ${className}`}
     >
       {children}
     </motion.div>
