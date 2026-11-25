@@ -14,17 +14,51 @@ export function getGithubRawUrl(fileName: string): string {
   return `https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/${GITHUB_BRANCH}/${GITHUB_DATA_PATH}/${fileName}`;
 }
 
+export function isGithubWriteEnabled(): boolean {
+  return Boolean(process.env.GITHUB_TOKEN && process.env.GITHUB_TOKEN.trim().length > 0);
+}
+
+async function fetchFromGithubContentsApi<T>(fileName: string, token: string): Promise<T> {
+  const repoFilePath = `${GITHUB_DATA_PATH}/${fileName}`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoFilePath}?ref=${GITHUB_BRANCH}`;
+  const res = await fetch(apiUrl, {
+    cache: "no-store",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github.raw+json",
+      "User-Agent": "codei7-admin-dashboard",
+    },
+  });
+  if (!res.ok) {
+    throw new Error(`GitHub Contents API read failed (${res.status}) for ${repoFilePath}`);
+  }
+  return (await res.json()) as T;
+}
+
 export async function readManifest(source: "local" | "github" = "local"): Promise<DatasetManifest> {
+  const token = process.env.GITHUB_TOKEN?.trim();
+
+  // If on Vercel / production with GITHUB_TOKEN, prefer instant uncached Contents API read
+  if ((source === "github" || process.env.VERCEL === "1") && token) {
+    try {
+      return await fetchFromGithubContentsApi<DatasetManifest>("manifest.json", token);
+    } catch {
+      // fall through to raw / local
+    }
+  }
+
   if (source === "github") {
     const res = await fetch(getGithubRawUrl("manifest.json"), { cache: "no-store" });
     if (res.ok) {
       return (await res.json()) as DatasetManifest;
     }
   }
+
   if (fs.existsSync(MANIFEST_PATH)) {
     const raw = fs.readFileSync(MANIFEST_PATH, "utf8");
     return JSON.parse(raw) as DatasetManifest;
   }
+
   const fallbackRes = await fetch(getGithubRawUrl("manifest.json"), { cache: "no-store" });
   if (!fallbackRes.ok) {
     throw new Error("Unable to load dataset manifest from local storage or GitHub.");
@@ -45,6 +79,18 @@ export async function readDatasetRecords(
   const meta = manifest.datasets.find((d) => d.slug === slug);
   if (!meta) {
     throw new Error(`Dataset "${slug}" not found.`);
+  }
+
+  const token = process.env.GITHUB_TOKEN?.trim();
+
+  // In production on Vercel with GITHUB_TOKEN, read directly from GitHub Contents API for zero-lag CRUD reads
+  if ((source === "github" || process.env.VERCEL === "1") && token) {
+    try {
+      const records = await fetchFromGithubContentsApi<DataRecord[]>(meta.fileName, token);
+      return { records, meta, sourceUsed: "github" };
+    } catch {
+      // fall through
+    }
   }
 
   if (source === "github") {
@@ -83,9 +129,6 @@ async function persistDatasetAndManifest(
   const filePath = path.join(DATA_DIR, meta.fileName);
   const serializedRecords = JSON.stringify(records, null, 2);
 
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-  fs.writeFileSync(filePath, serializedRecords, "utf8");
-
   const now = new Date().toISOString();
   manifest.datasets[idx] = {
     ...meta,
@@ -96,12 +139,31 @@ async function persistDatasetAndManifest(
   manifest.totalRecords = manifest.datasets.reduce((sum, d) => sum + d.recordCount, 0);
 
   const serializedManifest = JSON.stringify(manifest, null, 2);
-  fs.writeFileSync(MANIFEST_PATH, serializedManifest, "utf8");
+  const ghToken = process.env.GITHUB_TOKEN?.trim();
 
-  // Optional GitHub Contents API push if GITHUB_TOKEN is configured
+  // Attempt local disk write (works locally / VPS; read-only on Vercel serverless)
+  let localWritten = false;
+  let localWriteError: unknown = null;
+  try {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    fs.writeFileSync(filePath, serializedRecords, "utf8");
+    fs.writeFileSync(MANIFEST_PATH, serializedManifest, "utf8");
+    localWritten = true;
+  } catch (err) {
+    localWriteError = err;
+  }
+
+  if (!localWritten && !ghToken) {
+    const msg =
+      localWriteError instanceof Error ? localWriteError.message : "Filesystem is read-only";
+    throw new Error(
+      `Cannot persist changes (${msg}). Set GITHUB_TOKEN in your deployment environment variables so CRUD writes directly to GitHub.`
+    );
+  }
+
+  // Sync to GitHub Contents API whenever GITHUB_TOKEN is configured
   let githubSynced = false;
   let githubError: string | undefined;
-  const ghToken = process.env.GITHUB_TOKEN;
   if (ghToken) {
     try {
       await pushFileToGithub(
@@ -119,6 +181,9 @@ async function persistDatasetAndManifest(
       githubSynced = true;
     } catch (err) {
       githubError = err instanceof Error ? err.message : "GitHub API sync failed";
+      if (!localWritten) {
+        throw new Error(githubError);
+      }
     }
   }
 
@@ -140,7 +205,10 @@ async function pushFileToGithub(
   };
 
   let sha: string | undefined;
-  const getRes = await fetch(`${apiUrl}?ref=${GITHUB_BRANCH}`, { headers });
+  const getRes = await fetch(`${apiUrl}?ref=${GITHUB_BRANCH}`, {
+    cache: "no-store",
+    headers,
+  });
   if (getRes.ok) {
     const existing = (await getRes.json()) as { sha?: string };
     sha = existing.sha;
@@ -237,11 +305,18 @@ export async function syncDatasetFromGithub(slug: string) {
   const meta = manifest.datasets.find((d) => d.slug === slug);
   if (!meta) throw new Error(`Dataset "${slug}" not found.`);
 
-  const res = await fetch(meta.githubRawUrl, { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error(`GitHub Raw fetch failed (${res.status}) for ${meta.githubRawUrl}`);
+  const token = process.env.GITHUB_TOKEN?.trim();
+  let remoteRecords: DataRecord[];
+  if (token) {
+    remoteRecords = await fetchFromGithubContentsApi<DataRecord[]>(meta.fileName, token);
+  } else {
+    const res = await fetch(meta.githubRawUrl, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`GitHub Raw fetch failed (${res.status}) for ${meta.githubRawUrl}`);
+    }
+    remoteRecords = (await res.json()) as DataRecord[];
   }
-  const remoteRecords = (await res.json()) as DataRecord[];
+
   const saved = await persistDatasetAndManifest(slug, remoteRecords);
   return { records: remoteRecords, ...saved };
 }

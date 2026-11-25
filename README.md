@@ -1,10 +1,30 @@
-# Codei7 Corporate Operations Admin Dashboard
+# Codei7 Operations Admin Dashboard
 
-A corporate-grade **Next.js (App Router, TypeScript, Tailwind CSS)** Admin Panel Dashboard powered by **14 public JSON datasets** converted from `Data.xlsx`, featuring **Framer Motion** animations, **TanStack DataTable**, multi-format exports, **Recharts** executive analytics, **Login-sheet session authentication**, and complete **SweetAlert2 CRUD**.
+A corporate **Next.js (App Router, TypeScript, Tailwind CSS)** Admin Panel Dashboard powered by **14 public JSON datasets** converted from `Data.xlsx`, featuring **TanStack DataTable**, multi-format exports, **Recharts** analytics, **Login-sheet session authentication**, and **SweetAlert2 CRUD** with live **GitHub Contents API persistence**.
+
+## Live Deployment Architecture (GitHub + Vercel)
+
+> **Why Vercel + GitHub?** GitHub Pages only serves static HTML/JS and cannot run Next.js API routes (`/api/auth/*`, `/api/data/*`). Deploying the GitHub repo on **Vercel** with `GITHUB_TOKEN` gives you a live HTTPS dashboard where every Create / Edit / Delete directly updates `public/data/*.json` in this GitHub repository.
+
+### 1. Push Code & Public JSON to GitHub
+```powershell
+git push -u origin main
+```
+
+### 2. Deploy Live on Vercel (Connected to GitHub)
+1. Go to [vercel.com/new](https://vercel.com/new) and import `codesi7/codei7`.
+2. Add these **Environment Variables** in Vercel Project Settings:
+   - `AUTH_SECRET` — any strong random string (e.g. 32+ chars)
+   - `GITHUB_TOKEN` — GitHub Personal Access Token (Fine-grained or classic `repo` scope for `codesi7/codei7`) so live CRUD persists directly into `public/data/*.json` on GitHub
+   - `NEXT_PUBLIC_GITHUB_OWNER` = `codesi7`
+   - `NEXT_PUBLIC_GITHUB_REPO` = `codei7`
+   - `NEXT_PUBLIC_GITHUB_BRANCH` = `main`
+   - `NEXT_PUBLIC_GITHUB_DATA_PATH` = `public/data`
+3. Click **Deploy**. Check `/api/health` to confirm `githubWriteEnabled: true`.
 
 ## Public JSON Datasets (`public/data/`)
 
-All 14 Excel sheets from `Data.xlsx` are converted into clean JSON files under `public/data/` (plus `manifest.json`):
+All 14 sheets from `Data.xlsx` are stored in `public/data/` alongside `manifest.json`:
 
 | Module | Local Endpoint | GitHub Public Raw URL |
 |---|---|---|
@@ -24,23 +44,11 @@ All 14 Excel sheets from `Data.xlsx` are converted into clean JSON files under `
 | Internet & Broadband | `/data/internet.json` | `https://raw.githubusercontent.com/codesi7/codei7/main/public/data/internet.json` |
 | NAN Outlet Wi-Fi | `/data/nan.json` | `https://raw.githubusercontent.com/codesi7/codei7/main/public/data/nan.json` |
 
-## Key Features
+## Local Development
 
-- **Authentication (`Login` Sheet)**: Sign-in verified against `public/data/login.json` with HMAC-SHA256 signed HTTP-only session cookies and route protection middleware.
-- **Executive Overview Dashboard**: Animated KPI counters, interactive Recharts visualizations (Tickets by Category & Severity, Hardware by Zone, Used Oil Collection by Division), and quick access to all 14 datasets.
-- **Enterprise DataTable (`@tanstack/react-table`)**:
-  - Instant global search + auto-detected categorical faceted dropdown filters
-  - Multi-column sorting, column visibility toggles, and table density modes
-  - Password/credential masking with per-cell reveal & copy-to-clipboard
-  - Row selection & bulk actions + Slide-over Record Inspector Drawer
-- **Complete SweetAlert2 CRUD**: Create, Edit, Delete, Bulk Delete, Login/Logout, Export Wizard, and GitHub Raw Sync all driven by corporate-themed SweetAlert2 modals and toasts.
-- **Export Suite**: Export filtered or selected rows to **Excel (`.xlsx`)**, **CSV (`.csv`)**, **JSON (`.json`)**, or **Print / PDF**.
-
-## Scripts
-
-```bash
-npm install
-npm run convert:excel   # Re-convert Data.xlsx into public/data/*.json
-npm run dev             # Start local development server
-npm run build           # Production build
+```powershell
+npm.cmd install
+npm.cmd run convert:excel   # Re-convert Data.xlsx into public/data/*.json
+npm.cmd run dev             # Start local server at http://localhost:3000
+npm.cmd run build           # Production build
 ```
