@@ -10,7 +10,7 @@ const EXCEL_PATH = path.join(ROOT, "Data.xlsx");
 const OUT_DIR = path.join(ROOT, "public", "data");
 
 const GITHUB_OWNER = process.env.NEXT_PUBLIC_GITHUB_OWNER || "codesi7";
-const GITHUB_REPO = process.env.NEXT_PUBLIC_GITHUB_REPO || "codei7";
+const GITHUB_REPO = process.env.NEXT_PUBLIC_GITHUB_REPO || "codesi7.github.io";
 const GITHUB_BRANCH = process.env.NEXT_PUBLIC_GITHUB_BRANCH || "main";
 
 const SHEET_META = {

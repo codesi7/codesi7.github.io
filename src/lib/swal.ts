@@ -270,7 +270,7 @@ export async function swalConnectGithubToken(currentToken: string): Promise<stri
     icon: "info",
     title: "Connect GitHub Write Token",
     html: `<div class="text-left text-xs sm:text-sm text-slate-500 dark:text-slate-400 space-y-2 mb-2">
-      <p>To write CRUD changes directly into <code>public/data/*.json</code> on <strong>codesi7/codei7</strong> from GitHub Pages, paste a GitHub Personal Access Token with <code>repo</code> (or <code>Contents: Read &amp; Write</code>) access.</p>
+      <p>To write CRUD changes directly into <code>public/data/*.json</code> on <strong>codesi7/codesi7.github.io</strong> from GitHub Pages, paste a GitHub Personal Access Token with <code>repo</code> (or <code>Contents: Read &amp; Write</code>) access.</p>
       <p><a href="https://github.com/settings/tokens/new?scopes=repo&description=Codei7+Admin+Dashboard" target="_blank" rel="noreferrer" class="text-blue-600 underline font-semibold">Generate Classic Token on GitHub →</a></p>
     </div>`,
     input: "password",
