@@ -123,12 +123,15 @@ async function fetchGithubApiJson<T>(fileName: string, token: string): Promise<T
   return (await res.json()) as T;
 }
 
+const GITHUB_SECRET_PATTERN = /(ghp_[A-Za-z0-9_]{16,}|github_pat_[A-Za-z0-9_]{16,}|gho_[A-Za-z0-9_]{16,}|ghu_[A-Za-z0-9_]{16,}|ghs_[A-Za-z0-9_]{16,})/;
+
 async function pushFileToGithubClient(
   fileName: string,
   content: string,
   message: string,
-  token: string
-) {
+  token: string,
+  attempt = 0
+): Promise<void> {
   const repoFilePath = `${GITHUB_DATA_PATH}/${fileName}`;
   const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoFilePath}`;
 
@@ -161,6 +164,15 @@ async function pushFileToGithubClient(
 
   if (!putRes.ok) {
     const txt = await putRes.text();
+    if (putRes.status === 409 && txt.includes("secret_scanning")) {
+      throw new Error(
+        "GitHub blocked this save because a GitHub Personal Access Token (ghp_ / github_pat_) was detected inside the record text. Remove the token from the form field (only enter tokens in 'Connect GitHub Token')."
+      );
+    }
+    // Retry once on SHA mismatch conflict
+    if (putRes.status === 409 && attempt === 0) {
+      return pushFileToGithubClient(fileName, content, message, token, 1);
+    }
     throw new Error(`GitHub commit failed (${putRes.status}): ${txt}`);
   }
 }
@@ -241,10 +253,15 @@ export async function loadDatasetClient(
   if (typeof window !== "undefined") {
     const localOverride = localStorage.getItem(`${DS_STORAGE_PREFIX}${slug}`);
     if (localOverride) {
-      try {
-        return { records: JSON.parse(localOverride) as DataRecord[], meta, manifest };
-      } catch {
-        // ignore
+      if (GITHUB_SECRET_PATTERN.test(localOverride)) {
+        // Clear poisoned browser cache containing an accidental token
+        localStorage.removeItem(`${DS_STORAGE_PREFIX}${slug}`);
+      } else {
+        try {
+          return { records: JSON.parse(localOverride) as DataRecord[], meta, manifest };
+        } catch {
+          // ignore
+        }
       }
     }
   }
@@ -332,8 +349,11 @@ async function persistDatasetClient(
   const serializedRecords = JSON.stringify(records, null, 2);
   const serializedManifest = JSON.stringify(nextManifest, null, 2);
 
-  localStorage.setItem(`${DS_STORAGE_PREFIX}${slug}`, serializedRecords);
-  localStorage.setItem(MANIFEST_STORAGE_KEY, serializedManifest);
+  if (GITHUB_SECRET_PATTERN.test(serializedRecords)) {
+    throw new Error(
+      "Cannot save a GitHub token (ghp_ / github_pat_) inside a table field. GitHub Secret Scanning blocks tokens in public JSON files. Please use a normal value instead."
+    );
+  }
 
   let githubSynced = false;
   const pat = getGithubToken();
@@ -352,6 +372,9 @@ async function persistDatasetClient(
     );
     githubSynced = true;
   }
+
+  localStorage.setItem(`${DS_STORAGE_PREFIX}${slug}`, serializedRecords);
+  localStorage.setItem(MANIFEST_STORAGE_KEY, serializedManifest);
 
   return { meta: updatedMeta, manifest: nextManifest, githubSynced };
 }
