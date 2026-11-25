@@ -59,7 +59,10 @@ export function AppShell({
   const [hasGhPat, setHasGhPat] = useState(false);
 
   useEffect(() => {
-    setHasGhPat(Boolean(getGithubToken()));
+    const syncState = () => setHasGhPat(Boolean(getGithubToken()));
+    syncState();
+    window.addEventListener("codei7-gh-token-changed", syncState);
+    return () => window.removeEventListener("codei7-gh-token-changed", syncState);
   }, []);
 
   useEffect(() => {

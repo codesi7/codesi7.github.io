@@ -41,6 +41,46 @@ export function setGithubToken(token: string) {
   } else {
     localStorage.removeItem(PAT_KEY);
   }
+  window.dispatchEvent(new Event("codei7-gh-token-changed"));
+}
+
+export async function verifyGithubToken(token: string): Promise<{ valid: boolean; message: string }> {
+  const clean = token.trim();
+  if (!clean) return { valid: false, message: "Token cannot be empty." };
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}?_=${Date.now()}`,
+      {
+        headers: {
+          Authorization: `Bearer ${clean}`,
+          Accept: "application/vnd.github+json",
+        },
+      }
+    );
+    if (!res.ok) {
+      if (res.status === 401) return { valid: false, message: "Invalid or expired GitHub token." };
+      if (res.status === 404) {
+        return {
+          valid: false,
+          message: `Token cannot access ${GITHUB_OWNER}/${GITHUB_REPO}. Check repository permissions.`,
+        };
+      }
+      return { valid: false, message: `GitHub API returned HTTP ${res.status}.` };
+    }
+    const repo = (await res.json()) as { permissions?: { push?: boolean } };
+    if (repo.permissions && repo.permissions.push === false) {
+      return {
+        valid: false,
+        message: "Token has read-only access. Enable Contents: Read & Write (or repo scope).",
+      };
+    }
+    return { valid: true, message: `Connected to ${GITHUB_OWNER}/${GITHUB_REPO}` };
+  } catch (err) {
+    return {
+      valid: false,
+      message: err instanceof Error ? err.message : "Network error verifying token.",
+    };
+  }
 }
 
 export function getSessionUser(): AuthUser | null {
@@ -70,9 +110,8 @@ function utf8ToBase64(str: string): string {
 
 async function fetchGithubApiJson<T>(fileName: string, token: string): Promise<T> {
   const repoFilePath = `${GITHUB_DATA_PATH}/${fileName}`;
-  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoFilePath}?ref=${GITHUB_BRANCH}`;
+  const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoFilePath}?ref=${GITHUB_BRANCH}&_=${Date.now()}`;
   const res = await fetch(url, {
-    cache: "no-store",
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/vnd.github.raw+json",
@@ -92,16 +131,13 @@ async function pushFileToGithubClient(
 ) {
   const repoFilePath = `${GITHUB_DATA_PATH}/${fileName}`;
   const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${repoFilePath}`;
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    Accept: "application/vnd.github+json",
-    "Content-Type": "application/json",
-  };
 
   let sha: string | undefined;
-  const getRes = await fetch(`${apiUrl}?ref=${GITHUB_BRANCH}`, {
-    cache: "no-store",
-    headers,
+  const getRes = await fetch(`${apiUrl}?ref=${GITHUB_BRANCH}&_=${Date.now()}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+    },
   });
   if (getRes.ok) {
     const existing = (await getRes.json()) as { sha?: string };
@@ -110,7 +146,11 @@ async function pushFileToGithubClient(
 
   const putRes = await fetch(apiUrl, {
     method: "PUT",
-    headers,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github+json",
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       message,
       content: utf8ToBase64(content),
@@ -138,7 +178,7 @@ export async function loadManifestClient(
         // fall through
       }
     }
-    const ghRes = await fetch(getGithubRawUrl("manifest.json"), { cache: "no-store" });
+    const ghRes = await fetch(`${getGithubRawUrl("manifest.json")}?_=${Date.now()}`);
     if (ghRes.ok) return (await ghRes.json()) as DatasetManifest;
   }
 
@@ -153,12 +193,21 @@ export async function loadManifestClient(
     }
   }
 
-  const localRes = await fetch(withBasePath("/data/manifest.json"), { cache: "no-store" });
+  // If GitHub PAT is active and no local override, read fresh from GitHub API
+  if (pat) {
+    try {
+      return await fetchGithubApiJson<DatasetManifest>("manifest.json", pat);
+    } catch {
+      // fall through
+    }
+  }
+
+  const localRes = await fetch(withBasePath("/data/manifest.json"));
   if (localRes.ok) {
     return (await localRes.json()) as DatasetManifest;
   }
 
-  const fallbackRes = await fetch(getGithubRawUrl("manifest.json"), { cache: "no-store" });
+  const fallbackRes = await fetch(`${getGithubRawUrl("manifest.json")}?_=${Date.now()}`);
   if (!fallbackRes.ok) throw new Error("Unable to load dataset manifest.");
   return (await fallbackRes.json()) as DatasetManifest;
 }
@@ -177,12 +226,13 @@ export async function loadDatasetClient(
     if (pat) {
       try {
         const records = await fetchGithubApiJson<DataRecord[]>(meta.fileName, pat);
+        localStorage.setItem(`${DS_STORAGE_PREFIX}${slug}`, JSON.stringify(records, null, 2));
         return { records, meta, manifest };
       } catch {
         // fall through
       }
     }
-    const ghRes = await fetch(meta.githubRawUrl, { cache: "no-store" });
+    const ghRes = await fetch(`${meta.githubRawUrl}?_=${Date.now()}`);
     if (ghRes.ok) {
       return { records: (await ghRes.json()) as DataRecord[], meta, manifest };
     }
@@ -199,12 +249,21 @@ export async function loadDatasetClient(
     }
   }
 
-  const res = await fetch(withBasePath(meta.localUrl), { cache: "no-store" });
+  if (pat) {
+    try {
+      const records = await fetchGithubApiJson<DataRecord[]>(meta.fileName, pat);
+      return { records, meta, manifest };
+    } catch {
+      // fall through
+    }
+  }
+
+  const res = await fetch(withBasePath(meta.localUrl));
   if (res.ok) {
     return { records: (await res.json()) as DataRecord[], meta, manifest };
   }
 
-  const fallbackRes = await fetch(meta.githubRawUrl, { cache: "no-store" });
+  const fallbackRes = await fetch(`${meta.githubRawUrl}?_=${Date.now()}`);
   if (!fallbackRes.ok) throw new Error(`Unable to load "${slug}" dataset.`);
   return { records: (await fallbackRes.json()) as DataRecord[], meta, manifest };
 }
@@ -295,6 +354,20 @@ async function persistDatasetClient(
   }
 
   return { meta: updatedMeta, manifest: nextManifest, githubSynced };
+}
+
+export async function pushCurrentDatasetToGithub(slug: string): Promise<{
+  meta: DatasetMeta;
+  manifest: DatasetManifest;
+  recordCount: number;
+}> {
+  const pat = getGithubToken();
+  if (!pat) {
+    throw new Error("Connect a GitHub Personal Access Token first.");
+  }
+  const { records } = await loadDatasetClient(slug, "local");
+  const saved = await persistDatasetClient(slug, records);
+  return { meta: saved.meta, manifest: saved.manifest, recordCount: records.length };
 }
 
 export async function createRecordClient(
@@ -393,7 +466,7 @@ export async function syncFromGithubClient(slug: string): Promise<{
   if (pat) {
     remoteRecords = await fetchGithubApiJson<DataRecord[]>(meta.fileName, pat);
   } else {
-    const res = await fetch(meta.githubRawUrl, { cache: "no-store" });
+    const res = await fetch(`${meta.githubRawUrl}?_=${Date.now()}`);
     if (!res.ok) throw new Error(`GitHub Raw fetch failed (${res.status}).`);
     remoteRecords = (await res.json()) as DataRecord[];
   }

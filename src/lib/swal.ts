@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import type { ColumnSchema, DataRecord } from "./types";
+import { verifyGithubToken } from "./client-store";
 
 function isDarkMode(): boolean {
   if (typeof document === "undefined") return false;
@@ -267,22 +268,52 @@ export async function swalConnectGithubToken(currentToken: string): Promise<stri
   const result = await Swal.fire({
     ...baseThemeOptions(),
     icon: "info",
-    title: "GitHub Direct Commit Token",
-    html: `<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-2">
-      Optional: Enter a GitHub Personal Access Token (<code>Contents: Read &amp; Write</code> on <strong>codesi7/codei7</strong>) to commit CRUD edits directly to GitHub from GitHub Pages. Leave empty to store edits in this browser only.
-    </p>`,
+    title: "Connect GitHub Write Token",
+    html: `<div class="text-left text-xs sm:text-sm text-slate-500 dark:text-slate-400 space-y-2 mb-2">
+      <p>To write CRUD changes directly into <code>public/data/*.json</code> on <strong>codesi7/codei7</strong> from GitHub Pages, paste a GitHub Personal Access Token with <code>repo</code> (or <code>Contents: Read &amp; Write</code>) access.</p>
+      <p><a href="https://github.com/settings/tokens/new?scopes=repo&description=Codei7+Admin+Dashboard" target="_blank" rel="noreferrer" class="text-blue-600 underline font-semibold">Generate Classic Token on GitHub →</a></p>
+    </div>`,
     input: "password",
     inputValue: currentToken,
     inputPlaceholder: "ghp_... or github_pat_...",
     showCancelButton: true,
     showDenyButton: Boolean(currentToken),
-    confirmButtonText: "Save Token",
+    confirmButtonText: "Verify & Save Token",
     denyButtonText: "Disconnect Token",
     cancelButtonText: "Cancel",
+    showLoaderOnConfirm: true,
+    preConfirm: async (val) => {
+      const token = String(val ?? "").trim();
+      const check = await verifyGithubToken(token);
+      if (!check.valid) {
+        Swal.showValidationMessage(check.message);
+        return false;
+      }
+      return token;
+    },
   });
   if (result.isDenied) return "";
   if (!result.isConfirmed) return undefined;
   return String(result.value ?? "").trim();
+}
+
+export async function swalPromptGithubWriteBeforeSave(): Promise<"connect" | "browser" | "cancel"> {
+  const result = await Swal.fire({
+    ...baseThemeOptions(),
+    icon: "warning",
+    title: "GitHub Write Not Connected",
+    html: `<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+      Without a GitHub Token, changes only save inside your browser (<code>localStorage</code>) and will <strong>not</strong> update the public JSON file on GitHub.
+    </p>`,
+    showCancelButton: true,
+    showDenyButton: true,
+    confirmButtonText: "Connect GitHub Token",
+    denyButtonText: "Save in Browser Only",
+    cancelButtonText: "Cancel",
+  });
+  if (result.isConfirmed) return "connect";
+  if (result.isDenied) return "browser";
+  return "cancel";
 }
 
 function escapeHtml(str: string): string {

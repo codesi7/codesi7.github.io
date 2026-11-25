@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   flexRender,
   getCoreRowModel,
@@ -54,8 +54,10 @@ import { exportAsCsv, exportAsJson, exportAsXlsx } from "@/lib/export-utils";
 import {
   swalConfirmBulkDelete,
   swalConfirmDelete,
+  swalConnectGithubToken,
   swalError,
   swalExportPicker,
+  swalPromptGithubWriteBeforeSave,
   swalRecordFormModal,
   swalSuccess,
   swalSyncGithubConfirm,
@@ -65,7 +67,10 @@ import {
   bulkDeleteRecordsClient,
   createRecordClient,
   deleteRecordClient,
+  getGithubToken,
   loadDatasetClient,
+  pushCurrentDatasetToGithub,
+  setGithubToken,
   syncFromGithubClient,
   updateRecordClient,
   withBasePath,
@@ -126,6 +131,67 @@ export function DatasetDataTable({
   const [revealedCells, setRevealedCells] = useState<Record<string, boolean>>({});
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [inspectRecord, setInspectRecord] = useState<DataRecord | null>(null);
+  const [hasGhPat, setHasGhPat] = useState(false);
+
+  useEffect(() => {
+    const syncPat = () => setHasGhPat(Boolean(getGithubToken()));
+    syncPat();
+    window.addEventListener("codei7-gh-token-changed", syncPat);
+    return () => window.removeEventListener("codei7-gh-token-changed", syncPat);
+  }, []);
+
+  const ensureGithubWriteOrContinue = useCallback(async (): Promise<boolean> => {
+    if (getGithubToken()) return true;
+    const choice = await swalPromptGithubWriteBeforeSave();
+    if (choice === "cancel") return false;
+    if (choice === "connect") {
+      const token = await swalConnectGithubToken("");
+      if (!token) return false;
+      setGithubToken(token);
+      setHasGhPat(true);
+      await swalToast("GitHub Write Token verified & connected", "success");
+    }
+    return true;
+  }, []);
+
+  const handleConnectTokenOnly = async () => {
+    const res = await swalConnectGithubToken(getGithubToken());
+    if (res === undefined) return;
+    setGithubToken(res || "");
+    setHasGhPat(Boolean(res));
+    await swalToast(
+      res ? "GitHub Write Token connected" : "Disconnected GitHub Token",
+      "info"
+    );
+  };
+
+  const handlePushLocalToGithub = async () => {
+    let token = getGithubToken();
+    if (!token) {
+      const entered = await swalConnectGithubToken("");
+      if (!entered) return;
+      setGithubToken(entered);
+      setHasGhPat(true);
+      token = entered;
+    }
+    setLoading(true);
+    try {
+      const res = await pushCurrentDatasetToGithub(meta.slug);
+      setMeta(res.meta);
+      setManifest(res.manifest);
+      await swalSuccess(
+        "Committed to GitHub!",
+        `Pushed ${res.recordCount} records to public/data/${meta.fileName} on GitHub.`
+      );
+    } catch (err) {
+      await swalError(
+        "GitHub Commit Failed",
+        err instanceof Error ? err.message : "Could not commit to GitHub."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const reloadData = useCallback(
     async (src: "local" | "github") => {
@@ -196,6 +262,9 @@ export function DatasetDataTable({
   };
 
   const handleCreate = useCallback(async () => {
+    const okToProceed = await ensureGithubWriteOrContinue();
+    if (!okToProceed) return;
+
     const payload = await swalRecordFormModal({
       mode: "create",
       datasetTitle: meta.title,
@@ -211,16 +280,19 @@ export function DatasetDataTable({
       await swalSuccess(
         "Record Created",
         res.githubSynced
-          ? "Saved in browser and committed directly to GitHub."
-          : "Added locally in browser. Connect a GitHub Write Token to commit to GitHub."
+          ? `Committed directly to public/data/${meta.fileName} on GitHub.`
+          : "Saved in browser storage only (connect GitHub Write Token to commit to JSON on GitHub)."
       );
     } catch (err) {
       await swalError("Create Failed", err instanceof Error ? err.message : "Error creating record.");
     }
-  }, [meta.columns, meta.slug, meta.title]);
+  }, [ensureGithubWriteOrContinue, meta.columns, meta.fileName, meta.slug, meta.title]);
 
   const handleEdit = useCallback(
     async (rowRecord: DataRecord) => {
+      const okToProceed = await ensureGithubWriteOrContinue();
+      if (!okToProceed) return;
+
       const payload = await swalRecordFormModal({
         mode: "edit",
         datasetTitle: meta.title,
@@ -240,18 +312,21 @@ export function DatasetDataTable({
         await swalSuccess(
           "Record Updated",
           res.githubSynced
-            ? "Updated in browser and committed directly to GitHub."
-            : "Updated locally in browser."
+            ? `Updated public/data/${meta.fileName} on GitHub.`
+            : "Updated in browser storage only."
         );
       } catch (err) {
         await swalError("Update Failed", err instanceof Error ? err.message : "Error updating record.");
       }
     },
-    [inspectRecord?._id, meta.columns, meta.slug, meta.title]
+    [ensureGithubWriteOrContinue, inspectRecord?._id, meta.columns, meta.fileName, meta.slug, meta.title]
   );
 
   const handleDelete = useCallback(
     async (rowRecord: DataRecord) => {
+      const okToProceed = await ensureGithubWriteOrContinue();
+      if (!okToProceed) return;
+
       const firstKey = meta.columns[0]?.key;
       const label = firstKey ? String(rowRecord[firstKey] || rowRecord._id) : rowRecord._id;
       const confirmed = await swalConfirmDelete(label, rowRecord._id);
@@ -266,14 +341,14 @@ export function DatasetDataTable({
         await swalSuccess(
           "Record Deleted",
           res.githubSynced
-            ? "Removed from browser and committed to GitHub."
-            : "Removed from browser storage."
+            ? `Removed and committed to public/data/${meta.fileName} on GitHub.`
+            : "Removed from browser storage only."
         );
       } catch (err) {
         await swalError("Delete Failed", err instanceof Error ? err.message : "Error deleting record.");
       }
     },
-    [inspectRecord?._id, meta.columns, meta.slug]
+    [ensureGithubWriteOrContinue, inspectRecord?._id, meta.columns, meta.fileName, meta.slug]
   );
 
   const columns = useMemo<ColumnDef<DataRecord>[]>(() => {
@@ -455,6 +530,8 @@ export function DatasetDataTable({
 
   const handleBulkDelete = async () => {
     if (selectedRows.length === 0) return;
+    const okToProceed = await ensureGithubWriteOrContinue();
+    if (!okToProceed) return;
     const confirmed = await swalConfirmBulkDelete(selectedRows.length);
     if (!confirmed) return;
 
@@ -676,18 +753,43 @@ export function DatasetDataTable({
               </div>
             </div>
 
-            {/* Public JSON Strip */}
-            <div className="no-print mt-3.5 flex flex-col gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs sm:flex-row sm:items-center sm:justify-between dark:border-slate-800 dark:bg-slate-950/60">
-              <div className="flex items-center gap-2 min-w-0">
+            {/* Public JSON & GitHub Write Status Strip */}
+            <div className="no-print mt-3.5 flex flex-col gap-2 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs lg:flex-row lg:items-center lg:justify-between dark:border-slate-800 dark:bg-slate-950/60">
+              <div className="flex flex-wrap items-center gap-2 min-w-0">
                 <Github className="h-3.5 w-3.5 shrink-0 text-slate-500" />
-                <span className="font-medium text-slate-700 dark:text-slate-300 shrink-0">
-                  Public JSON:
+                <span
+                  className={`inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-semibold ${
+                    hasGhPat
+                      ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-300"
+                      : "bg-amber-500/15 text-amber-700 dark:text-amber-300"
+                  }`}
+                >
+                  {hasGhPat ? "GitHub Write: Connected" : "Browser Only (Connect Token to Write GitHub)"}
                 </span>
                 <code className="truncate font-mono text-[11px] text-blue-600 dark:text-blue-400">
                   {meta.githubRawUrl}
                 </code>
               </div>
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => void handleConnectTokenOnly()}
+                  className={`inline-flex items-center gap-1 rounded border px-2 py-1 text-[11px] font-medium transition-colors ${
+                    hasGhPat
+                      ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                      : "border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-300"
+                  }`}
+                >
+                  {hasGhPat ? "Token Active" : "Connect GitHub Token"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void handlePushLocalToGithub()}
+                  disabled={loading}
+                  className="inline-flex items-center gap-1 rounded border border-blue-200 bg-blue-50 px-2 py-1 text-[11px] font-semibold text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-300"
+                >
+                  Push to GitHub
+                </button>
                 <button
                   type="button"
                   onClick={() => void copyValue(meta.githubRawUrl, "gh-raw-url")}
@@ -698,15 +800,23 @@ export function DatasetDataTable({
                   ) : (
                     <Copy className="h-3 w-3" />
                   )}
-                  Copy URL
+                  Copy Raw
                 </button>
+                <a
+                  href={meta.githubBlobUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+                >
+                  GitHub File <ExternalLink className="h-3 w-3" />
+                </a>
                 <a
                   href={withBasePath(meta.localUrl)}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                 >
-                  Open JSON <ExternalLink className="h-3 w-3" />
+                  Pages JSON <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
             </div>
