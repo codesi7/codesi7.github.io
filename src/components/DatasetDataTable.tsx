@@ -61,6 +61,15 @@ import {
   swalSyncGithubConfirm,
   swalToast,
 } from "@/lib/swal";
+import {
+  bulkDeleteRecordsClient,
+  createRecordClient,
+  deleteRecordClient,
+  loadDatasetClient,
+  syncFromGithubClient,
+  updateRecordClient,
+  withBasePath,
+} from "@/lib/client-store";
 
 function getBadgeClasses(value: string): string {
   const v = value.trim().toLowerCase();
@@ -122,17 +131,10 @@ export function DatasetDataTable({
     async (src: "local" | "github") => {
       setLoading(true);
       try {
-        const res = await fetch(`/api/data/${meta.slug}?source=${src}`, { cache: "no-store" });
-        const json = (await res.json()) as {
-          records?: DataRecord[];
-          meta?: DatasetMeta;
-          error?: string;
-        };
-        if (!res.ok || !json.records) {
-          throw new Error(json.error || "Failed to fetch dataset.");
-        }
-        setRecords(json.records);
-        if (json.meta) setMeta(json.meta);
+        const res = await loadDatasetClient(meta.slug, src);
+        setRecords(res.records);
+        setMeta(res.meta);
+        setManifest(res.manifest);
         setRowSelection({});
       } catch (err) {
         await swalError(
@@ -202,35 +204,15 @@ export function DatasetDataTable({
     if (!payload) return;
 
     try {
-      const res = await fetch(`/api/data/${meta.slug}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const json = (await res.json()) as {
-        record?: DataRecord;
-        meta?: DatasetMeta;
-        githubSynced?: boolean;
-        error?: string;
-      };
-      if (!res.ok || !json.record) {
-        throw new Error(json.error || "Failed to create record.");
-      }
-
-      setRecords((prev) => [json.record!, ...prev]);
-      if (json.meta) {
-        setMeta(json.meta);
-        setManifest((m) => ({
-          ...m,
-          totalRecords: m.totalRecords + 1,
-          datasets: m.datasets.map((d) => (d.slug === meta.slug ? json.meta! : d)),
-        }));
-      }
+      const res = await createRecordClient(meta.slug, payload);
+      setRecords((prev) => [res.record, ...prev]);
+      setMeta(res.meta);
+      setManifest(res.manifest);
       await swalSuccess(
         "Record Created",
-        json.githubSynced
-          ? "Saved locally and synced to GitHub."
-          : "Added to the JSON dataset."
+        res.githubSynced
+          ? "Saved in browser and committed directly to GitHub."
+          : "Added locally in browser. Connect a GitHub Write Token to commit to GitHub."
       );
     } catch (err) {
       await swalError("Create Failed", err instanceof Error ? err.message : "Error creating record.");
@@ -248,30 +230,18 @@ export function DatasetDataTable({
       if (!payload) return;
 
       try {
-        const res = await fetch(`/api/data/${meta.slug}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ _id: rowRecord._id, data: payload }),
-        });
-        const json = (await res.json()) as {
-          record?: DataRecord;
-          meta?: DatasetMeta;
-          githubSynced?: boolean;
-          error?: string;
-        };
-        if (!res.ok || !json.record) {
-          throw new Error(json.error || "Failed to update record.");
-        }
-
-        setRecords((prev) => prev.map((r) => (r._id === rowRecord._id ? json.record! : r)));
+        const res = await updateRecordClient(meta.slug, rowRecord._id, payload);
+        setRecords((prev) => prev.map((r) => (r._id === rowRecord._id ? res.record : r)));
+        setMeta(res.meta);
+        setManifest(res.manifest);
         if (inspectRecord?._id === rowRecord._id) {
-          setInspectRecord(json.record);
+          setInspectRecord(res.record);
         }
         await swalSuccess(
           "Record Updated",
-          json.githubSynced
-            ? "Changes saved locally and pushed to GitHub."
-            : "Dataset updated successfully."
+          res.githubSynced
+            ? "Updated in browser and committed directly to GitHub."
+            : "Updated locally in browser."
         );
       } catch (err) {
         await swalError("Update Failed", err instanceof Error ? err.message : "Error updating record.");
@@ -288,28 +258,17 @@ export function DatasetDataTable({
       if (!confirmed) return;
 
       try {
-        const res = await fetch(`/api/data/${meta.slug}?id=${encodeURIComponent(rowRecord._id)}`, {
-          method: "DELETE",
-        });
-        const json = (await res.json()) as {
-          meta?: DatasetMeta;
-          error?: string;
-        };
-        if (!res.ok) {
-          throw new Error(json.error || "Delete failed.");
-        }
-
+        const res = await deleteRecordClient(meta.slug, rowRecord._id);
         setRecords((prev) => prev.filter((r) => r._id !== rowRecord._id));
         if (inspectRecord?._id === rowRecord._id) setInspectRecord(null);
-        if (json.meta) {
-          setMeta(json.meta);
-          setManifest((m) => ({
-            ...m,
-            totalRecords: Math.max(0, m.totalRecords - 1),
-            datasets: m.datasets.map((d) => (d.slug === meta.slug ? json.meta! : d)),
-          }));
-        }
-        await swalSuccess("Record Deleted", "Entry removed from JSON datastore.");
+        setMeta(res.meta);
+        setManifest(res.manifest);
+        await swalSuccess(
+          "Record Deleted",
+          res.githubSynced
+            ? "Removed from browser and committed to GitHub."
+            : "Removed from browser storage."
+        );
       } catch (err) {
         await swalError("Delete Failed", err instanceof Error ? err.message : "Error deleting record.");
       }
@@ -501,30 +460,18 @@ export function DatasetDataTable({
 
     const ids = selectedRows.map((r) => r._id);
     try {
-      const res = await fetch(`/api/data/${meta.slug}`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids }),
-      });
-      const json = (await res.json()) as {
-        deletedCount?: number;
-        meta?: DatasetMeta;
-        error?: string;
-      };
-      if (!res.ok) throw new Error(json.error || "Bulk delete failed.");
-
+      const res = await bulkDeleteRecordsClient(meta.slug, ids);
       const idSet = new Set(ids);
       setRecords((prev) => prev.filter((r) => !idSet.has(r._id)));
       setRowSelection({});
-      if (json.meta) {
-        setMeta(json.meta);
-        setManifest((m) => ({
-          ...m,
-          totalRecords: Math.max(0, m.totalRecords - (json.deletedCount || ids.length)),
-          datasets: m.datasets.map((d) => (d.slug === meta.slug ? json.meta! : d)),
-        }));
-      }
-      await swalSuccess("Bulk Delete Complete", `${json.deletedCount ?? ids.length} records removed.`);
+      setMeta(res.meta);
+      setManifest(res.manifest);
+      await swalSuccess(
+        "Bulk Delete Complete",
+        res.githubSynced
+          ? `${res.deletedCount} records deleted and committed to GitHub.`
+          : `${res.deletedCount} records removed.`
+      );
     } catch (err) {
       await swalError("Bulk Delete Failed", err instanceof Error ? err.message : "Error deleting.");
     }
@@ -562,20 +509,13 @@ export function DatasetDataTable({
     if (!ok) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/data/${meta.slug}/sync`, { method: "POST" });
-      const json = (await res.json()) as {
-        records?: DataRecord[];
-        meta?: DatasetMeta;
-        error?: string;
-      };
-      if (!res.ok || !json.records) {
-        throw new Error(json.error || "GitHub sync failed.");
-      }
-      setRecords(json.records);
-      if (json.meta) setMeta(json.meta);
+      const res = await syncFromGithubClient(meta.slug);
+      setRecords(res.records);
+      setMeta(res.meta);
+      setManifest(res.manifest);
       await swalSuccess(
         "Synced from GitHub",
-        `Loaded ${json.records.length} records from public GitHub JSON.`
+        `Loaded ${res.records.length} records from public GitHub JSON.`
       );
     } catch (err) {
       await swalError(
@@ -761,7 +701,7 @@ export function DatasetDataTable({
                   Copy URL
                 </button>
                 <a
-                  href={meta.localUrl}
+                  href={withBasePath(meta.localUrl)}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1 rounded border border-slate-200 bg-white px-2 py-1 text-[11px] font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"

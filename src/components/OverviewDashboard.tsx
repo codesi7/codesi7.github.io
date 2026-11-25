@@ -34,6 +34,7 @@ import { AppShell } from "./AppShell";
 import { AnimatedCounter, FadeInSection } from "./MotionPrimitives";
 import { DatasetIcon } from "./IconResolver";
 import { swalToast } from "@/lib/swal";
+import { loadOverviewClient, withBasePath } from "@/lib/client-store";
 
 const PIE_COLORS = ["#dc2626", "#ea580c", "#d97706", "#2563eb", "#64748b"];
 
@@ -55,15 +56,9 @@ export function OverviewDashboard({
   const loadOverview = useCallback(async (src: "local" | "github") => {
     setRefreshing(true);
     try {
-      const res = await fetch(`/api/overview?source=${src}`, { cache: "no-store" });
-      if (res.ok) {
-        const data = (await res.json()) as {
-          manifest: DatasetManifest;
-          stats: DashboardOverviewStats;
-        };
-        setManifest(data.manifest);
-        setStats(data.stats);
-      }
+      const data = await loadOverviewClient(src);
+      setManifest(data.manifest);
+      setStats(data.stats);
     } finally {
       setRefreshing(false);
     }
@@ -459,7 +454,7 @@ export function OverviewDashboard({
                         Raw URL
                       </button>
                       <a
-                        href={ds.localUrl}
+                        href={withBasePath(ds.localUrl)}
                         target="_blank"
                         rel="noreferrer"
                         title="Open JSON"

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -12,6 +12,7 @@ import {
   Mail,
 } from "lucide-react";
 import Swal from "sweetalert2";
+import { getSessionUser, loginWithSheet } from "@/lib/client-store";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -19,6 +20,12 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (getSessionUser()) {
+      router.replace("/");
+    }
+  }, [router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,43 +41,21 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = (await res.json()) as {
-        user?: { name: string; role: string };
-        error?: string;
-      };
-
-      if (!res.ok || !data.user) {
-        await Swal.fire({
-          icon: "error",
-          title: "Sign-In Failed",
-          text: data.error || "Invalid email or password.",
-          confirmButtonColor: "#dc2626",
-        });
-        setLoading(false);
-        return;
-      }
-
+      const user = await loginWithSheet(email, password);
       await Swal.fire({
         icon: "success",
-        title: `Welcome, ${data.user.name}`,
-        text: `Signed in (${data.user.role.toUpperCase()})`,
-        timer: 1200,
+        title: `Welcome, ${user.name}`,
+        text: `Signed in (${user.role.toUpperCase()})`,
+        timer: 1100,
         showConfirmButton: false,
         timerProgressBar: true,
       });
-
-      router.push("/");
-      router.refresh();
-    } catch {
+      router.replace("/");
+    } catch (err) {
       await Swal.fire({
         icon: "error",
-        title: "Connection Error",
-        text: "Unable to reach the authentication endpoint.",
+        title: "Sign-In Failed",
+        text: err instanceof Error ? err.message : "Invalid email or password.",
         confirmButtonColor: "#dc2626",
       });
       setLoading(false);
@@ -84,7 +69,6 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-screen flex-col lg:flex-row bg-slate-50 dark:bg-[#0b1120]">
-      {/* Left Enterprise Brand Column */}
       <div className="hidden lg:flex lg:w-[46%] flex-col justify-between bg-[#0f172a] p-12 text-slate-100 border-r border-slate-800">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-600 text-white">
@@ -105,8 +89,8 @@ export default function LoginPage() {
               Centralized outlet infrastructure, hardware inventory, and ticket administration.
             </h1>
             <p className="text-sm leading-relaxed text-slate-400">
-              Access 14 live operational datasets synced with public GitHub JSON storage, export
-              audited reports, and manage records with role-verified session control.
+              Hosted on GitHub Pages with 14 live JSON datasets from the repository, multi-format
+              exports, and SweetAlert2 CRUD workflows.
             </p>
           </div>
 
@@ -116,8 +100,8 @@ export default function LoginPage() {
               <p className="mt-0.5 text-slate-400">Inventory, POS, CCTV &amp; ISP</p>
             </div>
             <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-3.5">
-              <p className="font-semibold text-white">Public JSON API</p>
-              <p className="mt-0.5 text-slate-400">GitHub Raw &amp; Local sync</p>
+              <p className="font-semibold text-white">GitHub Hosted</p>
+              <p className="mt-0.5 text-slate-400">Public JSON &amp; API sync</p>
             </div>
           </div>
         </div>
@@ -127,12 +111,11 @@ export default function LoginPage() {
         </p>
       </div>
 
-      {/* Right Sign-In Container */}
       <div className="flex flex-1 items-center justify-center p-5 sm:p-8 lg:p-12">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.25 }}
+          transition={{ duration: 0.22 }}
           className="w-full max-w-md rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8 dark:border-slate-800 dark:bg-slate-900"
         >
           <div className="mb-6 flex items-center gap-2.5 lg:hidden">

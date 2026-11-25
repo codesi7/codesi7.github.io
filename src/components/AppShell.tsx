@@ -12,6 +12,7 @@ import {
   Database,
   ExternalLink,
   Github,
+  KeyRound,
   LayoutDashboard,
   LogOut,
   Menu,
@@ -23,7 +24,8 @@ import {
 import type { AuthUser, DatasetManifest } from "@/lib/types";
 import { DatasetIcon } from "./IconResolver";
 import { useTheme } from "./ThemeProvider";
-import { swalLogoutConfirm, swalToast } from "@/lib/swal";
+import { swalConnectGithubToken, swalLogoutConfirm, swalToast } from "@/lib/swal";
+import { getGithubToken, logoutUser, setGithubToken, withBasePath } from "@/lib/client-store";
 
 const CATEGORY_ORDER = [
   "Operations & Incidents",
@@ -54,6 +56,11 @@ export function AppShell({
   const [cmdOpen, setCmdOpen] = useState(false);
   const [cmdQuery, setCmdQuery] = useState("");
   const [githubHubOpen, setGithubHubOpen] = useState(false);
+  const [hasGhPat, setHasGhPat] = useState(false);
+
+  useEffect(() => {
+    setHasGhPat(Boolean(getGithubToken()));
+  }, []);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -95,15 +102,24 @@ export function AppShell({
   const handleLogout = async () => {
     const confirmed = await swalLogoutConfirm();
     if (!confirmed) return;
-    await fetch("/api/auth/logout", { method: "POST" });
+    logoutUser();
     await swalToast("Signed out", "info");
-    router.push("/login");
-    router.refresh();
+    router.replace("/login");
+  };
+
+  const handleConfigurePat = async () => {
+    const res = await swalConnectGithubToken(getGithubToken());
+    if (res === undefined) return;
+    setGithubToken(res || "");
+    setHasGhPat(Boolean(res));
+    await swalToast(
+      res ? "GitHub Commit Token saved for live repo CRUD" : "Disconnected GitHub Token",
+      "info"
+    );
   };
 
   const sidebarContent = (
     <div className="flex h-full flex-col">
-      {/* Corporate Brand */}
       <div className="flex h-14 items-center justify-between border-b border-slate-200 px-3.5 dark:border-slate-800">
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-600 text-white">
@@ -130,14 +146,13 @@ export function AppShell({
         </button>
       </div>
 
-      {/* Navigation */}
       <div className="flex-1 overflow-y-auto px-2.5 py-3 space-y-4">
         <div>
           <Link
             href="/"
             onClick={() => setMobileOpen(false)}
             className={`relative flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-[13px] font-semibold transition-colors ${
-              pathname === "/"
+              pathname === "/" || pathname === ""
                 ? "bg-blue-600 text-white"
                 : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800/70 dark:hover:text-white"
             }`}
@@ -156,7 +171,7 @@ export function AppShell({
             )}
             {items.map((ds) => {
               const href = `/datasets/${ds.slug}`;
-              const active = pathname === href;
+              const active = pathname.startsWith(href);
               return (
                 <Link
                   key={ds.slug}
@@ -191,7 +206,6 @@ export function AppShell({
         ))}
       </div>
 
-      {/* Footer GitHub JSON Registry */}
       <div className="border-t border-slate-200 p-2.5 dark:border-slate-800">
         <button
           type="button"
@@ -219,7 +233,6 @@ export function AppShell({
 
   return (
     <div className="flex min-h-screen w-full overflow-x-hidden bg-[#f8fafc] dark:bg-[#0b1120]">
-      {/* Desktop Sidebar */}
       <aside
         className={`hidden lg:flex flex-col shrink-0 border-r border-slate-200 bg-white transition-all duration-200 dark:border-slate-800 dark:bg-slate-900 ${
           collapsed ? "w-[64px]" : "w-[256px]"
@@ -228,7 +241,6 @@ export function AppShell({
         {sidebarContent}
       </aside>
 
-      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -252,9 +264,7 @@ export function AppShell({
         )}
       </AnimatePresence>
 
-      {/* Main Content Area */}
       <div className="flex min-w-0 flex-1 flex-col">
-        {/* Top Bar */}
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-2 border-b border-slate-200 bg-white/95 px-3 backdrop-blur-sm sm:px-5 dark:border-slate-800 dark:bg-slate-900/95">
           <div className="flex items-center gap-2 min-w-0">
             <button
@@ -272,7 +282,7 @@ export function AppShell({
               className="flex items-center gap-2 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-500 hover:border-slate-300 hover:bg-white sm:w-56 md:w-64 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400 transition-colors"
             >
               <Search className="h-3.5 w-3.5 shrink-0" />
-              <span className="truncate hidden xs:inline sm:inline">Search datasets...</span>
+              <span className="truncate hidden sm:inline">Search datasets...</span>
               <span className="truncate sm:hidden">Search...</span>
               <kbd className="ml-auto hidden sm:inline-block rounded border border-slate-300 bg-white px-1.5 py-0.5 font-mono text-[10px] text-slate-500 dark:border-slate-700 dark:bg-slate-900">
                 Ctrl+K
@@ -281,13 +291,12 @@ export function AppShell({
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* Source Switcher */}
             {onChangeDataSource && (
               <div className="flex items-center rounded-lg border border-slate-200 bg-slate-100 p-0.5 text-[11px] dark:border-slate-800 dark:bg-slate-950">
                 <button
                   type="button"
                   onClick={() => onChangeDataSource("local")}
-                  title="Read from Local JSON"
+                  title="Browser + Static JSON"
                   className={`flex items-center gap-1 rounded-md px-2 py-1 font-medium transition-colors ${
                     dataSource === "local"
                       ? "bg-white text-slate-900 shadow-2xs dark:bg-slate-800 dark:text-white"
@@ -300,7 +309,7 @@ export function AppShell({
                 <button
                   type="button"
                   onClick={() => onChangeDataSource("github")}
-                  title="Read from GitHub Public Raw JSON"
+                  title="GitHub Public Raw JSON"
                   className={`flex items-center gap-1 rounded-md px-2 py-1 font-medium transition-colors ${
                     dataSource === "github"
                       ? "bg-white text-blue-600 shadow-2xs dark:bg-slate-800 dark:text-blue-400"
@@ -312,6 +321,20 @@ export function AppShell({
                 </button>
               </div>
             )}
+
+            <button
+              type="button"
+              onClick={() => void handleConfigurePat()}
+              title={hasGhPat ? "GitHub Write Token Connected" : "Connect GitHub Write Token"}
+              className={`flex h-8 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-medium transition-colors ${
+                hasGhPat
+                  ? "border-emerald-300 bg-emerald-50 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300"
+                  : "border-slate-200 text-slate-700 hover:bg-slate-100 dark:border-slate-800 dark:text-slate-200 dark:hover:bg-slate-800"
+              }`}
+            >
+              <KeyRound className="h-3.5 w-3.5" />
+              <span className="hidden xl:inline">{hasGhPat ? "GitHub Write On" : "GitHub Write"}</span>
+            </button>
 
             <button
               type="button"
@@ -357,7 +380,6 @@ export function AppShell({
         <main className="min-w-0 flex-1 p-3 sm:p-5 lg:p-6">{children}</main>
       </div>
 
-      {/* Quick-Jump Modal */}
       <AnimatePresence>
         {cmdOpen && (
           <motion.div
@@ -426,7 +448,6 @@ export function AppShell({
         )}
       </AnimatePresence>
 
-      {/* Public GitHub JSON Registry Modal */}
       <AnimatePresence>
         {githubHubOpen && (
           <motion.div
@@ -452,7 +473,7 @@ export function AppShell({
                       Public JSON Registry
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400">
-                      {manifest.totalDatasets} converted sheets • Local &amp; GitHub Raw URLs
+                      {manifest.totalDatasets} converted sheets • Static &amp; GitHub Raw URLs
                     </p>
                   </div>
                 </div>
@@ -485,12 +506,12 @@ export function AppShell({
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       <a
-                        href={ds.localUrl}
+                        href={withBasePath(ds.localUrl)}
                         target="_blank"
                         rel="noreferrer"
                         className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
                       >
-                        Local <ExternalLink className="h-3 w-3" />
+                        Pages JSON <ExternalLink className="h-3 w-3" />
                       </a>
                       <a
                         href={ds.githubRawUrl}

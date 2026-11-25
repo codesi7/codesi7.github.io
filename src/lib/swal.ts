@@ -263,6 +263,28 @@ export async function swalExportPicker(rowCount: number): Promise<"xlsx" | "csv"
   return result.value as "xlsx" | "csv" | "json" | "print";
 }
 
+export async function swalConnectGithubToken(currentToken: string): Promise<string | null | undefined> {
+  const result = await Swal.fire({
+    ...baseThemeOptions(),
+    icon: "info",
+    title: "GitHub Direct Commit Token",
+    html: `<p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-2">
+      Optional: Enter a GitHub Personal Access Token (<code>Contents: Read &amp; Write</code> on <strong>codesi7/codei7</strong>) to commit CRUD edits directly to GitHub from GitHub Pages. Leave empty to store edits in this browser only.
+    </p>`,
+    input: "password",
+    inputValue: currentToken,
+    inputPlaceholder: "ghp_... or github_pat_...",
+    showCancelButton: true,
+    showDenyButton: Boolean(currentToken),
+    confirmButtonText: "Save Token",
+    denyButtonText: "Disconnect Token",
+    cancelButtonText: "Cancel",
+  });
+  if (result.isDenied) return "";
+  if (!result.isConfirmed) return undefined;
+  return String(result.value ?? "").trim();
+}
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, "&amp;")
