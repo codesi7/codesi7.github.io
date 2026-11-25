@@ -16,17 +16,17 @@ import {
   YAxis,
 } from "recharts";
 import {
-  AlertTriangle,
   ArrowUpRight,
   Camera,
   Check,
   Copy,
+  CreditCard,
   Database,
   ExternalLink,
   Github,
   Laptop,
+  MonitorSmartphone,
   RefreshCw,
-  Ticket,
   Wifi,
 } from "lucide-react";
 import type { AuthUser, DashboardOverviewStats, DatasetManifest } from "@/lib/types";
@@ -36,7 +36,7 @@ import { DatasetIcon } from "./IconResolver";
 import { swalToast } from "@/lib/swal";
 import { loadOverviewClient, withBasePath } from "@/lib/client-store";
 
-const PIE_COLORS = ["#dc2626", "#ea580c", "#d97706", "#2563eb", "#64748b"];
+const PIE_COLORS = ["#059669", "#2563eb", "#d97706", "#dc2626", "#64748b"];
 
 export function OverviewDashboard({
   initialManifest,
@@ -95,11 +95,11 @@ export function OverviewDashboard({
       href: "/datasets/stock",
     },
     {
-      label: "Service Tickets",
-      value: stats.totalTickets,
-      sub: `${stats.openTickets} open • ${stats.criticalHighTickets} high/critical`,
-      icon: Ticket,
-      href: "/datasets/know-ticket",
+      label: "Remote Endpoints",
+      value: stats.totalAnydesk,
+      sub: "AnyDesk & RustDesk access",
+      icon: MonitorSmartphone,
+      href: "/datasets/anydesk",
     },
     {
       label: "CCTV Cameras",
@@ -116,18 +116,18 @@ export function OverviewDashboard({
       href: "/datasets/corporate-laptop",
     },
     {
-      label: "Internet & ISP Links",
+      label: "Internet & Wi-Fi",
       value: stats.totalInternetLinks,
-      sub: `${stats.totalEdcTerminals} EDC payment terminals`,
+      sub: `${stats.totalNanWifi} NAN Wi-Fi outlets`,
       icon: Wifi,
       href: "/datasets/internet",
     },
     {
-      label: "High / Critical",
-      value: stats.criticalHighTickets,
-      sub: `${stats.totalEdcTerminals} EDC • ${stats.totalInternetLinks} ISP links`,
-      icon: AlertTriangle,
-      href: "/datasets/know-ticket",
+      label: "EDC & Webmail",
+      value: stats.totalEdcTerminals,
+      sub: `${stats.totalPrimeWebmails} outlet webmail logins`,
+      icon: CreditCard,
+      href: "/datasets/edc",
     },
   ];
 
@@ -211,14 +211,14 @@ export function OverviewDashboard({
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
-                    Tickets by Category
+                    AnyDesk Endpoints by State
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Know-Ticket breakdown ({stats.totalTickets} total)
+                    Remote desktop distribution ({stats.totalAnydesk} total)
                   </p>
                 </div>
                 <Link
-                  href="/datasets/know-ticket"
+                  href="/datasets/anydesk"
                   className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
                   View table →
@@ -227,7 +227,7 @@ export function OverviewDashboard({
               <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
-                    data={stats.ticketByCategory}
+                    data={stats.anydeskByState}
                     margin={{ top: 8, right: 8, left: -16, bottom: 24 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
@@ -246,7 +246,7 @@ export function OverviewDashboard({
                         fontSize: 12,
                       }}
                     />
-                    <Bar dataKey="count" name="Tickets" fill="#2563eb" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="count" name="Endpoints" fill="#2563eb" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -255,19 +255,27 @@ export function OverviewDashboard({
 
           <FadeInSection delay={0.08} className="min-w-0 lg:col-span-5">
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
-              <div className="mb-3">
-                <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Ticket Severity
-                </h2>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
-                  Distribution across priority levels
-                </p>
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-slate-900 dark:text-white">
+                    CCTV Camera Status
+                  </h2>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Active vs inactive store systems
+                  </p>
+                </div>
+                <Link
+                  href="/datasets/camera"
+                  className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
+                >
+                  View table →
+                </Link>
               </div>
               <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <PieChart>
                     <Pie
-                      data={stats.ticketBySeverity}
+                      data={stats.cameraByStatus}
                       dataKey="value"
                       nameKey="name"
                       cx="50%"
@@ -276,7 +284,7 @@ export function OverviewDashboard({
                       outerRadius={78}
                       paddingAngle={3}
                     >
-                      {stats.ticketBySeverity.map((entry, index) => (
+                      {stats.cameraByStatus.map((entry, index) => (
                         <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
                       ))}
                     </Pie>
@@ -343,14 +351,14 @@ export function OverviewDashboard({
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
-                    Tickets by Status
+                    Internet Links by Brand
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Open vs resolved ticket volume
+                    ISP distribution across kitchens
                   </p>
                 </div>
                 <Link
-                  href="/datasets/know-ticket"
+                  href="/datasets/internet"
                   className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
                   View table →
@@ -359,7 +367,7 @@ export function OverviewDashboard({
               <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
-                    data={stats.ticketByStatus}
+                    data={stats.internetByBrand}
                     layout="vertical"
                     margin={{ top: 8, right: 16, left: 10, bottom: 8 }}
                   >
@@ -373,7 +381,7 @@ export function OverviewDashboard({
                         fontSize: 12,
                       }}
                     />
-                    <Bar dataKey="value" name="Tickets" fill="#0284c7" radius={[0, 4, 4, 0]} />
+                    <Bar dataKey="value" name="Links" fill="#0284c7" radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -381,7 +389,7 @@ export function OverviewDashboard({
           </FadeInSection>
         </div>
 
-        {/* All 13 JSON Modules Directory */}
+        {/* All 12 JSON Modules Directory */}
         <FadeInSection delay={0.16}>
           <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
             <div className="mb-4 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
@@ -470,31 +478,31 @@ export function OverviewDashboard({
             <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
               <div className="mb-3 flex items-center justify-between">
                 <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Recent Tickets
+                  AnyDesk &amp; Remote Endpoints
                 </h3>
                 <Link
-                  href="/datasets/know-ticket"
+                  href="/datasets/anydesk"
                   className="text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
                   View all →
                 </Link>
               </div>
               <div className="space-y-2">
-                {stats.recentTickets.map((t) => (
+                {stats.recentAnydesk.map((a) => (
                   <div
-                    key={t._id}
+                    key={a._id}
                     className="flex items-center justify-between gap-3 rounded-lg border border-slate-100 bg-slate-50/70 p-2.5 dark:border-slate-800 dark:bg-slate-950/50"
                   >
                     <div className="min-w-0">
                       <p className="truncate text-xs font-semibold text-slate-900 dark:text-white">
-                        #{String(t["ID"] || "")} — {String(t["Title"] || "")}
+                        {String(a["Store Name"] || "")}
                       </p>
                       <p className="truncate text-[11px] text-slate-500 dark:text-slate-400">
-                        {String(t["Issue Location"] || "")} • {String(t["Reported by"] || "")}
+                        {String(a["State"] || "")} • ID: {String(a["Anydesk ID"] || "—")}
                       </p>
                     </div>
-                    <span className="shrink-0 rounded border border-amber-500/25 bg-amber-500/10 px-2 py-0.5 text-[11px] font-medium text-amber-700 dark:text-amber-300">
-                      {String(t["Status"] || "Open")}
+                    <span className="shrink-0 rounded border border-slate-200 bg-white px-2 py-0.5 font-mono text-[11px] text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+                      {String(a["State"] || "—")}
                     </span>
                   </div>
                 ))}

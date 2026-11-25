@@ -80,7 +80,7 @@ export default function LoginPage() {
             Enterprise Operations Console
           </p>
           <h1 className="text-3xl font-bold leading-snug tracking-tight text-white">
-            Centralized outlet infrastructure, hardware inventory, and ticket administration.
+            Centralized outlet infrastructure, hardware inventory, and IT operations.
           </h1>
         </div>
 

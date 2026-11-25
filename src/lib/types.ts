@@ -62,19 +62,19 @@ export interface AuthUser {
 export interface DashboardOverviewStats {
   totalDatasets: number;
   totalRecords: number;
-  totalTickets: number;
-  openTickets: number;
-  criticalHighTickets: number;
+  totalAnydesk: number;
   totalCameras: number;
   activeCameras: number;
   totalOutlets: number;
   totalCorporateLaptops: number;
   totalInternetLinks: number;
+  totalNanWifi: number;
   totalEdcTerminals: number;
-  ticketByCategory: { name: string; count: number }[];
-  ticketBySeverity: { name: string; value: number }[];
-  ticketByStatus: { name: string; value: number }[];
+  totalPrimeWebmails: number;
+  anydeskByState: { name: string; count: number }[];
+  cameraByStatus: { name: string; value: number }[];
+  internetByBrand: { name: string; value: number }[];
   hardwareByZone: { zone: string; laptops: number; pos: number; printers: number; cameras: number }[];
-  recentTickets: DataRecord[];
+  recentAnydesk: DataRecord[];
   recentStock: DataRecord[];
 }

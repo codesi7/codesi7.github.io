@@ -482,55 +482,51 @@ export async function loadOverviewClient(
   const manifest = await loadManifestClient(source);
 
   const [
-    ticketsRes,
+    anydeskRes,
     camerasRes,
     outletRes,
     corpRes,
     internetRes,
+    nanRes,
     edcRes,
+    primeRes,
     stockRes,
   ] = await Promise.all([
-    loadDatasetClient("know-ticket", source),
+    loadDatasetClient("anydesk", source),
     loadDatasetClient("camera", source),
     loadDatasetClient("outlet-laptop", source),
     loadDatasetClient("corporate-laptop", source),
     loadDatasetClient("internet", source),
+    loadDatasetClient("nan", source),
     loadDatasetClient("edc", source),
+    loadDatasetClient("prime-details", source),
     loadDatasetClient("stock", source),
   ]);
 
-  const tickets = ticketsRes.records;
+  const anydeskRows = anydeskRes.records;
   const cameras = camerasRes.records;
   const outlets = outletRes.records;
   const corpLaptops = corpRes.records;
 
-  const categoryMap = new Map<string, number>();
-  const severityMap = new Map<string, number>();
-  const statusMap = new Map<string, number>();
-  let openTickets = 0;
-  let criticalHighTickets = 0;
-
-  for (const t of tickets) {
-    const cat = String(t["Category"] || "Uncategorized").trim() || "Uncategorized";
-    categoryMap.set(cat, (categoryMap.get(cat) || 0) + 1);
-
-    const sevRaw = String(t["Severity"] || "-").trim();
-    const sev = sevRaw === "-" || !sevRaw ? "Unspecified" : sevRaw;
-    severityMap.set(sev, (severityMap.get(sev) || 0) + 1);
-    if (["critical", "high"].includes(sev.toLowerCase())) {
-      criticalHighTickets++;
-    }
-
-    const st = String(t["Status"] || "Unknown").trim() || "Unknown";
-    statusMap.set(st, (statusMap.get(st) || 0) + 1);
-    if (st.toLowerCase() === "open") {
-      openTickets++;
-    }
+  const stateMap = new Map<string, number>();
+  for (const r of anydeskRows) {
+    const st = String(r["State"] || "Other").trim() || "Other";
+    stateMap.set(st, (stateMap.get(st) || 0) + 1);
   }
 
-  const activeCameras = cameras.filter(
-    (c) => String(c["Status"] || "").trim().toLowerCase() === "active"
-  ).length;
+  const camStatusMap = new Map<string, number>();
+  let activeCameras = 0;
+  for (const c of cameras) {
+    const st = String(c["Status"] || "Unknown").trim() || "Unknown";
+    camStatusMap.set(st, (camStatusMap.get(st) || 0) + 1);
+    if (st.toLowerCase() === "active") activeCameras++;
+  }
+
+  const brandMap = new Map<string, number>();
+  for (const i of internetRes.records) {
+    const b = String(i["Brand"] || "Other").trim() || "Other";
+    brandMap.set(b, (brandMap.get(b) || 0) + 1);
+  }
 
   const zoneMap = new Map<
     string,
@@ -549,31 +545,31 @@ export async function loadOverviewClient(
   const stats: DashboardOverviewStats = {
     totalDatasets: manifest.totalDatasets,
     totalRecords: manifest.totalRecords,
-    totalTickets: tickets.length,
-    openTickets,
-    criticalHighTickets,
+    totalAnydesk: anydeskRows.length,
     totalCameras: cameras.length,
     activeCameras,
     totalOutlets: outlets.length,
     totalCorporateLaptops: corpLaptops.length,
     totalInternetLinks: internetRes.records.length,
+    totalNanWifi: nanRes.records.length,
     totalEdcTerminals: edcRes.records.length,
-    ticketByCategory: Array.from(categoryMap.entries())
+    totalPrimeWebmails: primeRes.records.length,
+    anydeskByState: Array.from(stateMap.entries())
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 7),
-    ticketBySeverity: Array.from(severityMap.entries()).map(([name, value]) => ({
+    cameraByStatus: Array.from(camStatusMap.entries()).map(([name, value]) => ({
       name,
       value,
     })),
-    ticketByStatus: Array.from(statusMap.entries()).map(([name, value]) => ({
-      name,
-      value,
-    })),
+    internetByBrand: Array.from(brandMap.entries())
+      .map(([name, value]) => ({ name, value }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 7),
     hardwareByZone: Array.from(zoneMap.values())
       .sort((a, b) => b.laptops + b.pos - (a.laptops + a.pos))
       .slice(0, 8),
-    recentTickets: tickets.slice(0, 6),
+    recentAnydesk: anydeskRows.slice(0, 6),
     recentStock: stockRes.records.slice(0, 6),
   };
 

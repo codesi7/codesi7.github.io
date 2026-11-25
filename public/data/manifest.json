@@ -1,6 +1,6 @@
 {
   "sourceFile": "Data.xlsx",
-  "generatedAt": "2026-11-25T08:31:43.183Z",
+  "generatedAt": "2026-11-25T08:44:37.657Z",
   "github": {
     "owner": "codesi7",
     "repo": "codesi7.github.io",
@@ -8,8 +8,8 @@
     "baseRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data",
     "repoUrl": "https://github.com/codesi7/codesi7.github.io"
   },
-  "totalDatasets": 13,
-  "totalRecords": 737,
+  "totalDatasets": 12,
+  "totalRecords": 650,
   "datasets": [
     {
       "slug": "stock",
@@ -49,7 +49,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.155Z"
+      "updatedAt": "2026-11-25T08:44:37.641Z"
     },
     {
       "slug": "anydesk",
@@ -95,7 +95,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.160Z"
+      "updatedAt": "2026-11-25T08:44:37.644Z"
     },
     {
       "slug": "support",
@@ -135,7 +135,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.161Z"
+      "updatedAt": "2026-11-25T08:44:37.644Z"
     },
     {
       "slug": "camera",
@@ -181,7 +181,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.162Z"
+      "updatedAt": "2026-11-25T08:44:37.646Z"
     },
     {
       "slug": "outlet-laptop",
@@ -275,7 +275,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.164Z"
+      "updatedAt": "2026-11-25T08:44:37.648Z"
     },
     {
       "slug": "corporate-laptop",
@@ -363,7 +363,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.166Z"
+      "updatedAt": "2026-11-25T08:44:37.649Z"
     },
     {
       "slug": "edc",
@@ -421,7 +421,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.167Z"
+      "updatedAt": "2026-11-25T08:44:37.651Z"
     },
     {
       "slug": "prime-details",
@@ -467,77 +467,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.169Z"
-    },
-    {
-      "slug": "know-ticket",
-      "sheetName": "Know-Ticket",
-      "title": "IT & Ops Tickets",
-      "category": "Operations & Incidents",
-      "icon": "Ticket",
-      "description": "Operational incident and maintenance tickets with severity and ageing.",
-      "fileName": "know-ticket.json",
-      "localUrl": "/data/know-ticket.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/know-ticket.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/know-ticket.json",
-      "recordCount": 87,
-      "columns": [
-        {
-          "key": "ID",
-          "label": "ID",
-          "type": "text",
-          "sensitive": false
-        },
-        {
-          "key": "Title",
-          "label": "Title",
-          "type": "text",
-          "sensitive": false
-        },
-        {
-          "key": "Category",
-          "label": "Category",
-          "type": "text",
-          "sensitive": false
-        },
-        {
-          "key": "Status",
-          "label": "Status",
-          "type": "badge",
-          "sensitive": false
-        },
-        {
-          "key": "Reported by",
-          "label": "Reported by",
-          "type": "text",
-          "sensitive": false
-        },
-        {
-          "key": "Issue Location",
-          "label": "Issue Location",
-          "type": "text",
-          "sensitive": false
-        },
-        {
-          "key": "Severity",
-          "label": "Severity",
-          "type": "badge",
-          "sensitive": false
-        },
-        {
-          "key": "Created On",
-          "label": "Created On",
-          "type": "date",
-          "sensitive": false
-        },
-        {
-          "key": "Ageing",
-          "label": "Ageing",
-          "type": "text",
-          "sensitive": false
-        }
-      ],
-      "updatedAt": "2026-11-25T08:31:43.178Z"
+      "updatedAt": "2026-11-25T08:44:37.652Z"
     },
     {
       "slug": "camera-password",
@@ -583,7 +513,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.179Z"
+      "updatedAt": "2026-11-25T08:44:37.654Z"
     },
     {
       "slug": "login",
@@ -629,7 +559,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.180Z"
+      "updatedAt": "2026-11-25T08:44:37.654Z"
     },
     {
       "slug": "internet",
@@ -705,7 +635,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.181Z"
+      "updatedAt": "2026-11-25T08:44:37.656Z"
     },
     {
       "slug": "nan",
@@ -757,7 +687,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T08:31:43.183Z"
+      "updatedAt": "2026-11-25T08:44:37.656Z"
     }
   ]
 }

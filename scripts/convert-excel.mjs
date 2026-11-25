@@ -70,13 +70,6 @@ const SHEET_META = {
     icon: "Mail",
     description: "City and outlet webmail login portals and account credentials.",
   },
-  "Know-Ticket": {
-    slug: "know-ticket",
-    title: "IT & Ops Tickets",
-    category: "Operations & Incidents",
-    icon: "Ticket",
-    description: "Operational incident and maintenance tickets with severity and ageing.",
-  },
   "Camera-Password": {
     slug: "camera-password",
     title: "Camera Credentials",
@@ -238,7 +231,7 @@ function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const workbook = XLSX.readFile(EXCEL_PATH, { cellText: true, cellDates: false });
 
-  const SKIP_SHEETS = new Set(["Used-Oil-Collection"]);
+  const SKIP_SHEETS = new Set(["Used-Oil-Collection", "Know-Ticket"]);
   const manifestDatasets = [];
 
   for (const rawSheetName of workbook.SheetNames) {
