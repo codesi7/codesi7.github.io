@@ -1,0 +1,850 @@
+[
+  {
+    "_id": "prime-details-1",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Airport T-1",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "blrairportt1@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-2",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - CK - Panathur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "panathur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-3",
+    "City": "Gurgaon",
+    "Outlet_Name": "Udyog Vihar, Phase V",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "udyogviharphase5@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-4",
+    "City": "Chennai",
+    "Outlet_Name": "TN - DN - Guduvancherry",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "guduvancherry@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-5",
+    "City": "Bangalore",
+    "Outlet_Name": "Marathalli",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "marathalli@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-6",
+    "City": "Bangalore",
+    "Outlet_Name": "Mahadevpura",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "mahadevpura@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-7",
+    "City": "Bangalore",
+    "Outlet_Name": "Technostar (AECS)",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "aecslayout@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-8",
+    "City": "Bangalore",
+    "Outlet_Name": "JP Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "jpnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-9",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Haralur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "haralur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-10",
+    "City": "Gurgaon",
+    "Outlet_Name": "Sushant Lok",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sushantlok@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-11",
+    "City": "Bangalore",
+    "Outlet_Name": "CBD",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "cbd@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-12",
+    "City": "Bangalore",
+    "Outlet_Name": "Koramangala",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "koramangala@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-13",
+    "City": "Hyderabad",
+    "Outlet_Name": "Kondapur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kondapur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-14",
+    "City": "Bangalore",
+    "Outlet_Name": "Dommasandra",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "dommasandra@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-15",
+    "City": "Bangalore",
+    "Outlet_Name": "HSR Layout Sector 3",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "hrslayoutsector3@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-16",
+    "City": "New Delhi",
+    "Outlet_Name": "Malviya Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "malviyanagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-17",
+    "City": "Noida",
+    "Outlet_Name": "NCR - DN - Sector 120 Market",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sector120market@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-18",
+    "City": "Gurgaon",
+    "Outlet_Name": "NCR - DN - Golf Course Road",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "golfcourseroad@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-19",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - CK - Manyta Tech Park",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "manytatechpark@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-20",
+    "City": "Bangalore",
+    "Outlet_Name": "Airport Road",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "airportroad@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-21",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Ecoworld",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ecoworld@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-22",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Kaggadasapura",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kaggadasapura@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-23",
+    "City": "Gurgaon",
+    "Outlet_Name": "NCR - DN - Star Tower",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "startower@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-24",
+    "City": "Gurgaon",
+    "Outlet_Name": "Sector 56",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sector56@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-25",
+    "City": "Bangalore",
+    "Outlet_Name": "Kalyan Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kalyannagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-26",
+    "City": "Bangalore",
+    "Outlet_Name": "New BEL Rd",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "newbelrd@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-27",
+    "City": "Bangalore",
+    "Outlet_Name": "Sahakar Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sahakarnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-28",
+    "City": "Bangalore",
+    "Outlet_Name": "Jeevan Bhima Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "jeevanbhimanagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-29",
+    "City": "Bangalore",
+    "Outlet_Name": "Sarjapur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sarjapur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-30",
+    "City": "Bangalore",
+    "Outlet_Name": "Dasarahalli",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "dasarahalli@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-31",
+    "City": "Hyderabad",
+    "Outlet_Name": "Ameerpet",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ameerpet@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-32",
+    "City": "Bangalore",
+    "Outlet_Name": "Indiranagar 12B",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "indiranagar12b@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-33",
+    "City": "Gurgaon",
+    "Outlet_Name": "Sohna Road",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sohnaroad@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-34",
+    "City": "Bangalore",
+    "Outlet_Name": "Electronic City",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "electroniccity@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-35",
+    "City": "Hyderabad",
+    "Outlet_Name": "Manikonda",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "manikonda@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-36",
+    "City": "Noida",
+    "Outlet_Name": "NCR - DN - Advant Tech Park",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "advanttechpark@samosaparty.org",
+    "Webmail Password": "S4samosa@12@"
+  },
+  {
+    "_id": "prime-details-37",
+    "City": "Bangalore",
+    "Outlet_Name": "Bellandur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "bellandur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-38",
+    "City": "Bangalore",
+    "Outlet_Name": "Bagmane (CV Raman Nagar)",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "bagmanecvramannagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-39",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Ayyappa Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ayyappanagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-40",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Budigere",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "budigere@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-41",
+    "City": "Bangalore",
+    "Outlet_Name": "Kanakapura Dine-In",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kanakapuradinein@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-42",
+    "City": "Bangalore",
+    "Outlet_Name": "Bagmane",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "bagmane@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-43",
+    "City": "Hyderabad",
+    "Outlet_Name": "Madhapur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "madhapur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-44",
+    "City": "Bangalore",
+    "Outlet_Name": "Begur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "begur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-45",
+    "City": "Bangalore",
+    "Outlet_Name": "Hennur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "hennur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-46",
+    "City": "New Delhi",
+    "Outlet_Name": "Dwarka",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "dwarka@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-47",
+    "City": "New Delhi",
+    "Outlet_Name": "NCR - DN- Janakpuri",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ncrdnjanakpuri@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-48",
+    "City": "Ghaziabad",
+    "Outlet_Name": "Indirapuram",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "indirapuram@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-49",
+    "City": "New Delhi",
+    "Outlet_Name": "Vasant kunj",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "vasantkunj@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-50",
+    "City": "Noida",
+    "Outlet_Name": "Sector- 4 Noida",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sector4noida@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-51",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Bagalur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "bagalur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-52",
+    "City": "Bangalore",
+    "Outlet_Name": "Channasandra",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "channasandra@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-53",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Royal Meenakshi Mall",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "royalmeenakshimall@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-54",
+    "City": "Bangalore",
+    "Outlet_Name": "Eco Space",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ecospace@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-55",
+    "City": "Gurgaon",
+    "Outlet_Name": "Sector 4 Gurgaon",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sector4gurgaon@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-56",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Galleria Mall",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "blrdngalleriamall@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-57",
+    "City": "New Delhi",
+    "Outlet_Name": "NCR - DN - Shalimar Bagh",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ncrdnshalimarbagh@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-58",
+    "City": "Bangalore",
+    "Outlet_Name": "Bannerghatta",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "bannerghatta@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-59",
+    "City": "New Delhi",
+    "Outlet_Name": "Sarita Vihar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "saritavihar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-60",
+    "City": "Bangalore",
+    "Outlet_Name": "Rajaji Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "rajajinagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-61",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Neo Town",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "neotown@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-62",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Kengeri",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kengeri@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-63",
+    "City": "Bangalore",
+    "Outlet_Name": "Banashankari",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "banashankari@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-64",
+    "City": "Bangalore",
+    "Outlet_Name": "Nagarbhavi",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "nagarbhavi@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-65",
+    "City": "Hyderabad",
+    "Outlet_Name": "Pragathi Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "pragathinagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-66",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Park Square Mall (ITPL)",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "itpl@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-67",
+    "City": "Bangalore",
+    "Outlet_Name": "Nexus Shantiniketan",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "nexuxshantiniketan@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-68",
+    "City": "New Delhi",
+    "Outlet_Name": "Defence Colony",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "defencecolony@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-69",
+    "City": "Bangalore",
+    "Outlet_Name": "Old Madras Road",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "omr@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-70",
+    "City": "Hyderabad",
+    "Outlet_Name": "HYD - DN - Sun City",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "Suncity@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-71",
+    "City": "Gurgaon",
+    "Outlet_Name": "Sector 90",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "sector90@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-72",
+    "City": "Hyderabad",
+    "Outlet_Name": "Kukatpally",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kukatpally@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-73",
+    "City": "New Delhi",
+    "Outlet_Name": "Dilshad Garden",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "dilshadgarden@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-74",
+    "City": "New Delhi",
+    "Outlet_Name": "Rohini",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "rohini@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-75",
+    "City": "Bangalore",
+    "Outlet_Name": "RT Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "rtnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-76",
+    "City": "New Delhi",
+    "Outlet_Name": "East Patel Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "eastpatelnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-77",
+    "City": "Bangalore",
+    "Outlet_Name": "Murgeshpalya",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "murgeshpalya@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-78",
+    "City": "Bangalore",
+    "Outlet_Name": "Varthur",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "varthur@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-79",
+    "City": "Bangalore",
+    "Outlet_Name": "EGL",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "egl@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-80",
+    "City": "Bangalore",
+    "Outlet_Name": "TC Palya",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "tcpalya@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-81",
+    "City": "Hyderabad",
+    "Outlet_Name": "Hyd - CK - Padmarao Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "Padmaraonagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-82",
+    "City": "Bangalore",
+    "Outlet_Name": "HSR Layout",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "hsrlayout@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-83",
+    "City": "Bangalore",
+    "Outlet_Name": "Whitefield",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "whitefield@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-84",
+    "City": "Hyderabad",
+    "Outlet_Name": "AS Rao Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "asraonagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-85",
+    "City": "Noida",
+    "Outlet_Name": "NCR - DN - Gaur City Mall(Sector 4)",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ncrdngaurcitymall@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-86",
+    "City": "Noida",
+    "Outlet_Name": "Alpha 2 Greater Noida",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "alpha2greaternoida@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-87",
+    "City": "Bangalore",
+    "Outlet_Name": "Kanakpura Road",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "kanakpuraroad@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-88",
+    "City": "Bangalore",
+    "Outlet_Name": "Singasandra",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "singasandra@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-89",
+    "City": "New Delhi",
+    "Outlet_Name": "NCR - DN - Pacific Mall(Dwarka 21)",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ncrdnpacificmall@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-90",
+    "City": "Faridabad",
+    "Outlet_Name": "Faridabad SEC16",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "faridabadsec16@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-91",
+    "City": "Bangalore",
+    "Outlet_Name": "RR Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "rrnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-92",
+    "City": "New Delhi",
+    "Outlet_Name": "Laxmi Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "laxminagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-93",
+    "City": "Hyderabad",
+    "Outlet_Name": "Aparna Mall",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "aparnamall@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-94",
+    "City": "Hyderabad",
+    "Outlet_Name": "Dilshukh Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "dilshukhnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-95",
+    "City": "New Delhi",
+    "Outlet_Name": "Uttam Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "uttamnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-96",
+    "City": "Noida",
+    "Outlet_Name": "Gaur City- Noida Extension",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "gaurcitynoidaextension@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-97",
+    "City": "Gurgaon",
+    "Outlet_Name": "NCR - CK - Sector 65",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ncrcksector65@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-98",
+    "City": "Bangalore",
+    "Outlet_Name": "Ananth Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ananthnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-99",
+    "City": "Gurgaon",
+    "Outlet_Name": "NCR - CK - Palam Vihar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "ncrckpalamvihar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-100",
+    "City": "Bangalore",
+    "Outlet_Name": "Royasandra",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "royasandra@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-101",
+    "City": "Bangalore",
+    "Outlet_Name": "Chandapura",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "chandapura@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-102",
+    "City": "Ghaziabad",
+    "Outlet_Name": "Raj Nagar",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "rajnagar@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-103",
+    "City": "Ghaziabad",
+    "Outlet_Name": "Crossing Republic",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "crossingrepublic@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-104",
+    "City": "Bangalore",
+    "Outlet_Name": "BLR - DN - Channapatna",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "channapatna@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-105",
+    "City": "Chennai",
+    "Outlet_Name": "TN - CK - Karapakkam",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "karapakkam@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  },
+  {
+    "_id": "prime-details-106",
+    "City": "Bangalore",
+    "Outlet_Name": "Nagarbhavi",
+    "LOGIN URL": "https://s6519.dnspark.in:2096/",
+    "Webmail Username": "nagarbhavi@samosaparty.org",
+    "Webmail Password": "Samosa@123"
+  }
+]

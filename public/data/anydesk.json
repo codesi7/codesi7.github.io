@@ -1,0 +1,586 @@
+[
+  {
+    "_id": "anydesk-1",
+    "State": "NCR",
+    "Store Name": "Advent IT Park",
+    "Anydesk ID": "1884594001",
+    "RustDesk": "75 250 573",
+    "Password": "S4samosa@123"
+  },
+  {
+    "_id": "anydesk-2",
+    "State": "NCR",
+    "Store Name": "Advent IT Park Laptop",
+    "Anydesk ID": "1847455179",
+    "RustDesk": "514547962",
+    "Password": "S4samosa@123"
+  },
+  {
+    "_id": "anydesk-3",
+    "State": "NCR",
+    "Store Name": "Alpha 2 Greater Noida",
+    "Anydesk ID": "455168031",
+    "RustDesk": "430 086 653",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-4",
+    "State": "NCR",
+    "Store Name": "Ashok Vihar",
+    "Anydesk ID": "1261183397",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-5",
+    "State": "NCR",
+    "Store Name": "Central Market Sector 120 Laptop",
+    "Anydesk ID": "1805616044",
+    "RustDesk": "534 919 347",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-6",
+    "State": "NCR",
+    "Store Name": "Central Market Sector 120",
+    "Anydesk ID": "1506091324",
+    "RustDesk": "75 700 834",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-7",
+    "State": "NCR",
+    "Store Name": "Crossing Republic",
+    "Anydesk ID": "1798057360",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-8",
+    "State": "NCR",
+    "Store Name": "Defence Colony",
+    "Anydesk ID": "1947654413",
+    "RustDesk": "131 860 780",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-9",
+    "State": "NCR",
+    "Store Name": "Dilshad Garden",
+    "Anydesk ID": "1827338282",
+    "RustDesk": "390 811 314",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-10",
+    "State": "NCR",
+    "Store Name": "Dwarka",
+    "Anydesk ID": "1668774013",
+    "RustDesk": "105 420 307",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-11",
+    "State": "NCR",
+    "Store Name": "East Patel Nagar",
+    "Anydesk ID": "1399602599",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-12",
+    "State": "NCR",
+    "Store Name": "Faridabad Sector 16",
+    "Anydesk ID": "1376287919",
+    "RustDesk": "455 904 018",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-13",
+    "State": "NCR",
+    "Store Name": "Gandhi Vihar",
+    "Anydesk ID": "1028750904",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-14",
+    "State": "NCR",
+    "Store Name": "Gaur City Noida Extension",
+    "Anydesk ID": "1752566658",
+    "RustDesk": "534 823 405",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-15",
+    "State": "NCR",
+    "Store Name": "Inderapuram",
+    "Anydesk ID": "521336937",
+    "RustDesk": "401 087 784",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-16",
+    "State": "NCR",
+    "Store Name": "Janak Puri",
+    "Anydesk ID": "1743305661",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-17",
+    "State": "NCR",
+    "Store Name": "Laxmi Nagar",
+    "Anydesk ID": "1095461907",
+    "RustDesk": "430 469 035",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-18",
+    "State": "NCR",
+    "Store Name": "Malviya Nagar",
+    "Anydesk ID": "1647581824",
+    "RustDesk": "382 410 640",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-19",
+    "State": "NCR",
+    "Store Name": "Noida Sector 4",
+    "Anydesk ID": "1408574090",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-20",
+    "State": "NCR",
+    "Store Name": "Raj Nagar",
+    "Anydesk ID": "1569995610",
+    "RustDesk": "202 683 861",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-21",
+    "State": "NCR",
+    "Store Name": "Rohini",
+    "Anydesk ID": "1434271476",
+    "RustDesk": "218 977 077",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-22",
+    "State": "NCR",
+    "Store Name": "Sector 56",
+    "Anydesk ID": "1142144239",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-23",
+    "State": "NCR",
+    "Store Name": "Sector 65",
+    "Anydesk ID": "1320421944",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-24",
+    "State": "NCR",
+    "Store Name": "Sohna Road",
+    "Anydesk ID": "555877634",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-25",
+    "State": "NCR",
+    "Store Name": "Sushant Lok",
+    "Anydesk ID": "282359875",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-26",
+    "State": "NCR",
+    "Store Name": "Udyog Vihar",
+    "Anydesk ID": "1308085488",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-27",
+    "State": "NCR",
+    "Store Name": "Vasant Kunj",
+    "Anydesk ID": "1520976824",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-28",
+    "State": "NCR",
+    "Store Name": "Sarita Vihar",
+    "Anydesk ID": "1827160024",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-29",
+    "State": "NCR",
+    "Store Name": "Sector 90",
+    "Anydesk ID": "1024865996",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-30",
+    "State": "NCR",
+    "Store Name": "Sector 4 Gurgaon",
+    "Anydesk ID": "1448280464",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-31",
+    "State": "NCR",
+    "Store Name": "Uttam Nager",
+    "Anydesk ID": "1781376283",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-32",
+    "State": "HYD",
+    "Store Name": "Pragathi Nagar",
+    "Anydesk ID": "1429781213",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-33",
+    "State": "HYD",
+    "Store Name": "Kukatpally",
+    "Anydesk ID": "1765805597",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-34",
+    "State": "HYD",
+    "Store Name": "Dilshukh Nagar",
+    "Anydesk ID": "1887152520",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-35",
+    "State": "HYD",
+    "Store Name": "AS Rao Nagar",
+    "Anydesk ID": "1313824328",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-36",
+    "State": "HYD",
+    "Store Name": "Manikonda",
+    "Anydesk ID": "1189324726",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-37",
+    "State": "HYD",
+    "Store Name": "Ameerpet",
+    "Anydesk ID": "1044578539",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-38",
+    "State": "HYD",
+    "Store Name": "Madhapur",
+    "Anydesk ID": "956658815",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-39",
+    "State": "HYD",
+    "Store Name": "Aparna Mall",
+    "Anydesk ID": "1700596878",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-40",
+    "State": "HYD",
+    "Store Name": "Kondapur",
+    "Anydesk ID": "1491220231",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-41",
+    "State": "HYD",
+    "Store Name": "Hyd - CK - Padmarao Nagar",
+    "Anydesk ID": "1306383019",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-42",
+    "State": "HYD",
+    "Store Name": "HYD - DN - Sun City",
+    "Anydesk ID": "1642802389",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-43",
+    "State": "NCR",
+    "Store Name": "Pacific Mall",
+    "Anydesk ID": "382350811",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-44",
+    "State": "NCR",
+    "Store Name": "Palam Vihar",
+    "Anydesk ID": "1397100487",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-45",
+    "State": "NCR",
+    "Store Name": "Central Plaza Golf Course Road FOH",
+    "Anydesk ID": "840904169",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-46",
+    "State": "NCR",
+    "Store Name": "Central Plaza Golf Course Road BOH",
+    "Anydesk ID": "1075517842",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-47",
+    "State": "NCR",
+    "Store Name": "Shalimar Bagh",
+    "Anydesk ID": "1581705754",
+    "RustDesk": "1804494954",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-48",
+    "State": "NCR",
+    "Store Name": "NCR - DN- Janakpuri POS",
+    "Anydesk ID": "1084110779",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-49",
+    "State": "NCR",
+    "Store Name": "NCR - DN- Janakpuri Laptop",
+    "Anydesk ID": "1234314252",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-50",
+    "State": "NCR",
+    "Store Name": "Star Tower Laptop",
+    "Anydesk ID": "539566529",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-51",
+    "State": "NCR",
+    "Store Name": "Gaur City Mall Laptop",
+    "Anydesk ID": "744972833",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-52",
+    "State": "NCR",
+    "Store Name": "Gaur City Mall POS",
+    "Anydesk ID": "1312752261",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-53",
+    "State": "BLR",
+    "Store Name": "Panathur POS",
+    "Anydesk ID": "1978600171",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-54",
+    "State": "BLR",
+    "Store Name": "Panathur Laptop",
+    "Anydesk ID": "1721678414",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-55",
+    "State": "BLR",
+    "Store Name": "Kengeri",
+    "Anydesk ID": "1552961286",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-56",
+    "State": "BLR",
+    "Store Name": "Begur Laptop",
+    "Anydesk ID": "1235632614",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-57",
+    "State": "BLR",
+    "Store Name": "Begur POS",
+    "Anydesk ID": "1652693085",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-58",
+    "State": "NCR",
+    "Store Name": "Star Tower POS",
+    "Anydesk ID": "1593803905",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-59",
+    "State": "BLR",
+    "Store Name": "Ayyappa Nagar",
+    "Anydesk ID": "1208442822",
+    "RustDesk": "323 592 216",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-60",
+    "State": "BLR",
+    "Store Name": "Airport Road POS",
+    "Anydesk ID": "1203283785",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-61",
+    "State": "BLR",
+    "Store Name": "Kanakpura",
+    "Anydesk ID": "1207933368",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-62",
+    "State": "BLR",
+    "Store Name": "Galleria Mall",
+    "Anydesk ID": "1598435720",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-63",
+    "State": "BLR",
+    "Store Name": "Bagalur",
+    "Anydesk ID": "1548223621",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-64",
+    "State": "BLR",
+    "Store Name": "Airport Road Laptop",
+    "Anydesk ID": "1020542712",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-65",
+    "State": "BLR",
+    "Store Name": "EGL",
+    "Anydesk ID": "1268273528",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-66",
+    "State": "NCR",
+    "Store Name": "Shalimar Bagh Laptop",
+    "Anydesk ID": "1379235603",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-67",
+    "State": "BLR",
+    "Store Name": "Haralur",
+    "Anydesk ID": "781729472",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-68",
+    "State": "BLR",
+    "Store Name": "Guruven",
+    "Anydesk ID": "1826438751",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-69",
+    "State": "NCR",
+    "Store Name": "HR NCR",
+    "Anydesk ID": "1798913333",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-70",
+    "State": "BLR",
+    "Store Name": "Ecoworld",
+    "Anydesk ID": "1279641197",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-71",
+    "State": "BLR",
+    "Store Name": "Airport Road",
+    "Anydesk ID": "1203283785",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  },
+  {
+    "_id": "anydesk-72",
+    "State": "HYD",
+    "Store Name": "Aparna Cloud Kitchen",
+    "Anydesk ID": "1538091658",
+    "RustDesk": "",
+    "Password": "samosa1234"
+  },
+  {
+    "_id": "anydesk-73",
+    "State": "NCR",
+    "Store Name": "Kitchen",
+    "Anydesk ID": "103983834",
+    "RustDesk": "",
+    "Password": "Samosa@123"
+  }
+]

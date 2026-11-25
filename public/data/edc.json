@@ -1,0 +1,132 @@
+[
+  {
+    "_id": "edc-1",
+    "Outlet Name": "NCR-DN- Advant Tech Park",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA84265635353148",
+    "Pinelab Store ID": "1413275",
+    "Pinelab Client ID": "3921372",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-2",
+    "Outlet Name": "NCR - DN- Janakpuri",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA41763673326523",
+    "Pinelab Store ID": "1455703",
+    "Pinelab Client ID": "4052605",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-3",
+    "Outlet Name": "NCR - DN - Star Tower",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA09729082404617",
+    "Pinelab Store ID": "1491394",
+    "Pinelab Client ID": "4257333",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-4",
+    "Outlet Name": "NCR - DN - Golf Course Road FOH",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA36587143789202",
+    "Pinelab Store ID": "1516319",
+    "Pinelab Client ID": "4331462",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-5",
+    "Outlet Name": "NCR - DN - Golf Course Road BOH",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA61049738602624",
+    "Pinelab Store ID": "1516319",
+    "Pinelab Client ID": "4331463",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-6",
+    "Outlet Name": "NCR - DN - Pacific Mall(Dwarka 21)",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA02340783593139",
+    "Pinelab Store ID": "1413275",
+    "Pinelab Client ID": "3921372",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-7",
+    "Outlet Name": "NCR-DN-Sector 120 Central Market",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA43300191065132",
+    "Pinelab Store ID": "1435513",
+    "Pinelab Client ID": "4004584",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-8",
+    "Outlet Name": "NCR-DN-SHALIMARBAGH",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA46087400314998",
+    "Pinelab Store ID": "1491394",
+    "Pinelab Client ID": "4257333",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-9",
+    "Outlet Name": "Gaur City Mall Noida",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA65737690157911",
+    "Pinelab Store ID": "",
+    "Pinelab Client ID": "",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-10",
+    "Outlet Name": "Sun City",
+    "Location": "HYD",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA94713674564351",
+    "Pinelab Store ID": "",
+    "Pinelab Client ID": "",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-11",
+    "Outlet Name": "Aparna Mall",
+    "Location": "HYD",
+    "Serial No": "",
+    "Paytm MID": "",
+    "Pinelab Store ID": "",
+    "Pinelab Client ID": "",
+    "Status": "Done"
+  },
+  {
+    "_id": "edc-12",
+    "Outlet Name": "Backup Laptop",
+    "Location": "NCR",
+    "Serial No": "Return",
+    "Paytm MID": "SAMOSA24760300393244",
+    "Pinelab Store ID": "",
+    "Pinelab Client ID": "",
+    "Status": ""
+  },
+  {
+    "_id": "edc-13",
+    "Outlet Name": "NCR - DN- Janakpuri",
+    "Location": "Delhi NCR",
+    "Serial No": "",
+    "Paytm MID": "SAMOSA25553724400321",
+    "Pinelab Store ID": "",
+    "Pinelab Client ID": "",
+    "Status": ""
+  }
+]

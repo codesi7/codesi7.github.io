@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "support-1",
+    "Name": "Windows+Office",
+    "Url": "https://massgrave.dev/",
+    "Issue": "",
+    "Remark": ""
+  },
+  {
+    "_id": "support-2",
+    "Name": "host name or ip not working both system",
+    "Url": "-",
+    "Issue": "ipconfig /flushdns\nnbtstat -R",
+    "Remark": ""
+  },
+  {
+    "_id": "support-3",
+    "Name": "Network Reset",
+    "Url": "-",
+    "Issue": "netsh winsock reset\nnetsh int ip reset\nipconfig /flushdns\nipconfig /release\nipconfig /renew\nnetsh winhttp reset proxy\nshutdown /r /t 0",
+    "Remark": ""
+  },
+  {
+    "_id": "support-4",
+    "Name": "Windows Update Components Reset",
+    "Url": "-",
+    "Issue": "net stop wuauserv\nnet stop bits\nnet stop cryptsvc\nren %systemroot%\\SoftwareDistribution SoftwareDistribution.old\nren %systemroot%\\System32\\catroot2 catroot2.old\nnet start cryptsvc\nnet start bits\nnet start wuauserv",
+    "Remark": ""
+  }
+]

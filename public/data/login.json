@@ -1,0 +1,10 @@
+[
+  {
+    "_id": "login-1",
+    "name": "KHALID",
+    "email": "khalid@gmail.com",
+    "password": "khalid@gmail.com",
+    "role": "admin",
+    "status": "active"
+  }
+]

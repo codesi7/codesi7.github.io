@@ -1,0 +1,335 @@
+[
+  {
+    "_id": "nan-1",
+    "Outlet Name": "Gurgeon Central Warehouse",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel Samosa Party HRS",
+    "Password": "S4samosaparty@12@",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-2",
+    "Outlet Name": "Sarita Vihar",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-3",
+    "Outlet Name": "RAJNAGAR EXTENSION",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_8142",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-4",
+    "Outlet Name": "Defence Colony",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-5",
+    "Outlet Name": "East Patel nagar",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-6",
+    "Outlet Name": "Indrapuram",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-7",
+    "Outlet Name": "Ashok vihar",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_ dine_0276",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-8",
+    "Outlet Name": "NOIDA SEC 4",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Samosa party Sec4 5G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-9",
+    "Outlet Name": "NOIDA SEC 73",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "SAMOSA PARTY",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-10",
+    "Outlet Name": "NOIDA 141 SAMOSA PARTY",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "SamosaParty-5G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-11",
+    "Outlet Name": "vasant kunj",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_samosa party",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-12",
+    "Outlet Name": "Malviya Nagar",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-13",
+    "Outlet Name": "Dwarka",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-14",
+    "Outlet Name": "LAXMI NAGAR",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "SP laxminagar_4G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-15",
+    "Outlet Name": "Crossing Republic",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_khal_3030",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-16",
+    "Outlet Name": "Sohna Road",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-17",
+    "Outlet Name": "Alpha 2 Greater Noida",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-18",
+    "Outlet Name": "Janakpuri Ashoknagar",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-19",
+    "Outlet Name": "Sector 56 gurgaon",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-20",
+    "Outlet Name": "Sector 90",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "SamosaParty sec 90",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-21",
+    "Outlet Name": "Dilshad Garden",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_Samosa Party Dilshad Gar",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-22",
+    "Outlet Name": "Gurgaon Sector 4",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_0276",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-23",
+    "Outlet Name": "Rohini",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_Zerotouch",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-24",
+    "Outlet Name": "Sector 16 Faridabad",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_Sector 16 Faridabad",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-25",
+    "Outlet Name": "Sushant Lok",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_dine_4383",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-26",
+    "Outlet Name": "Gandhi Vihar",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_ dine_0276",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-27",
+    "Outlet Name": "Noida extension store",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_ dine_0276",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-28",
+    "Outlet Name": "Uttam Nager",
+    "Location": "Delhi NCR",
+    "Wi-Fi Name": "Airtel_ dine_0276",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-29",
+    "Outlet Name": "Pragathi Nagar",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "Samosaparty_5G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-30",
+    "Outlet Name": "Kukatpally",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "Manager_5G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-31",
+    "Outlet Name": "Dilshukh Nagar",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "MRPL CHAITANYAPURI",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-32",
+    "Outlet Name": "Manikonda",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "Partysamosa",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-33",
+    "Outlet Name": "Ameerpet",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "RH-2.4G-A91840",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Samosaparty",
+    "Secondary Password": "Food@2022"
+  },
+  {
+    "_id": "nan-34",
+    "Outlet Name": "Madhapur",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "Samosa party_5G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-35",
+    "Outlet Name": "Aparna Mall",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "Samosaparty aparna mall",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-36",
+    "Outlet Name": "Hyderabad Central Warehouse",
+    "Location": "Hyderabad",
+    "Wi-Fi Name": "Samosaparty_5G",
+    "Password": "",
+    "Secondary Wi-Fi Name": "Nill",
+    "Secondary Password": "Nill"
+  },
+  {
+    "_id": "nan-37",
+    "Outlet Name": "Training Room",
+    "Location": "Dwarka",
+    "Wi-Fi Name": "Airtel_ dine_0276",
+    "Password": "",
+    "Secondary Wi-Fi Name": "01123373200_wifi",
+    "Secondary Password": "01123373200_wifi"
+  }
+]

@@ -1,0 +1,923 @@
+{
+  "sourceFile": "Data.xlsx",
+  "generatedAt": "2026-11-25T07:03:03.842Z",
+  "github": {
+    "owner": "codesi7",
+    "repo": "codei7",
+    "branch": "main",
+    "baseRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data",
+    "repoUrl": "https://github.com/codesi7/codei7"
+  },
+  "totalDatasets": 14,
+  "totalRecords": 784,
+  "datasets": [
+    {
+      "slug": "stock",
+      "sheetName": "Stock",
+      "title": "Stock Inventory",
+      "category": "Hardware & Assets",
+      "icon": "Package",
+      "description": "Store-level IT hardware stock dispatches, dates, and recipients.",
+      "fileName": "stock.json",
+      "localUrl": "/data/stock.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/stock.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/stock.json",
+      "recordCount": 22,
+      "columns": [
+        {
+          "key": "Store Name",
+          "label": "Store Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Entry Date",
+          "label": "Entry Date",
+          "type": "date",
+          "sensitive": false
+        },
+        {
+          "key": "Products Name",
+          "label": "Products Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Person Name",
+          "label": "Person Name",
+          "type": "text",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.819Z"
+    },
+    {
+      "slug": "anydesk",
+      "sheetName": "Anydesk",
+      "title": "AnyDesk & RustDesk",
+      "category": "Connectivity & Remote",
+      "icon": "MonitorSmartphone",
+      "description": "Remote desktop access IDs and credentials across outlet POS & laptops.",
+      "fileName": "anydesk.json",
+      "localUrl": "/data/anydesk.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/anydesk.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/anydesk.json",
+      "recordCount": 73,
+      "columns": [
+        {
+          "key": "State",
+          "label": "State",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Store Name",
+          "label": "Store Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Anydesk ID",
+          "label": "Anydesk ID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "RustDesk",
+          "label": "RustDesk",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Password",
+          "label": "Password",
+          "type": "password",
+          "sensitive": true
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.822Z"
+    },
+    {
+      "slug": "support",
+      "sheetName": "Support",
+      "title": "IT Support Runbooks",
+      "category": "Operations & Incidents",
+      "icon": "LifeBuoy",
+      "description": "Standard troubleshooting commands, scripts, and support utilities.",
+      "fileName": "support.json",
+      "localUrl": "/data/support.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/support.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/support.json",
+      "recordCount": 4,
+      "columns": [
+        {
+          "key": "Name",
+          "label": "Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Url",
+          "label": "Url",
+          "type": "url",
+          "sensitive": false
+        },
+        {
+          "key": "Issue",
+          "label": "Issue",
+          "type": "textarea",
+          "sensitive": false
+        },
+        {
+          "key": "Remark",
+          "label": "Remark",
+          "type": "textarea",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.823Z"
+    },
+    {
+      "slug": "camera",
+      "sheetName": "Camera ",
+      "title": "CCTV Cameras",
+      "category": "Connectivity & Remote",
+      "icon": "Camera",
+      "description": "Store CCTV camera counts, premise types, and active operational status.",
+      "fileName": "camera.json",
+      "localUrl": "/data/camera.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/camera.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/camera.json",
+      "recordCount": 113,
+      "columns": [
+        {
+          "key": "No",
+          "label": "No",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Store Name",
+          "label": "Store Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Store Type",
+          "label": "Store Type",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Camera No",
+          "label": "Camera No",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Status",
+          "label": "Status",
+          "type": "badge",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.825Z"
+    },
+    {
+      "slug": "outlet-laptop",
+      "sheetName": "Outlet Laptop",
+      "title": "Outlet Hardware & POS",
+      "category": "Hardware & Assets",
+      "icon": "Store",
+      "description": "Zone-wise outlet laptops, POS terminals, printers, DMB, LED, and cameras.",
+      "fileName": "outlet-laptop.json",
+      "localUrl": "/data/outlet-laptop.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/outlet-laptop.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/outlet-laptop.json",
+      "recordCount": 116,
+      "columns": [
+        {
+          "key": "Outlet Name",
+          "label": "Outlet Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Zone",
+          "label": "Zone",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Laptop Quantity",
+          "label": "Laptop Quantity",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Laptop Model no.",
+          "label": "Laptop Model no.",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Laptop Product ID",
+          "label": "Laptop Product ID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "POS Quantity",
+          "label": "POS Quantity",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "POS Model",
+          "label": "POS Model",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Printer Quantity",
+          "label": "Printer Quantity",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Printer Model",
+          "label": "Printer Model",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Remarks",
+          "label": "Remarks",
+          "type": "textarea",
+          "sensitive": false
+        },
+        {
+          "key": "DMB",
+          "label": "DMB",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "LED",
+          "label": "LED",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Camera",
+          "label": "Camera",
+          "type": "text",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.826Z"
+    },
+    {
+      "slug": "corporate-laptop",
+      "sheetName": "Corporate Laptop",
+      "title": "Corporate Laptops",
+      "category": "Hardware & Assets",
+      "icon": "Laptop",
+      "description": "Employee laptop allocations, serials, adapters, and asset IDs.",
+      "fileName": "corporate-laptop.json",
+      "localUrl": "/data/corporate-laptop.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/corporate-laptop.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/corporate-laptop.json",
+      "recordCount": 83,
+      "columns": [
+        {
+          "key": "Laptop Type",
+          "label": "Laptop Type",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Emp.Code",
+          "label": "Emp.Code",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Emp E-Mail Id",
+          "label": "Emp E-Mail Id",
+          "type": "email",
+          "sensitive": false
+        },
+        {
+          "key": "Cont. Number",
+          "label": "Cont. Number",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Emp. Name",
+          "label": "Emp. Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Designation",
+          "label": "Designation",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Device Name and Device Id",
+          "label": "Device Name and Device Id",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Adopter Sn.",
+          "label": "Adopter Sn.",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Adapter Brand",
+          "label": "Adapter Brand",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Product Id",
+          "label": "Product Id",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Laptop Model",
+          "label": "Laptop Model",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Assets ID",
+          "label": "Assets ID",
+          "type": "text",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.828Z"
+    },
+    {
+      "slug": "edc",
+      "sheetName": "EDC",
+      "title": "EDC & Payment Terminals",
+      "category": "Hardware & Assets",
+      "icon": "CreditCard",
+      "description": "Paytm MID and Pinelabs Store/Client terminal deployments.",
+      "fileName": "edc.json",
+      "localUrl": "/data/edc.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/edc.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/edc.json",
+      "recordCount": 13,
+      "columns": [
+        {
+          "key": "Outlet Name",
+          "label": "Outlet Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Location",
+          "label": "Location",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Serial No",
+          "label": "Serial No",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Paytm MID",
+          "label": "Paytm MID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Pinelab Store ID",
+          "label": "Pinelab Store ID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Pinelab Client ID",
+          "label": "Pinelab Client ID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Status",
+          "label": "Status",
+          "type": "badge",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.829Z"
+    },
+    {
+      "slug": "prime-details",
+      "sheetName": "Prime-details",
+      "title": "Outlet Webmail & Prime",
+      "category": "Accounts & Access",
+      "icon": "Mail",
+      "description": "City and outlet webmail login portals and account credentials.",
+      "fileName": "prime-details.json",
+      "localUrl": "/data/prime-details.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/prime-details.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/prime-details.json",
+      "recordCount": 106,
+      "columns": [
+        {
+          "key": "City",
+          "label": "City",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Outlet_Name",
+          "label": "Outlet_Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "LOGIN URL",
+          "label": "LOGIN URL",
+          "type": "url",
+          "sensitive": false
+        },
+        {
+          "key": "Webmail Username",
+          "label": "Webmail Username",
+          "type": "email",
+          "sensitive": false
+        },
+        {
+          "key": "Webmail Password",
+          "label": "Webmail Password",
+          "type": "password",
+          "sensitive": true
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.830Z"
+    },
+    {
+      "slug": "know-ticket",
+      "sheetName": "Know-Ticket",
+      "title": "IT & Ops Tickets",
+      "category": "Operations & Incidents",
+      "icon": "Ticket",
+      "description": "Operational incident and maintenance tickets with severity and ageing.",
+      "fileName": "know-ticket.json",
+      "localUrl": "/data/know-ticket.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/know-ticket.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/know-ticket.json",
+      "recordCount": 87,
+      "columns": [
+        {
+          "key": "ID",
+          "label": "ID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Title",
+          "label": "Title",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Category",
+          "label": "Category",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Status",
+          "label": "Status",
+          "type": "badge",
+          "sensitive": false
+        },
+        {
+          "key": "Reported by",
+          "label": "Reported by",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Issue Location",
+          "label": "Issue Location",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Severity",
+          "label": "Severity",
+          "type": "badge",
+          "sensitive": false
+        },
+        {
+          "key": "Created On",
+          "label": "Created On",
+          "type": "date",
+          "sensitive": false
+        },
+        {
+          "key": "Ageing",
+          "label": "Ageing",
+          "type": "text",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.836Z"
+    },
+    {
+      "slug": "used-oil-collection",
+      "sheetName": "Used-Oil-Collection",
+      "title": "Used Oil Collection",
+      "category": "Operations & Incidents",
+      "icon": "Droplets",
+      "description": "Outlet used cooking oil collection submissions, tin counts, and weights.",
+      "fileName": "used-oil-collection.json",
+      "localUrl": "/data/used-oil-collection.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/used-oil-collection.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/used-oil-collection.json",
+      "recordCount": 47,
+      "columns": [
+        {
+          "key": "Form Name",
+          "label": "Form Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Submission Number",
+          "label": "Submission Number",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Sent At",
+          "label": "Sent At",
+          "type": "date",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Name",
+          "label": "Sender Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Identifier",
+          "label": "Sender Identifier",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Department",
+          "label": "Sender Department",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Designation",
+          "label": "Sender Designation",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Location",
+          "label": "Sender Location",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Division",
+          "label": "Sender Division",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Sender Sub Division",
+          "label": "Sender Sub Division",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Current Status",
+          "label": "Current Status",
+          "type": "badge",
+          "sensitive": false
+        },
+        {
+          "key": "Remarks",
+          "label": "Remarks",
+          "type": "textarea",
+          "sensitive": false
+        },
+        {
+          "key": "Name",
+          "label": "Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Stage 1: Date",
+          "label": "Stage 1: Date",
+          "type": "date",
+          "sensitive": false
+        },
+        {
+          "key": "Stage 1: Name",
+          "label": "Stage 1: Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Stage 1: Action",
+          "label": "Stage 1: Action",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Stage 1: Location",
+          "label": "Stage 1: Location",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Outlets Name",
+          "label": "Outlets Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Number of Tins",
+          "label": "Number of Tins",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Are all the tins completely filled",
+          "label": "Are all the tins completely filled",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "How many kgs of used oil sent",
+          "label": "How many kgs of used oil sent",
+          "type": "number",
+          "sensitive": false
+        },
+        {
+          "key": "Attach Pictures of All Oil Tins",
+          "label": "Attach Pictures of All Oil Tins",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Attach pictures of tins loaded in the vehicle.",
+          "label": "Attach pictures of tins loaded in the vehicle.",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Vehicle Number Plate Picture",
+          "label": "Vehicle Number Plate Picture",
+          "type": "text",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.839Z"
+    },
+    {
+      "slug": "camera-password",
+      "sheetName": "Camera-Password",
+      "title": "Camera Credentials",
+      "category": "Connectivity & Remote",
+      "icon": "KeyRound",
+      "description": "NVR/DVR admin credentials paired with store AnyDesk access.",
+      "fileName": "camera-password.json",
+      "localUrl": "/data/camera-password.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/camera-password.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/camera-password.json",
+      "recordCount": 35,
+      "columns": [
+        {
+          "key": "Store Name",
+          "label": "Store Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "User Name",
+          "label": "User Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Password",
+          "label": "Password",
+          "type": "password",
+          "sensitive": true
+        },
+        {
+          "key": "Anydesk ID",
+          "label": "Anydesk ID",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Anydesk Password",
+          "label": "Anydesk Password",
+          "type": "password",
+          "sensitive": true
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.840Z"
+    },
+    {
+      "slug": "login",
+      "sheetName": "Login",
+      "title": "Admin Users",
+      "category": "Accounts & Access",
+      "icon": "ShieldCheck",
+      "description": "Authorized dashboard user accounts, roles, and active status.",
+      "fileName": "login.json",
+      "localUrl": "/data/login.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/login.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/login.json",
+      "recordCount": 1,
+      "columns": [
+        {
+          "key": "name",
+          "label": "name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "email",
+          "label": "email",
+          "type": "email",
+          "sensitive": false
+        },
+        {
+          "key": "password",
+          "label": "password",
+          "type": "password",
+          "sensitive": true
+        },
+        {
+          "key": "role",
+          "label": "role",
+          "type": "badge",
+          "sensitive": false
+        },
+        {
+          "key": "status",
+          "label": "status",
+          "type": "badge",
+          "sensitive": false
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.840Z"
+    },
+    {
+      "slug": "internet",
+      "sheetName": "Internet",
+      "title": "Internet & Broadband",
+      "category": "Connectivity & Remote",
+      "icon": "Wifi",
+      "description": "Kitchen & outlet broadband accounts, ISP brands, Wi-Fi and router details.",
+      "fileName": "internet.json",
+      "localUrl": "/data/internet.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/internet.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/internet.json",
+      "recordCount": 47,
+      "columns": [
+        {
+          "key": "State",
+          "label": "State",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Type of the Premise",
+          "label": "Type of the Premise",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Kitchen Name",
+          "label": "Kitchen Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Contact Number",
+          "label": "Contact Number",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Account No",
+          "label": "Account No",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Brand",
+          "label": "Brand",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Wifi Name",
+          "label": "Wifi Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Password",
+          "label": "Password",
+          "type": "password",
+          "sensitive": true
+        },
+        {
+          "key": "Router User",
+          "label": "Router User",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Router Password",
+          "label": "Router Password",
+          "type": "password",
+          "sensitive": true
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.841Z"
+    },
+    {
+      "slug": "nan",
+      "sheetName": "NAN",
+      "title": "NAN Outlet Wi-Fi",
+      "category": "Connectivity & Remote",
+      "icon": "Router",
+      "description": "Primary and secondary Wi-Fi SSIDs and passwords by outlet location.",
+      "fileName": "nan.json",
+      "localUrl": "/data/nan.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/nan.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/nan.json",
+      "recordCount": 37,
+      "columns": [
+        {
+          "key": "Outlet Name",
+          "label": "Outlet Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Location",
+          "label": "Location",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Wi-Fi Name",
+          "label": "Wi-Fi Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Password",
+          "label": "Password",
+          "type": "password",
+          "sensitive": true
+        },
+        {
+          "key": "Secondary Wi-Fi Name",
+          "label": "Secondary Wi-Fi Name",
+          "type": "text",
+          "sensitive": false
+        },
+        {
+          "key": "Secondary Password",
+          "label": "Secondary Password",
+          "type": "password",
+          "sensitive": true
+        }
+      ],
+      "updatedAt": "2026-11-25T07:03:03.842Z"
+    }
+  ]
+}

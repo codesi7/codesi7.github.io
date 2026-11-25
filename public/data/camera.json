@@ -1,0 +1,906 @@
+[
+  {
+    "_id": "camera-1",
+    "No": 1,
+    "Store Name": "Airport Road",
+    "Store Type": "DN",
+    "Camera No": 7,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-2",
+    "No": 2,
+    "Store Name": "Alpha 2 Greater Noida",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-3",
+    "No": 3,
+    "Store Name": "Ameerpet",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-4",
+    "No": 4,
+    "Store Name": "Ananth Nagar",
+    "Store Type": "CK",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-5",
+    "No": 5,
+    "Store Name": "Aparna Mall",
+    "Store Type": "DN",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-6",
+    "No": 6,
+    "Store Name": "AS Rao Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-7",
+    "No": 7,
+    "Store Name": "Bagmane",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-8",
+    "No": 8,
+    "Store Name": "Bagmane (CV Raman Nagar)",
+    "Store Type": "DN",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-9",
+    "No": 9,
+    "Store Name": "Banashankari",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-10",
+    "No": 10,
+    "Store Name": "Bangalore Factory",
+    "Store Type": "Kitchen",
+    "Camera No": 16,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-11",
+    "No": 11,
+    "Store Name": "Bangalore Factory 2",
+    "Store Type": "Kitchen",
+    "Camera No": 16,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-12",
+    "No": 12,
+    "Store Name": "Bannerghatta",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-13",
+    "No": 13,
+    "Store Name": "Begur",
+    "Store Type": "DN",
+    "Camera No": 7,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-14",
+    "No": 14,
+    "Store Name": "Bellandur",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Black Screen"
+  },
+  {
+    "_id": "camera-15",
+    "No": 15,
+    "Store Name": "BLR - CK - Manyta Tech Park",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-16",
+    "No": 16,
+    "Store Name": "BLR - CK - Panathur",
+    "Store Type": "DN",
+    "Camera No": 11,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-17",
+    "No": 17,
+    "Store Name": "BLR - DN - Ayyappa Nagar",
+    "Store Type": "DN",
+    "Camera No": 7,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-18",
+    "No": 18,
+    "Store Name": "BLR - DN - Bagalur",
+    "Store Type": "DN",
+    "Camera No": 7,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-19",
+    "No": 19,
+    "Store Name": "BLR - DN - Bundigire",
+    "Store Type": "DN",
+    "Camera No": 5,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-20",
+    "No": 20,
+    "Store Name": "BLR - DN - Channapatna",
+    "Store Type": "DN",
+    "Camera No": 8,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-21",
+    "No": 21,
+    "Store Name": "BLR - DN - Ecoworld",
+    "Store Type": "DN",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-22",
+    "No": 22,
+    "Store Name": "BLR - DN - Galleria Mall",
+    "Store Type": "DN",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-23",
+    "No": 23,
+    "Store Name": "BLR - DN - Haralur",
+    "Store Type": "DN",
+    "Camera No": 10,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-24",
+    "No": 24,
+    "Store Name": "BLR - DN - Kaggadasapura",
+    "Store Type": "DN",
+    "Camera No": 6,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-25",
+    "No": 25,
+    "Store Name": "BLR - DN - Kengeri",
+    "Store Type": "DN",
+    "Camera No": 10,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-26",
+    "No": 26,
+    "Store Name": "BLR - DN - Neo Town",
+    "Store Type": "CK",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-27",
+    "No": 27,
+    "Store Name": "BLR - DN - Park Square Mall (ITPL)",
+    "Store Type": "DN",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-28",
+    "No": 28,
+    "Store Name": "BLR - DN - Royal Meenakshi Mall",
+    "Store Type": "DN",
+    "Camera No": 5,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-29",
+    "No": 29,
+    "Store Name": "CBD",
+    "Store Type": "CK",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-30",
+    "No": 30,
+    "Store Name": "Chandapura",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-31",
+    "No": 31,
+    "Store Name": "Channasandra",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-32",
+    "No": 33,
+    "Store Name": "Crossing Republic",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-33",
+    "No": 34,
+    "Store Name": "Dasarahalli",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-34",
+    "No": 35,
+    "Store Name": "Defence Colony",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-35",
+    "No": 36,
+    "Store Name": "Dilshad Garden",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-36",
+    "No": 37,
+    "Store Name": "Dilshukh Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-37",
+    "No": 38,
+    "Store Name": "Dommasandra",
+    "Store Type": "CK",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-38",
+    "No": 39,
+    "Store Name": "Dwarka",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-39",
+    "No": 40,
+    "Store Name": "East Patel Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-40",
+    "No": 41,
+    "Store Name": "Eco Space",
+    "Store Type": "CK",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-41",
+    "No": 42,
+    "Store Name": "Faridabad SEC16",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-42",
+    "No": 43,
+    "Store Name": "Gaur City- Noida Extension",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-43",
+    "No": 44,
+    "Store Name": "Gurgaon Central Warehouse",
+    "Store Type": "Warehouse",
+    "Camera No": 16,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-44",
+    "No": 45,
+    "Store Name": "Hennur",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-45",
+    "No": 46,
+    "Store Name": "HSR Layout Sector 3",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-46",
+    "No": 47,
+    "Store Name": "Hyd - CK - Padmarao Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-47",
+    "No": 48,
+    "Store Name": "HYD - DN - Sun City",
+    "Store Type": "DN",
+    "Camera No": 5,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-48",
+    "No": 49,
+    "Store Name": "Indiranagar 13B",
+    "Store Type": "DN",
+    "Camera No": 10,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-49",
+    "No": 50,
+    "Store Name": "Indirapuram",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-50",
+    "No": 51,
+    "Store Name": "JP Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-51",
+    "No": 52,
+    "Store Name": "Kalyan Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-52",
+    "No": 53,
+    "Store Name": "Kanakapura Dine-In",
+    "Store Type": "DN",
+    "Camera No": 6,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-53",
+    "No": 54,
+    "Store Name": "Kanakpura Road",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-54",
+    "No": 55,
+    "Store Name": "Kondapur",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-55",
+    "No": 56,
+    "Store Name": "Koramangala",
+    "Store Type": "DN",
+    "Camera No": 9,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-56",
+    "No": 57,
+    "Store Name": "Kukatpally",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-57",
+    "No": 58,
+    "Store Name": "Laxmi Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-58",
+    "No": 59,
+    "Store Name": "Madhapur",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-59",
+    "No": 60,
+    "Store Name": "Mahadevpura",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-60",
+    "No": 61,
+    "Store Name": "Malviya Nagar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-61",
+    "No": 62,
+    "Store Name": "Manikonda",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-62",
+    "No": 63,
+    "Store Name": "Marathalli",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-63",
+    "No": 64,
+    "Store Name": "Mehdipatnam",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-64",
+    "No": 65,
+    "Store Name": "Nagarbhavi",
+    "Store Type": "CK",
+    "Camera No": 8,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-65",
+    "No": 66,
+    "Store Name": "NCR - CK - Palam Vihar",
+    "Store Type": "CK",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-66",
+    "No": 67,
+    "Store Name": "NCR - CK - Sector 65",
+    "Store Type": "CK",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-67",
+    "No": 68,
+    "Store Name": "NCR - DN - Advant Tech Park",
+    "Store Type": "DN",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-68",
+    "No": 69,
+    "Store Name": "NCR - DN - Gaur City Mall(Sector 4)",
+    "Store Type": "DN",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-69",
+    "No": 70,
+    "Store Name": "NCR - DN - Golf Course Road FOH",
+    "Store Type": "DN",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-70",
+    "No": 71,
+    "Store Name": "NCR - DN - Golf Course Road BOH",
+    "Store Type": "DN",
+    "Camera No": 5,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-71",
+    "No": 72,
+    "Store Name": "NCR - DN - Pacific Mall(Dwarka 21) Storage Room",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-72",
+    "No": 73,
+    "Store Name": "NCR - DN - Pacific Mall(Dwarka 21)",
+    "Store Type": "",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-73",
+    "No": 74,
+    "Store Name": "NCR - DN - Sector 120 Market",
+    "Store Type": "",
+    "Camera No": 5,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-74",
+    "No": 75,
+    "Store Name": "NCR - DN - Shalimar Bagh",
+    "Store Type": "",
+    "Camera No": 6,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-75",
+    "No": 76,
+    "Store Name": "NCR - DN - Star Tower",
+    "Store Type": "",
+    "Camera No": 6,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-76",
+    "No": 77,
+    "Store Name": "NCR - DN- Janakpuri",
+    "Store Type": "",
+    "Camera No": 6,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-77",
+    "No": 78,
+    "Store Name": "New BEL Rd",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-78",
+    "No": 79,
+    "Store Name": "Old Madras Road",
+    "Store Type": "",
+    "Camera No": 6,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-79",
+    "No": 80,
+    "Store Name": "Raj Nagar",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-80",
+    "No": 81,
+    "Store Name": "Rajaji Nagar",
+    "Store Type": "",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-81",
+    "No": 82,
+    "Store Name": "Rohini",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-82",
+    "No": 83,
+    "Store Name": "Royasandra",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-83",
+    "No": 84,
+    "Store Name": "RR Nagar",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "offline"
+  },
+  {
+    "_id": "camera-84",
+    "No": 85,
+    "Store Name": "RT Nagar",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-85",
+    "No": 86,
+    "Store Name": "Sahakar Nagar",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-86",
+    "No": 87,
+    "Store Name": "Sarita Vihar",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-87",
+    "No": 88,
+    "Store Name": "Sarjapur",
+    "Store Type": "",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-88",
+    "No": 89,
+    "Store Name": "Sector 141",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-89",
+    "No": 90,
+    "Store Name": "Sector 4 Gurgaon",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-90",
+    "No": 91,
+    "Store Name": "Sector- 4 Noida",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-91",
+    "No": 92,
+    "Store Name": "Sector 56",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-92",
+    "No": 93,
+    "Store Name": "Sector- 73 Noida",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-93",
+    "No": 94,
+    "Store Name": "Sector 90",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-94",
+    "No": 95,
+    "Store Name": "Singasandra",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-95",
+    "No": 96,
+    "Store Name": "Sohna Road",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-96",
+    "No": 97,
+    "Store Name": "Sushant Lok",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-97",
+    "No": 98,
+    "Store Name": "TC Palya",
+    "Store Type": "",
+    "Camera No": 3,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-98",
+    "No": 99,
+    "Store Name": "Technostar (AECS)",
+    "Store Type": "",
+    "Camera No": 7,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-99",
+    "No": 100,
+    "Store Name": "TN - DN - Guduvancherry",
+    "Store Type": "",
+    "Camera No": 14,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-100",
+    "No": 101,
+    "Store Name": "Training NCR",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-101",
+    "No": 102,
+    "Store Name": "Uttam Nagar",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-102",
+    "No": 103,
+    "Store Name": "Varthur",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-103",
+    "No": 104,
+    "Store Name": "Vasant kunj",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-104",
+    "No": 105,
+    "Store Name": "Whitefield",
+    "Store Type": "",
+    "Camera No": 4,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-105",
+    "No": 106,
+    "Store Name": "EGL BLR",
+    "Store Type": "",
+    "Camera No": "",
+    "Status": "Offline"
+  },
+  {
+    "_id": "camera-106",
+    "No": 107,
+    "Store Name": "Pragathi Nagar",
+    "Store Type": "",
+    "Camera No": "",
+    "Status": "Offline"
+  },
+  {
+    "_id": "camera-107",
+    "No": 108,
+    "Store Name": "BLR JBN",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-108",
+    "No": 109,
+    "Store Name": "Bangalore Training",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-109",
+    "No": 110,
+    "Store Name": "BLR Samosa party HQ",
+    "Store Type": "",
+    "Camera No": 9,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-110",
+    "No": 111,
+    "Store Name": "BLR Training Delivery",
+    "Store Type": "",
+    "Camera No": 2,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-111",
+    "No": 112,
+    "Store Name": "Chennai Warehouse",
+    "Store Type": "",
+    "Camera No": "",
+    "Status": "Offline"
+  },
+  {
+    "_id": "camera-112",
+    "No": 113,
+    "Store Name": "E.city",
+    "Store Type": "",
+    "Camera No": 5,
+    "Status": "Active"
+  },
+  {
+    "_id": "camera-113",
+    "No": 114,
+    "Store Name": "BLR Nexus Shantiniketan",
+    "Store Type": "",
+    "Camera No": 4,
+    "Status": "Active"
+  }
+]

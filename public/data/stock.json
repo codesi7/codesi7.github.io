@@ -1,0 +1,156 @@
+[
+  {
+    "_id": "stock-1",
+    "Store Name": "Airport Road",
+    "Entry Date": "2026-06-27",
+    "Products Name": "New Printer And Adopter + Power Cable , type c cable 1",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-2",
+    "Store Name": "Indiranagar 12B",
+    "Entry Date": "2026-06-26",
+    "Products Name": "New Keyboard",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-3",
+    "Store Name": "Vasant Kunj",
+    "Entry Date": "2026-07-01",
+    "Products Name": "New Charger",
+    "Person Name": "Archit"
+  },
+  {
+    "_id": "stock-4",
+    "Store Name": "Faridabad Sector 16",
+    "Entry Date": "2026-07-01",
+    "Products Name": "New Charger",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-5",
+    "Store Name": "Warehouse",
+    "Entry Date": "2026-07-07",
+    "Products Name": "New Laptop Warehouse Rohit New Join",
+    "Person Name": "Warehouse"
+  },
+  {
+    "_id": "stock-6",
+    "Store Name": "Kitchen Gurgaon",
+    "Entry Date": "2026-07-07",
+    "Products Name": "New Laptop Arvind Chef",
+    "Person Name": "Arvind Chef"
+  },
+  {
+    "_id": "stock-7",
+    "Store Name": "Raj Nagar",
+    "Entry Date": "2026-07-06",
+    "Products Name": "Warehouse Laptop Raj Nagar",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-8",
+    "Store Name": "indirapuram",
+    "Entry Date": "2026-07-06",
+    "Products Name": "chef laptop Inderapuram",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-9",
+    "Store Name": "Raj Nagar",
+    "Entry Date": "2026-07-07",
+    "Products Name": "Laptop Battery Replace Today Warehouse Laptop",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-10",
+    "Store Name": "AS Rao Nagar",
+    "Entry Date": "2026-07-13",
+    "Products Name": "2 laptop adoptter bheja hu only ek ka power supply work nhi kar raha hai",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-11",
+    "Store Name": "Raj Nagar",
+    "Entry Date": "2026-07-13",
+    "Products Name": "External Speaker bhi diya gaya hai",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-12",
+    "Store Name": "Ecoworld",
+    "Entry Date": "2026-07-14",
+    "Products Name": "new type c cable send today",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-13",
+    "Store Name": "Advent",
+    "Entry Date": "2026-07-15",
+    "Products Name": "new type c cable send today warehouse stock",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-14",
+    "Store Name": "Advent",
+    "Entry Date": "2026-07-17",
+    "Products Name": "New Keyboard Send",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-15",
+    "Store Name": "Sohna Road",
+    "Entry Date": "2026-07-16",
+    "Products Name": "New Bluetooth Spaker Send",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-16",
+    "Store Name": "Hosting",
+    "Entry Date": "2026-05-04",
+    "Products Name": "https://portal.razorhost.in/login",
+    "Person Name": "m4mohammadkhalid@gmail.com"
+  },
+  {
+    "_id": "stock-17",
+    "Store Name": "Domain",
+    "Entry Date": "2026-05-04",
+    "Products Name": "Godaddy",
+    "Person Name": "m4mohammadkhalid@gmail.com"
+  },
+  {
+    "_id": "stock-18",
+    "Store Name": "Rohini",
+    "Entry Date": "2026-08-02",
+    "Products Name": "New Mouse Send",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-19",
+    "Store Name": "Central Market 120",
+    "Entry Date": "2026-08-20",
+    "Products Name": "New EDC Machine Send",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-20",
+    "Store Name": "Janakpuri Dining",
+    "Entry Date": "2026-08-12",
+    "Products Name": "New EDC Machine Send",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-21",
+    "Store Name": "",
+    "Entry Date": "2026-09-15",
+    "Products Name": "gosoftware99@gmail.com",
+    "Person Name": ""
+  },
+  {
+    "_id": "stock-22",
+    "Store Name": "selfstudynotes.com",
+    "Entry Date": "2026-09-15",
+    "Products Name": "selfstudynotess@gmail.com",
+    "Person Name": ""
+  }
+]
