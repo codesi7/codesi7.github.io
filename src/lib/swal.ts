@@ -57,6 +57,20 @@ export function swalSuccess(title: string, text?: string) {
   });
 }
 
+export function swalLoading(title: string, text?: string) {
+  return Swal.fire({
+    ...baseThemeOptions(),
+    title,
+    text,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    showConfirmButton: false,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
+}
+
 export function swalError(title: string, text?: string) {
   return Swal.fire({
     ...baseThemeOptions(),

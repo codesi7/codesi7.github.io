@@ -57,6 +57,7 @@ import {
   swalConnectGithubToken,
   swalError,
   swalExportPicker,
+  swalLoading,
   swalPromptGithubWriteBeforeSave,
   swalRecordFormModal,
   swalSuccess,
@@ -159,8 +160,30 @@ export function DatasetDataTable({
     if (res === undefined) return;
     setGithubToken(res || "");
     setHasGhPat(Boolean(res));
+    if (res && typeof window !== "undefined" && localStorage.getItem(`codei7_ds_${meta.slug}`)) {
+      setLoading(true);
+      try {
+        void swalLoading("Syncing Local Edits to GitHub...", `Updating public/data/${meta.fileName}`);
+        const pushed = await pushCurrentDatasetToGithub(meta.slug);
+        setMeta(pushed.meta);
+        setManifest(pushed.manifest);
+        await swalSuccess(
+          "Auto-Sync Active & Synced!",
+          `Connected and synced ${pushed.recordCount} records to public/data/${meta.fileName} on GitHub.`
+        );
+        return;
+      } catch (err) {
+        await swalError(
+          "Sync Failed",
+          err instanceof Error ? err.message : "Connected token, but sync failed."
+        );
+        return;
+      } finally {
+        setLoading(false);
+      }
+    }
     await swalToast(
-      res ? "GitHub Write Token connected" : "Disconnected GitHub Token",
+      res ? "Auto-Sync GitHub: ON (No manual push needed)" : "Disconnected GitHub Token",
       "info"
     );
   };
@@ -273,6 +296,9 @@ export function DatasetDataTable({
     if (!payload) return;
 
     try {
+      if (getGithubToken()) {
+        void swalLoading("Saving to GitHub JSON...", `Updating public/data/${meta.fileName}`);
+      }
       const res = await createRecordClient(meta.slug, payload);
       setRecords((prev) => [res.record, ...prev]);
       setMeta(res.meta);
@@ -280,8 +306,8 @@ export function DatasetDataTable({
       await swalSuccess(
         "Record Created",
         res.githubSynced
-          ? `Committed directly to public/data/${meta.fileName} on GitHub.`
-          : "Saved in browser storage only (connect GitHub Write Token to commit to JSON on GitHub)."
+          ? `Automatically saved to public/data/${meta.fileName} on GitHub.`
+          : "Saved in browser storage only (connect GitHub Write Token for auto-commit)."
       );
     } catch (err) {
       await swalError("Create Failed", err instanceof Error ? err.message : "Error creating record.");
@@ -302,6 +328,9 @@ export function DatasetDataTable({
       if (!payload) return;
 
       try {
+        if (getGithubToken()) {
+          void swalLoading("Updating GitHub JSON...", `Saving changes to public/data/${meta.fileName}`);
+        }
         const res = await updateRecordClient(meta.slug, rowRecord._id, payload);
         setRecords((prev) => prev.map((r) => (r._id === rowRecord._id ? res.record : r)));
         setMeta(res.meta);
@@ -312,7 +341,7 @@ export function DatasetDataTable({
         await swalSuccess(
           "Record Updated",
           res.githubSynced
-            ? `Updated public/data/${meta.fileName} on GitHub.`
+            ? `Automatically updated public/data/${meta.fileName} on GitHub.`
             : "Updated in browser storage only."
         );
       } catch (err) {
@@ -333,6 +362,9 @@ export function DatasetDataTable({
       if (!confirmed) return;
 
       try {
+        if (getGithubToken()) {
+          void swalLoading("Deleting from GitHub JSON...", `Updating public/data/${meta.fileName}`);
+        }
         const res = await deleteRecordClient(meta.slug, rowRecord._id);
         setRecords((prev) => prev.filter((r) => r._id !== rowRecord._id));
         if (inspectRecord?._id === rowRecord._id) setInspectRecord(null);
@@ -341,7 +373,7 @@ export function DatasetDataTable({
         await swalSuccess(
           "Record Deleted",
           res.githubSynced
-            ? `Removed and committed to public/data/${meta.fileName} on GitHub.`
+            ? `Automatically removed from public/data/${meta.fileName} on GitHub.`
             : "Removed from browser storage only."
         );
       } catch (err) {
@@ -537,6 +569,9 @@ export function DatasetDataTable({
 
     const ids = selectedRows.map((r) => r._id);
     try {
+      if (getGithubToken()) {
+        void swalLoading("Deleting from GitHub JSON...", `Updating public/data/${meta.fileName}`);
+      }
       const res = await bulkDeleteRecordsClient(meta.slug, ids);
       const idSet = new Set(ids);
       setRecords((prev) => prev.filter((r) => !idSet.has(r._id)));
@@ -764,7 +799,7 @@ export function DatasetDataTable({
                       : "bg-amber-500/15 text-amber-700 dark:text-amber-300"
                   }`}
                 >
-                  {hasGhPat ? "GitHub Write: Connected" : "Browser Only (Connect Token to Write GitHub)"}
+                  {hasGhPat ? "Auto-Sync GitHub: ON" : "Browser Only (Connect Token for Auto-Sync)"}
                 </span>
                 <code className="truncate font-mono text-[11px] text-blue-600 dark:text-blue-400">
                   {meta.githubRawUrl}
@@ -782,14 +817,16 @@ export function DatasetDataTable({
                 >
                   {hasGhPat ? "Token Active" : "Connect GitHub Token"}
                 </button>
-                <button
-                  type="button"
-                  onClick={() => void handlePushLocalToGithub()}
-                  disabled={loading}
-                  className="inline-flex items-center gap-1 rounded border border-blue-200 bg-blue-50 px-2 py-1 text-[11px] font-semibold text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-300"
-                >
-                  Push to GitHub
-                </button>
+                {!hasGhPat && (
+                  <button
+                    type="button"
+                    onClick={() => void handlePushLocalToGithub()}
+                    disabled={loading}
+                    className="inline-flex items-center gap-1 rounded border border-blue-200 bg-blue-50 px-2 py-1 text-[11px] font-semibold text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:bg-blue-950/40 dark:text-blue-300"
+                  >
+                    Sync Local Edits
+                  </button>
+                )}
                 <button
                   type="button"
                   onClick={() => void copyValue(meta.githubRawUrl, "gh-raw-url")}
