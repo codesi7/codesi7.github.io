@@ -62,11 +62,6 @@ export default function LoginPage() {
     }
   };
 
-  const fillSheetAccount = () => {
-    setEmail("khalid@gmail.com");
-    setPassword("khalid@gmail.com");
-  };
-
   return (
     <div className="flex min-h-screen flex-col lg:flex-row bg-slate-50 dark:bg-[#0b1120]">
       <div className="hidden lg:flex lg:w-[46%] flex-col justify-between bg-[#0f172a] p-12 text-slate-100 border-r border-slate-800">
@@ -80,30 +75,13 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="max-w-md space-y-6">
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-widest text-blue-400">
-              Enterprise Operations Console
-            </p>
-            <h1 className="text-3xl font-bold leading-snug tracking-tight text-white">
-              Centralized outlet infrastructure, hardware inventory, and ticket administration.
-            </h1>
-            <p className="text-sm leading-relaxed text-slate-400">
-              Hosted on GitHub Pages with 13 live JSON datasets from the repository, multi-format
-              exports, and SweetAlert2 CRUD workflows.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3 border-t border-slate-800 pt-6 text-xs">
-            <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-3.5">
-              <p className="font-semibold text-white">13 Modules</p>
-              <p className="mt-0.5 text-slate-400">Inventory, POS, CCTV &amp; ISP</p>
-            </div>
-            <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-3.5">
-              <p className="font-semibold text-white">GitHub Hosted</p>
-              <p className="mt-0.5 text-slate-400">Public JSON &amp; API sync</p>
-            </div>
-          </div>
+        <div className="max-w-md space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-blue-400">
+            Enterprise Operations Console
+          </p>
+          <h1 className="text-3xl font-bold leading-snug tracking-tight text-white">
+            Centralized outlet infrastructure, hardware inventory, and ticket administration.
+          </h1>
         </div>
 
         <p className="text-xs text-slate-500">
@@ -188,22 +166,6 @@ export default function LoginPage() {
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>
-
-          <div className="mt-6 flex items-center justify-between gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-2.5 text-xs dark:border-slate-800 dark:bg-slate-950/60">
-            <div className="min-w-0">
-              <p className="font-medium text-slate-600 dark:text-slate-400">Directory Admin</p>
-              <p className="truncate font-mono text-slate-800 dark:text-slate-200">
-                khalid@gmail.com
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={fillSheetAccount}
-              className="shrink-0 rounded-md border border-slate-300 bg-white px-2.5 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700 transition-colors"
-            >
-              Use Account
-            </button>
-          </div>
         </motion.div>
       </div>
     </div>
