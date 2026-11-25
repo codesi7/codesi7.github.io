@@ -89,14 +89,14 @@ export default function LoginPage() {
               Centralized outlet infrastructure, hardware inventory, and ticket administration.
             </h1>
             <p className="text-sm leading-relaxed text-slate-400">
-              Hosted on GitHub Pages with 14 live JSON datasets from the repository, multi-format
+              Hosted on GitHub Pages with 13 live JSON datasets from the repository, multi-format
               exports, and SweetAlert2 CRUD workflows.
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3 border-t border-slate-800 pt-6 text-xs">
             <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-3.5">
-              <p className="font-semibold text-white">14 Modules</p>
+              <p className="font-semibold text-white">13 Modules</p>
               <p className="mt-0.5 text-slate-400">Inventory, POS, CCTV &amp; ISP</p>
             </div>
             <div className="rounded-lg border border-slate-800 bg-slate-900/70 p-3.5">

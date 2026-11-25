@@ -22,12 +22,12 @@ import {
   Check,
   Copy,
   Database,
-  Droplets,
   ExternalLink,
   Github,
   Laptop,
   RefreshCw,
   Ticket,
+  Wifi,
 } from "lucide-react";
 import type { AuthUser, DashboardOverviewStats, DatasetManifest } from "@/lib/types";
 import { AppShell } from "./AppShell";
@@ -116,13 +116,11 @@ export function OverviewDashboard({
       href: "/datasets/corporate-laptop",
     },
     {
-      label: "Used Oil Collected",
-      value: stats.totalUsedOilKg,
-      decimals: 1,
-      suffix: " kg",
-      sub: `${stats.totalUsedOilTins} tins logged`,
-      icon: Droplets,
-      href: "/datasets/used-oil-collection",
+      label: "Internet & ISP Links",
+      value: stats.totalInternetLinks,
+      sub: `${stats.totalEdcTerminals} EDC payment terminals`,
+      icon: Wifi,
+      href: "/datasets/internet",
     },
     {
       label: "High / Critical",
@@ -192,11 +190,7 @@ export function OverviewDashboard({
                   {kpi.label}
                 </p>
                 <p className="text-2xl font-bold tracking-tight text-slate-900 sm:text-[26px] dark:text-white">
-                  <AnimatedCounter
-                    value={kpi.value}
-                    decimals={kpi.decimals || 0}
-                    suffix={kpi.suffix || ""}
-                  />
+                  <AnimatedCounter value={kpi.value} />
                 </p>
                 <p className="truncate text-xs text-slate-500 dark:text-slate-400">{kpi.sub}</p>
               </div>
@@ -349,14 +343,14 @@ export function OverviewDashboard({
               <div className="mb-3 flex items-center justify-between gap-2">
                 <div className="min-w-0">
                   <h2 className="truncate text-sm font-semibold text-slate-900 dark:text-white">
-                    Used Oil by Division
+                    Tickets by Status
                   </h2>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    Total weight collected (kg)
+                    Open vs resolved ticket volume
                   </p>
                 </div>
                 <Link
-                  href="/datasets/used-oil-collection"
+                  href="/datasets/know-ticket"
                   className="shrink-0 text-xs font-medium text-blue-600 hover:underline dark:text-blue-400"
                 >
                   View table →
@@ -365,13 +359,13 @@ export function OverviewDashboard({
               <div className="h-60 sm:h-72 w-full">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart
-                    data={stats.oilByDivision}
+                    data={stats.ticketByStatus}
                     layout="vertical"
                     margin={{ top: 8, right: 16, left: 10, bottom: 8 }}
                   >
                     <CartesianGrid strokeDasharray="3 3" strokeOpacity={0.15} />
                     <XAxis type="number" tick={{ fontSize: 10 }} />
-                    <YAxis dataKey="division" type="category" tick={{ fontSize: 10 }} width={76} />
+                    <YAxis dataKey="name" type="category" tick={{ fontSize: 10 }} width={80} />
                     <Tooltip
                       contentStyle={{
                         borderRadius: 8,
@@ -379,7 +373,7 @@ export function OverviewDashboard({
                         fontSize: 12,
                       }}
                     />
-                    <Bar dataKey="kg" name="Oil (kg)" fill="#e11d48" radius={[0, 4, 4, 0]} />
+                    <Bar dataKey="value" name="Tickets" fill="#0284c7" radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -387,7 +381,7 @@ export function OverviewDashboard({
           </FadeInSection>
         </div>
 
-        {/* All 14 JSON Modules Directory */}
+        {/* All 13 JSON Modules Directory */}
         <FadeInSection delay={0.16}>
           <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-5 dark:border-slate-800 dark:bg-slate-900">
             <div className="mb-4 flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">

@@ -69,15 +69,12 @@ export interface DashboardOverviewStats {
   activeCameras: number;
   totalOutlets: number;
   totalCorporateLaptops: number;
-  totalUsedOilKg: number;
-  totalUsedOilTins: number;
   totalInternetLinks: number;
   totalEdcTerminals: number;
   ticketByCategory: { name: string; count: number }[];
   ticketBySeverity: { name: string; value: number }[];
   ticketByStatus: { name: string; value: number }[];
   hardwareByZone: { zone: string; laptops: number; pos: number; printers: number; cameras: number }[];
-  oilByDivision: { division: string; kg: number; tins: number }[];
   recentTickets: DataRecord[];
   recentStock: DataRecord[];
 }

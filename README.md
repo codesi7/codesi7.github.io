@@ -1,6 +1,6 @@
 # Codei7 Operations Admin Dashboard (GitHub Pages)
 
-A corporate **Next.js (App Router, TypeScript, Tailwind CSS)** Admin Panel Dashboard hosted **100% on GitHub Pages** at `https://codesi7.github.io/` with **14 public JSON datasets** converted from `Data.xlsx`.
+A corporate **Next.js (App Router, TypeScript, Tailwind CSS)** Admin Panel Dashboard hosted **100% on GitHub Pages** at `https://codesi7.github.io/` with **13 public JSON datasets** converted from `Data.xlsx`.
 
 ## Live GitHub URLs
 

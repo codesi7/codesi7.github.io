@@ -77,13 +77,6 @@ const SHEET_META = {
     icon: "Ticket",
     description: "Operational incident and maintenance tickets with severity and ageing.",
   },
-  "Used-Oil-Collection": {
-    slug: "used-oil-collection",
-    title: "Used Oil Collection",
-    category: "Operations & Incidents",
-    icon: "Droplets",
-    description: "Outlet used cooking oil collection submissions, tin counts, and weights.",
-  },
   "Camera-Password": {
     slug: "camera-password",
     title: "Camera Credentials",
@@ -245,10 +238,12 @@ function main() {
   fs.mkdirSync(OUT_DIR, { recursive: true });
   const workbook = XLSX.readFile(EXCEL_PATH, { cellText: true, cellDates: false });
 
+  const SKIP_SHEETS = new Set(["Used-Oil-Collection"]);
   const manifestDatasets = [];
 
   for (const rawSheetName of workbook.SheetNames) {
     const trimmedName = rawSheetName.trim();
+    if (SKIP_SHEETS.has(trimmedName)) continue;
     const meta = SHEET_META[trimmedName] || {
       slug: trimmedName.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
       title: trimmedName,

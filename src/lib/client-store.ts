@@ -486,7 +486,6 @@ export async function loadOverviewClient(
     camerasRes,
     outletRes,
     corpRes,
-    oilRes,
     internetRes,
     edcRes,
     stockRes,
@@ -495,7 +494,6 @@ export async function loadOverviewClient(
     loadDatasetClient("camera", source),
     loadDatasetClient("outlet-laptop", source),
     loadDatasetClient("corporate-laptop", source),
-    loadDatasetClient("used-oil-collection", source),
     loadDatasetClient("internet", source),
     loadDatasetClient("edc", source),
     loadDatasetClient("stock", source),
@@ -505,7 +503,6 @@ export async function loadOverviewClient(
   const cameras = camerasRes.records;
   const outlets = outletRes.records;
   const corpLaptops = corpRes.records;
-  const oilRows = oilRes.records;
 
   const categoryMap = new Map<string, number>();
   const severityMap = new Map<string, number>();
@@ -549,22 +546,6 @@ export async function loadOverviewClient(
     zoneMap.set(zone, cur);
   }
 
-  let totalUsedOilKg = 0;
-  let totalUsedOilTins = 0;
-  const oilDivMap = new Map<string, { division: string; kg: number; tins: number }>();
-
-  for (const row of oilRows) {
-    const kg = Number(row["How many kgs of used oil sent"]) || 0;
-    const tins = Number(row["Number of Tins"]) || 0;
-    totalUsedOilKg += kg;
-    totalUsedOilTins += tins;
-    const div = String(row["Sender Division"] || "Other").trim() || "Other";
-    const cur = oilDivMap.get(div) || { division: div, kg: 0, tins: 0 };
-    cur.kg += kg;
-    cur.tins += tins;
-    oilDivMap.set(div, cur);
-  }
-
   const stats: DashboardOverviewStats = {
     totalDatasets: manifest.totalDatasets,
     totalRecords: manifest.totalRecords,
@@ -575,8 +556,6 @@ export async function loadOverviewClient(
     activeCameras,
     totalOutlets: outlets.length,
     totalCorporateLaptops: corpLaptops.length,
-    totalUsedOilKg: Number(totalUsedOilKg.toFixed(1)),
-    totalUsedOilTins,
     totalInternetLinks: internetRes.records.length,
     totalEdcTerminals: edcRes.records.length,
     ticketByCategory: Array.from(categoryMap.entries())
@@ -594,7 +573,6 @@ export async function loadOverviewClient(
     hardwareByZone: Array.from(zoneMap.values())
       .sort((a, b) => b.laptops + b.pos - (a.laptops + a.pos))
       .slice(0, 8),
-    oilByDivision: Array.from(oilDivMap.values()).sort((a, b) => b.kg - a.kg),
     recentTickets: tickets.slice(0, 6),
     recentStock: stockRes.records.slice(0, 6),
   };
