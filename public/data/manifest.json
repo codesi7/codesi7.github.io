@@ -1,15 +1,15 @@
 {
   "sourceFile": "Data.xlsx",
-  "generatedAt": "2026-11-25T07:45:29.692Z",
+  "generatedAt": "2026-11-25T07:52:49.258Z",
   "github": {
     "owner": "codesi7",
-    "repo": "codesi7.github.io",
+    "repo": "codei7",
     "branch": "main",
-    "baseRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data",
-    "repoUrl": "https://github.com/codesi7/codesi7.github.io"
+    "baseRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data",
+    "repoUrl": "https://github.com/codesi7/codei7"
   },
   "totalDatasets": 14,
-  "totalRecords": 784,
+  "totalRecords": 785,
   "datasets": [
     {
       "slug": "stock",
@@ -20,8 +20,8 @@
       "description": "Store-level IT hardware stock dispatches, dates, and recipients.",
       "fileName": "stock.json",
       "localUrl": "/data/stock.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/stock.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/stock.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/stock.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/stock.json",
       "recordCount": 22,
       "columns": [
         {
@@ -49,7 +49,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.662Z"
+      "updatedAt": "2026-11-25T07:03:03.819Z"
     },
     {
       "slug": "anydesk",
@@ -60,8 +60,8 @@
       "description": "Remote desktop access IDs and credentials across outlet POS & laptops.",
       "fileName": "anydesk.json",
       "localUrl": "/data/anydesk.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/anydesk.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/anydesk.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/anydesk.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/anydesk.json",
       "recordCount": 73,
       "columns": [
         {
@@ -95,7 +95,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.666Z"
+      "updatedAt": "2026-11-25T07:03:03.822Z"
     },
     {
       "slug": "support",
@@ -106,9 +106,9 @@
       "description": "Standard troubleshooting commands, scripts, and support utilities.",
       "fileName": "support.json",
       "localUrl": "/data/support.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/support.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/support.json",
-      "recordCount": 4,
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/support.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/support.json",
+      "recordCount": 5,
       "columns": [
         {
           "key": "Name",
@@ -135,7 +135,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.667Z"
+      "updatedAt": "2026-11-25T07:52:49.258Z"
     },
     {
       "slug": "camera",
@@ -146,8 +146,8 @@
       "description": "Store CCTV camera counts, premise types, and active operational status.",
       "fileName": "camera.json",
       "localUrl": "/data/camera.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/camera.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/camera.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/camera.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/camera.json",
       "recordCount": 113,
       "columns": [
         {
@@ -181,7 +181,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.669Z"
+      "updatedAt": "2026-11-25T07:03:03.825Z"
     },
     {
       "slug": "outlet-laptop",
@@ -192,8 +192,8 @@
       "description": "Zone-wise outlet laptops, POS terminals, printers, DMB, LED, and cameras.",
       "fileName": "outlet-laptop.json",
       "localUrl": "/data/outlet-laptop.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/outlet-laptop.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/outlet-laptop.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/outlet-laptop.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/outlet-laptop.json",
       "recordCount": 116,
       "columns": [
         {
@@ -275,7 +275,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.672Z"
+      "updatedAt": "2026-11-25T07:03:03.826Z"
     },
     {
       "slug": "corporate-laptop",
@@ -286,8 +286,8 @@
       "description": "Employee laptop allocations, serials, adapters, and asset IDs.",
       "fileName": "corporate-laptop.json",
       "localUrl": "/data/corporate-laptop.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/corporate-laptop.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/corporate-laptop.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/corporate-laptop.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/corporate-laptop.json",
       "recordCount": 83,
       "columns": [
         {
@@ -363,7 +363,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.674Z"
+      "updatedAt": "2026-11-25T07:03:03.828Z"
     },
     {
       "slug": "edc",
@@ -374,8 +374,8 @@
       "description": "Paytm MID and Pinelabs Store/Client terminal deployments.",
       "fileName": "edc.json",
       "localUrl": "/data/edc.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/edc.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/edc.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/edc.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/edc.json",
       "recordCount": 13,
       "columns": [
         {
@@ -421,7 +421,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.675Z"
+      "updatedAt": "2026-11-25T07:03:03.829Z"
     },
     {
       "slug": "prime-details",
@@ -432,8 +432,8 @@
       "description": "City and outlet webmail login portals and account credentials.",
       "fileName": "prime-details.json",
       "localUrl": "/data/prime-details.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/prime-details.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/prime-details.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/prime-details.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/prime-details.json",
       "recordCount": 106,
       "columns": [
         {
@@ -467,7 +467,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.676Z"
+      "updatedAt": "2026-11-25T07:03:03.830Z"
     },
     {
       "slug": "know-ticket",
@@ -478,8 +478,8 @@
       "description": "Operational incident and maintenance tickets with severity and ageing.",
       "fileName": "know-ticket.json",
       "localUrl": "/data/know-ticket.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/know-ticket.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/know-ticket.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/know-ticket.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/know-ticket.json",
       "recordCount": 87,
       "columns": [
         {
@@ -537,7 +537,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.683Z"
+      "updatedAt": "2026-11-25T07:03:03.836Z"
     },
     {
       "slug": "used-oil-collection",
@@ -548,8 +548,8 @@
       "description": "Outlet used cooking oil collection submissions, tin counts, and weights.",
       "fileName": "used-oil-collection.json",
       "localUrl": "/data/used-oil-collection.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/used-oil-collection.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/used-oil-collection.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/used-oil-collection.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/used-oil-collection.json",
       "recordCount": 47,
       "columns": [
         {
@@ -697,7 +697,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.688Z"
+      "updatedAt": "2026-11-25T07:03:03.839Z"
     },
     {
       "slug": "camera-password",
@@ -708,8 +708,8 @@
       "description": "NVR/DVR admin credentials paired with store AnyDesk access.",
       "fileName": "camera-password.json",
       "localUrl": "/data/camera-password.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/camera-password.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/camera-password.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/camera-password.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/camera-password.json",
       "recordCount": 35,
       "columns": [
         {
@@ -743,7 +743,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.690Z"
+      "updatedAt": "2026-11-25T07:03:03.840Z"
     },
     {
       "slug": "login",
@@ -754,8 +754,8 @@
       "description": "Authorized dashboard user accounts, roles, and active status.",
       "fileName": "login.json",
       "localUrl": "/data/login.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/login.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/login.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/login.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/login.json",
       "recordCount": 1,
       "columns": [
         {
@@ -789,7 +789,7 @@
           "sensitive": false
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.690Z"
+      "updatedAt": "2026-11-25T07:03:03.840Z"
     },
     {
       "slug": "internet",
@@ -800,8 +800,8 @@
       "description": "Kitchen & outlet broadband accounts, ISP brands, Wi-Fi and router details.",
       "fileName": "internet.json",
       "localUrl": "/data/internet.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/internet.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/internet.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/internet.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/internet.json",
       "recordCount": 47,
       "columns": [
         {
@@ -865,7 +865,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.691Z"
+      "updatedAt": "2026-11-25T07:03:03.841Z"
     },
     {
       "slug": "nan",
@@ -876,8 +876,8 @@
       "description": "Primary and secondary Wi-Fi SSIDs and passwords by outlet location.",
       "fileName": "nan.json",
       "localUrl": "/data/nan.json",
-      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codesi7.github.io/main/public/data/nan.json",
-      "githubBlobUrl": "https://github.com/codesi7/codesi7.github.io/blob/main/public/data/nan.json",
+      "githubRawUrl": "https://raw.githubusercontent.com/codesi7/codei7/main/public/data/nan.json",
+      "githubBlobUrl": "https://github.com/codesi7/codei7/blob/main/public/data/nan.json",
       "recordCount": 37,
       "columns": [
         {
@@ -917,7 +917,7 @@
           "sensitive": true
         }
       ],
-      "updatedAt": "2026-11-25T07:45:29.692Z"
+      "updatedAt": "2026-11-25T07:03:03.842Z"
     }
   ]
 }
