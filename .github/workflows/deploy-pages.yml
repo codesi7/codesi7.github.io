@@ -34,11 +34,12 @@ jobs:
         run: npx tsc --noEmit
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Build static export for GitHub Pages
         env:
-          NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_GITHUB_OWNER: ${{ github.repository_owner }}
           NEXT_PUBLIC_GITHUB_REPO: ${{ github.event.repository.name }}
           NEXT_PUBLIC_GITHUB_BRANCH: main
